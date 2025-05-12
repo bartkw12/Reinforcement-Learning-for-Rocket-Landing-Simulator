@@ -74,10 +74,6 @@ class LunarLanderAgent:
                 # Exploitation - choose the best action (based on max Q-value)
                 action = np.argmax([np.sum(self.q_table[a][state_features]) for a in range(self.num_actions)])
 
-        # For debugging
-        # print(f"Action selected: {action}")
-        # print(self.epsilon)
-
         # action returns int in range 0-3
         return action
 
