@@ -40,3 +40,44 @@ class LunarLanderAgent:
         # Training performance tracking
         self.episode_rewards = []
         self.best_avg_reward = -float('inf')
+
+    def select_action(self, state, testing=True):
+        """
+        Given a state, select an action to take. The function should operate in training and testing modes:
+        - Testing: Uses greedy policy.
+        - Training: Uses epsilon-greedy policy.
+
+        Args:
+            state (array): The current state of the environment.
+            testing (bool): If True, uses greedy policy; if False, uses epsilon-greedy policy.
+
+        Returns:
+            int: The action to take.
+        """
+        # TODO: Implement your action selection policy here
+        # For example, you might use an epsilon-greedy policy if you're using Q-learning
+        # Ensure the action returned is an integer in the range [0, 3]
+
+        # Discretize the state if you are going to use Q-Learning (before selecting action)
+        state_features = self.state_discretizer.discretize(state)
+
+        # Epsilon Greedy Policy Implementation
+        if testing:
+            # In testing, select the best action (purely greedy)
+            action = np.argmax([np.sum(self.q_table[a][state_features]) for a in range(self.num_actions)])
+        else:
+            # In training, either explore or exploit
+            if np.random.rand() < self.epsilon:
+                # Exploration - choose a random action
+                action = np.random.choice(self.num_actions)
+            else:
+                # Exploitation - choose the best action (based on max Q-value)
+                action = np.argmax([np.sum(self.q_table[a][state_features]) for a in range(self.num_actions)])
+
+        # For debugging
+        # print(f"Action selected: {action}")
+        # print(self.epsilon)
+
+        # action returns int in range 0-3
+        return action
+
