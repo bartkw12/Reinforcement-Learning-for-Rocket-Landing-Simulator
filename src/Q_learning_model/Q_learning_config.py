@@ -1,4 +1,4 @@
-# Hyperparameters setting
+# Hyperparameters setting for Q-learning
 
 # Q-Learning
 alpha = 0.5                  # learning rate - try 0.01 for more gradual learning
