@@ -97,3 +97,13 @@ class LunarLanderAgent:
             done = False
             total_reward = 0  # Track cumulative reward for the episode
 
+            # Run the episode
+            while not done:
+                action = self.select_action(state)  # Select an action based on current policy
+                next_state, reward, done, info, _ = self.env.step(action)  # Take the action and get feedback
+                self.update(state, action, reward, next_state, done)  # Update the Q-table based on the experience
+                state = next_state  # Move to the next state
+                total_reward += reward  # Accumulate reward
+
+            episode_rewards.append(total_reward)  # Add the total reward of the episode to the list
+            self.all_rewards.append(total_reward)
