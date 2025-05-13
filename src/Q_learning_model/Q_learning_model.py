@@ -119,3 +119,11 @@ class LunarLanderAgent:
                     self.save_agent("best_model.pkl")  # Save the best model
                     print(f"New best model saved with avg reward: {best_avg_reward}")
 
+            # Plot training progress every 100 episodes
+            if (episode + 1) % 100 == 0:
+                self.plot_training_progress(window_size=100)
+
+            # Decay epsilon (exploration rate) over time
+            self.epsilon = max(0.01, self.epsilon * self.epsilon_decay)  # Epsilon decay to 0.01
+
+        return epsilon
