@@ -107,3 +107,15 @@ class LunarLanderAgent:
 
             episode_rewards.append(total_reward)  # Add the total reward of the episode to the list
             self.all_rewards.append(total_reward)
+
+            # Evaluate performance after every 100 episodes
+            if len(episode_rewards) == 100:
+                avg_reward = np.mean(episode_rewards)
+                print(f"Episode {episode}: Average Reward over last 100 episodes = {avg_reward}")
+
+                # Autosave the model if it performs better than before
+                if avg_reward > best_avg_reward:
+                    best_avg_reward = avg_reward
+                    self.save_agent("best_model.pkl")  # Save the best model
+                    print(f"New best model saved with avg reward: {best_avg_reward}")
+
