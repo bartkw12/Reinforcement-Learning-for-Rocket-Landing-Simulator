@@ -127,3 +127,17 @@ class LunarLanderAgent:
             self.epsilon = max(0.01, self.epsilon * self.epsilon_decay)  # Epsilon decay to 0.01
 
         return epsilon
+
+    def update(self, state, action, reward, next_state, done):
+        """
+        Update your agent's knowledge based on the transition.
+
+        Args:
+            state (array): The previous state.
+            action (int): The action taken.
+            reward (float): The reward received.
+            next_state (array): The new state after the action.
+            done (bool): Whether the episode has ended.
+        """
+        # TODO: Implement your agent's update logic here
+        # This method is where you would update your Q-table or neural network
