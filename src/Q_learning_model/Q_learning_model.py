@@ -85,3 +85,15 @@ class LunarLanderAgent:
             num_episodes (int): Number of episodes to train for.
         """
 
+        self.all_rewards = []  # Track rewards for ALL episodes
+        episode_rewards = deque(maxlen=100)  # For recent 100-episode average
+
+        # Initialize variables
+        best_avg_reward = -float('inf')  # Store the best average reward
+
+        # Loop through episodes
+        for episode in range(num_episodes):
+            state, _ = self.env.reset()  # Reset the environment for each new episode
+            done = False
+            total_reward = 0  # Track cumulative reward for the episode
+
