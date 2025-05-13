@@ -77,3 +77,11 @@ class LunarLanderAgent:
         # action returns int in range 0-3
         return action
 
+    def train(self, num_episodes):
+        """
+        Contains the main training loop where the agent learns over multiple episodes.
+
+        Args:
+            num_episodes (int): Number of episodes to train for.
+        """
+
