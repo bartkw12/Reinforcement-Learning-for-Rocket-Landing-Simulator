@@ -162,3 +162,6 @@ class LunarLanderAgent:
         # Update the Q-values for the state-action pair using the TD error
         for idx in state_features:
             self.q_table[action][idx] += self.alpha * td_error
+
+        # if needed (for debugging)
+        return self.q_table[action]
