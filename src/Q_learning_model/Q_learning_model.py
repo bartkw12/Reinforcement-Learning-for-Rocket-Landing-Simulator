@@ -155,3 +155,6 @@ class LunarLanderAgent:
 
         # Compute the TD target - target value that the Q-value should move toward
         td_target = reward + self.gamma * max_future_q
+
+        # Compute the TD error (difference between the target and the current Q-value)
+        td_error = td_target - current_q
