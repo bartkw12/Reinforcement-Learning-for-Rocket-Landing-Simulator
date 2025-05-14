@@ -176,3 +176,17 @@ class LunarLanderAgent:
         # TODO: Implement your testing loop here
         # Make sure to:
         # Store the cumulative rewards (return) in all episodes and then take the average
+
+        cumulative_rewards = []  # List to store cumulative rewards for each episode
+        reward_breakdowns = []
+        success_count = 0  # track successful landings
+
+        # Run the test loop for the specified number of episodes
+        for episode in range(num_episodes):
+            state, _ = self.env.reset()  # Reset the environment for each new episode
+            done = False
+            total_reward = 0  # Track cumulative reward for the episode
+            episode_components = {
+                "distance": 0, "velocity": 0, "angle": 0,
+                "ground_contact": 0, "fuel": 0
+            }
