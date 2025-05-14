@@ -148,3 +148,7 @@ class LunarLanderAgent:
 
         # Get the current Q-value for the state-action pair
         current_q = np.sum([self.q_table[action][idx] for idx in state_features])
+
+        # Find the maximum Q-value for the next state (over all possible actions)
+        max_future_q = max(
+            [np.sum([self.q_table[a][idx] for idx in next_state_features]) for a in range(self.num_actions)])
