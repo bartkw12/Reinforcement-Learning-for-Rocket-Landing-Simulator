@@ -190,3 +190,20 @@ class LunarLanderAgent:
                 "distance": 0, "velocity": 0, "angle": 0,
                 "ground_contact": 0, "fuel": 0
             }
+
+            while not done:
+                action = self.select_action(state, testing=True)
+                next_state, reward, terminated, truncated, info = self.env.step(action)
+                done = terminated or truncated
+
+                # Calculate reward components
+                components = self._get_reward_breakdown(state, action, next_state)
+                for key in episode_components:
+                    episode_components[key] += components[key]
+
+                total_reward += reward
+                state = next_state
+
+            cumulative_rewards.append(total_reward)
+            reward_breakdowns.append(episode_components)
+
