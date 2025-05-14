@@ -141,3 +141,10 @@ class LunarLanderAgent:
         """
         # TODO: Implement your agent's update logic here
         # This method is where you would update your Q-table or neural network
+
+        # Discretize the current and next states (convert cont. state to discrete features)
+        state_features = self.state_discretizer.discretize(state)
+        next_state_features = self.state_discretizer.discretize(next_state)
+
+        # Get the current Q-value for the state-action pair
+        current_q = np.sum([self.q_table[action][idx] for idx in state_features])
