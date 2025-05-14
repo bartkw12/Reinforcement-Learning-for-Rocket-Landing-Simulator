@@ -165,3 +165,14 @@ class LunarLanderAgent:
 
         # if needed (for debugging)
         return self.q_table[action]
+
+    def test(self, num_episodes=100):
+        """
+        Test your agent locally before submission to get a hint of the expected score.
+
+        Args:
+            num_episodes (int): Number of episodes to test for.
+        """
+        # TODO: Implement your testing loop here
+        # Make sure to:
+        # Store the cumulative rewards (return) in all episodes and then take the average
