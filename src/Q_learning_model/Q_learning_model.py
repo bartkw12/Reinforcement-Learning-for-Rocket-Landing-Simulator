@@ -152,3 +152,6 @@ class LunarLanderAgent:
         # Find the maximum Q-value for the next state (over all possible actions)
         max_future_q = max(
             [np.sum([self.q_table[a][idx] for idx in next_state_features]) for a in range(self.num_actions)])
+
+        # Compute the TD target - target value that the Q-value should move toward
+        td_target = reward + self.gamma * max_future_q
