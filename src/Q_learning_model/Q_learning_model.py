@@ -158,3 +158,7 @@ class LunarLanderAgent:
 
         # Compute the TD error (difference between the target and the current Q-value)
         td_error = td_target - current_q
+
+        # Update the Q-values for the state-action pair using the TD error
+        for idx in state_features:
+            self.q_table[action][idx] += self.alpha * td_error
