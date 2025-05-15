@@ -207,3 +207,7 @@ class LunarLanderAgent:
             cumulative_rewards.append(total_reward)
             reward_breakdowns.append(episode_components)
 
+            # Check if the episode ended with a successful landing
+            if terminated and total_reward >= 200:  # Adjust threshold as needed
+                success_count += 1
+
