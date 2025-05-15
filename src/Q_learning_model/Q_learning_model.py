@@ -231,3 +231,13 @@ class LunarLanderAgent:
             print(f"{key:>15}: {value:7.2f}")
 
         return average_reward
+
+    def save_agent(self, file_name):
+        """
+        Save your agent's model to a file.
+
+        Args:
+            file_name (str): The file name to save the model.
+        """
+        # TODO: Implement code to save your model (e.g., Q-table, neural network weights)
+        # Example: for Q-learning:
