@@ -221,3 +221,13 @@ class LunarLanderAgent:
         print(f"Test Results (Over {num_episodes} Episodes):")
         print(f"  Average Reward: {average_reward}")
         print(f"  Success Rate: {success_rate:.2f}%")
+
+        # Print average reward breakdown
+        avg_breakdown = {key: np.mean([b[key] for b in reward_breakdowns])
+                         for key in reward_breakdowns[0]}
+
+        print("\n=== Reward Breakdown (Per Episode) ===")
+        for key, value in avg_breakdown.items():
+            print(f"{key:>15}: {value:7.2f}")
+
+        return average_reward
