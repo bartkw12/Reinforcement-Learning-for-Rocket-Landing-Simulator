@@ -214,3 +214,10 @@ class LunarLanderAgent:
         # Compute the average of the cumulative rewards from all test episodes
         average_reward = np.mean(cumulative_rewards)
         success_rate = success_count / num_episodes * 100
+
+        # Print the average reward for the test run
+        # print(f"Test completed: Average Reward over {num_episodes} episodes = {average_reward}")
+
+        print(f"Test Results (Over {num_episodes} Episodes):")
+        print(f"  Average Reward: {average_reward}")
+        print(f"  Success Rate: {success_rate:.2f}%")
