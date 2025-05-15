@@ -211,3 +211,6 @@ class LunarLanderAgent:
             if terminated and total_reward >= 200:  # Adjust threshold as needed
                 success_count += 1
 
+        # Compute the average of the cumulative rewards from all test episodes
+        average_reward = np.mean(cumulative_rewards)
+        success_rate = success_count / num_episodes * 100
