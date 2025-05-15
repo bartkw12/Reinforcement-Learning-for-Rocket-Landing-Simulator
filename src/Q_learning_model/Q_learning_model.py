@@ -241,3 +241,12 @@ class LunarLanderAgent:
         """
         # TODO: Implement code to save your model (e.g., Q-table, neural network weights)
         # Example: for Q-learning:
+        with open(file_name, 'wb') as f:
+            # standard approach in ML to pickle data -
+            # Serializes (converts to a byte stream) and deserializes (reconstructs) Python objects.
+            pickle.dump({
+                'q_table': self.q_table,
+                'iht_dict': self.state_discretizer.iht.dictionary
+            }, f)
+
+
