@@ -263,3 +263,25 @@ class LunarLanderAgent:
             self.q_table = data['q_table']
             self.state_discretizer.iht.dictionary = data['iht_dict']
         print(f"Model loaded from {file_name}.")
+
+    def plot_training_progress(self, window_size=100):
+        plt.figure(figsize=(10, 5))
+
+        # Plot all rewards (optional)
+        plt.plot(self.all_rewards, alpha=0.3, label='Episode Reward')
+
+        # Calculate moving averages for the entire history
+        moving_avg = [np.mean(self.all_rewards[max(0, i - window_size + 1):i + 1])
+                      for i in range(len(self.all_rewards))]
+
+        # Plot moving averages with markers
+        plt.plot(moving_avg, 'g-', linewidth=2, marker='o', markersize=4,
+                 label=f'Moving Average ({window_size} Episodes)')
+
+        plt.xlabel('Episode')
+        plt.ylabel('Average Reward')
+        plt.title('Training Progress')
+        plt.legend()
+        plt.grid(True)
+        plt.savefig('model_test_1.png')
+        plt.close()  # Prevent memory leaks
