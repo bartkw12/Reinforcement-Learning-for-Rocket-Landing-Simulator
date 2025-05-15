@@ -249,4 +249,17 @@ class LunarLanderAgent:
                 'iht_dict': self.state_discretizer.iht.dictionary
             }, f)
 
+    def load_agent(self, file_name):
+        """
+        Load your agent's model from a file.
 
+        Args:
+            file_name (str): The file name to load the model from.
+        """
+        # TODO: Implement code to load your model
+        # Example: for Q-learning:
+        with open(file_name, 'rb') as f:
+            data = pickle.load(f)
+            self.q_table = data['q_table']
+            self.state_discretizer.iht.dictionary = data['iht_dict']
+        print(f"Model loaded from {file_name}.")
