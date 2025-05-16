@@ -316,3 +316,13 @@ class LunarLanderAgent:
         }
 
         return reward_components
+
+    def animate_episode(self):
+        """
+        Run a single episode with rendering to visualize the agent's performance.
+        """
+        # Create a new environment with rendering enabled
+        render_env = gym.make('LunarLander-v3', render_mode='human')
+        state, _ = render_env.reset()
+        done = False
+        total_reward = 0
