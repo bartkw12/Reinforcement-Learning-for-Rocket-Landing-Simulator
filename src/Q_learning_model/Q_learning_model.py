@@ -326,3 +326,21 @@ class LunarLanderAgent:
         state, _ = render_env.reset()
         done = False
         total_reward = 0
+
+        while not done:
+            action = self.select_action(state, testing=True)
+            next_state, reward, terminated, truncated, info = render_env.step(action)
+            done = terminated or truncated
+            total_reward += reward
+            state = next_state
+
+        render_env.close()
+
+        # Success message
+        print("\n")
+        if terminated and total_reward >= 200:
+            print("SUCCESS! Landed safely between the flags. 🚀")
+        else:
+            print("FAILED! Crashed or timed out. 💥")
+
+        print(f"Animation Episode Reward: {total_reward}")
