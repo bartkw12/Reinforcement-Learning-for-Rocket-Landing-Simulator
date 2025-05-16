@@ -296,3 +296,12 @@ class LunarLanderAgent:
         Returns:
             dict: Reward components (distance, angle, velocity, ground contact, fuel).
         """
+
+        # Landing pad coordinates (always at (0,0) in LunarLander)
+        target_x, target_y = 0, 0
+
+        # Extract state variables
+        x, y = state[0], state[1]
+        vx, vy = state[2], state[3]
+        angle = state[4]
+        left_leg, right_leg = state[6], state[7]
