@@ -305,3 +305,14 @@ class LunarLanderAgent:
         vx, vy = state[2], state[3]
         angle = state[4]
         left_leg, right_leg = state[6], state[7]
+
+        # Reward components (approximated from Gymnasium's source)
+        reward_components = {
+            "distance": -np.sqrt((x - target_x) ** 2 + (y - target_y) ** 2),  # Penalize distance
+            "velocity": -np.sqrt(vx ** 2 + vy ** 2),  # Penalize high speed
+            "angle": -abs(angle),  # Penalize tilting
+            "ground_contact": 10 * (left_leg + right_leg),  # Reward leg contact
+            "fuel": -0.3 * (action in [1, 2, 3]),  # Penalize engine use
+        }
+
+        return reward_components
