@@ -285,3 +285,14 @@ class LunarLanderAgent:
         plt.grid(True)
         plt.savefig('model_test_1.png')
         plt.close()  # Prevent memory leaks
+
+    def _get_reward_breakdown(self, state, action, next_state):
+        """
+        Calculate and return individual reward components.
+        Args:
+            state (np.array): Current state (before action).
+            action (int): Action taken.
+            next_state (np.array): Next state (after action).
+        Returns:
+            dict: Reward components (distance, angle, velocity, ground contact, fuel).
+        """
