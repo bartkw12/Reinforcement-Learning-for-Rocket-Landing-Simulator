@@ -73,30 +73,27 @@ class LunarLanderAgent:
         Args:
             num_episodes (int): Number of episodes to train for.
         """
-        # Replace:
-        # episode_rewards = deque(maxlen=100)
-        # With:
-        self.all_rewards = []  # Track rewards for ALL episodes
+
+        self.all_rewards = []                # Track rewards for ALL episodes
         episode_rewards = deque(maxlen=100)  # For recent 100-episode average
 
         # Initialize variables
-        best_avg_reward = -float('inf')  # Store the best average reward
+        best_avg_reward = -float('inf')
 
-        # Loop through episodes
         for episode in range(num_episodes):
-            state, _ = self.env.reset()  # Reset the environment for each new episode
+            state, _ = self.env.reset()
             done = False
-            total_reward = 0  # Track cumulative reward for the episode
+            total_reward = 0
 
             # Run the episode
             while not done:
                 action = self.select_action(state)  # Select an action based on current policy
                 next_state, reward, done, info, _ = self.env.step(action)  # Take the action and get feedback
                 self.update(state, action, reward, next_state, done)  # Update the Q-table based on the experience
-                state = next_state  # Move to the next state
-                total_reward += reward  # Accumulate reward
+                state = next_state
+                total_reward += reward
 
-            episode_rewards.append(total_reward)  # Add the total reward of the episode to the list
+            episode_rewards.append(total_reward)
             self.all_rewards.append(total_reward)
 
             # Evaluate performance after every 100 episodes
