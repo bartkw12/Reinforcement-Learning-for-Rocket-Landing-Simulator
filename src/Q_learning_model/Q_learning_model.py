@@ -240,7 +240,7 @@ class LunarLanderAgent:
     def plot_training_progress(self, window_size=100):
         plt.figure(figsize=(10, 5))
 
-        # Plot all rewards (optional)
+        # Plot all rewards
         plt.plot(self.all_rewards, alpha=0.3, label='Episode Reward')
 
         # Calculate moving averages for the entire history
@@ -257,7 +257,7 @@ class LunarLanderAgent:
         plt.legend()
         plt.grid(True)
         plt.savefig('model_test_1.png')
-        plt.close()  # Prevent memory leaks
+        plt.close()
 
     def _get_reward_breakdown(self, state, action, next_state):
         """
@@ -308,7 +308,6 @@ class LunarLanderAgent:
 
         render_env.close()
 
-        # Success message
         print("\n")
         if terminated and total_reward >= 200:
             print("SUCCESS! Landed safely between the flags. 🚀")
@@ -334,20 +333,20 @@ if __name__ == '__main__':
     except FileNotFoundError:
         print("No saved model found, starting training from scratch...")
 
-    # -------------
-    ''' 
-    print("Training the agent...")
-    agent.train(num_training_episodes)
-    print("Training completed.")
+        ''' 
+        print("Training the agent...")
+        agent.train(num_training_episodes)
+        print("Training completed.")
+    
+        # Save the trained model
+        #agent.save_agent(agent_model_file)
+        #print("Model saved.")
+    
+        # Test the agent with greedy policy
+        print("\nTesting the agent...")
+        test_avg_reward = agent.test(num_episodes=100)
+        #print(f"Average test reward: {test_avg_reward}")
+        '''
 
-    # Save the trained model
-    #agent.save_agent(agent_model_file)
-    #print("Model saved.")
-
-    # Test the agent with greedy policy
-    print("\nTesting the agent...")
-    test_avg_reward = agent.test(num_episodes=100)
-    #print(f"Average test reward: {test_avg_reward}")
-    '''
     # Visualize the trained agent
     agent.animate_episode()
