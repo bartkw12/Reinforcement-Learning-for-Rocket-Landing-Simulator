@@ -158,19 +158,15 @@ class LunarLanderAgent:
         Args:
             num_episodes (int): Number of episodes to test for.
         """
-        # TODO: Implement your testing loop here
-        # Make sure to:
-        # Store the cumulative rewards (return) in all episodes and then take the average
 
-        cumulative_rewards = []  # List to store cumulative rewards for each episode
+        cumulative_rewards = []
         reward_breakdowns = []
         success_count = 0  # track successful landings
 
-        # Run the test loop for the specified number of episodes
         for episode in range(num_episodes):
-            state, _ = self.env.reset()  # Reset the environment for each new episode
+            state, _ = self.env.reset()
             done = False
-            total_reward = 0  # Track cumulative reward for the episode
+            total_reward = 0
             episode_components = {
                 "distance": 0, "velocity": 0, "angle": 0,
                 "ground_contact": 0, "fuel": 0
@@ -193,21 +189,17 @@ class LunarLanderAgent:
             reward_breakdowns.append(episode_components)
 
             # Check if the episode ended with a successful landing
-            if terminated and total_reward >= 200:  # Adjust threshold as needed
+            if terminated and total_reward >= 200:
                 success_count += 1
 
         # Compute the average of the cumulative rewards from all test episodes
         average_reward = np.mean(cumulative_rewards)
         success_rate = success_count / num_episodes * 100
 
-        # Print the average reward for the test run
-        # print(f"Test completed: Average Reward over {num_episodes} episodes = {average_reward}")
-
         print(f"Test Results (Over {num_episodes} Episodes):")
         print(f"  Average Reward: {average_reward}")
         print(f"  Success Rate: {success_rate:.2f}%")
 
-        # Print average reward breakdown
         avg_breakdown = {key: np.mean([b[key] for b in reward_breakdowns])
                          for key in reward_breakdowns[0]}
 
