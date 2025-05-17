@@ -1,4 +1,4 @@
-# agent_template_Q_learning.py
+# Tabular Q-Learning
 
 import gymnasium as gym
 import numpy as np
@@ -36,7 +36,7 @@ class LunarLanderAgent:
 
     def select_action(self, state, testing=True):
         """
-        Given a state, select an action to take. The function should operate in training and testing modes:
+        Given a state, select an action to take. The function operates in training and testing modes:
         - Testing: Uses greedy policy.
         - Training: Uses epsilon-greedy policy.
 
@@ -47,11 +47,8 @@ class LunarLanderAgent:
         Returns:
             int: The action to take.
         """
-        # TODO: Implement your action selection policy here
-        # For example, you might use an epsilon-greedy policy if you're using Q-learning
-        # Ensure the action returned is an integer in the range [0, 3]
 
-        # Discretize the state if you are going to use Q-Learning (before selecting action)
+        # Discretize the state for Q-Learning
         state_features = self.state_discretizer.discretize(state)
 
         # Epsilon Greedy Policy Implementation
@@ -67,11 +64,6 @@ class LunarLanderAgent:
                 # Exploitation - choose the best action (based on max Q-value)
                 action = np.argmax([np.sum(self.q_table[a][state_features]) for a in range(self.num_actions)])
 
-        # For debugging
-        # print(f"Action selected: {action}")
-        # print(self.epsilon)
-
-        # action returns int in range 0-3
         return action
 
     def train(self, num_episodes):
