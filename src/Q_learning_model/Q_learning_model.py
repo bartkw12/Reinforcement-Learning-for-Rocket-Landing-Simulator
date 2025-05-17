@@ -1,41 +1,34 @@
+# agent_template_Q_learning.py
+
 import gymnasium as gym
 import numpy as np
 import pickle
 import matplotlib.pyplot as plt
 from state_discretizer import StateDiscretizer
 from collections import deque
-from Q_learning_config import alpha, gamma, epsilon, epsilon_decay, num_training_episodes
+from configuration import alpha, gamma, epsilon, epsilon_decay, num_training_episodes
 
 
 class LunarLanderAgent:
     def __init__(self):
-        """
-        Initialize your agent here.
-
-        This method is called when you create a new instance of your agent.
-        Use this method to Initializes the environment, the agent’s model (e.g., Q-table or neural network),
-        and the optional state discretizer for Q-learning. Add any necessary initialization for model parameters here.
-        """
-        # TODO: Initialize your agent's parameters and variables
 
         # Initialize environment
         self.env = gym.make('LunarLander-v3')
 
         # Get number of actions from environment
-        # 4: do nothing, fire left orientation engine, fire main engine, fire right orientation engine
         self.num_actions = self.env.action_space.n
 
-        # Initialize state discretizer if you are going to use Q-Learning
+        # Initialize state discretizer
         self.state_discretizer = StateDiscretizer(self.env)
 
-        # initialize Q-table or neural network weights
+        # initialize Q-table
         self.q_table = [np.zeros(self.state_discretizer.iht_size) for _ in range(self.num_actions)]
 
         # Set learning parameters
         self.alpha = alpha / self.state_discretizer.num_tilings  # Learning rate per tiling
-        self.gamma = gamma  # discount factor
-        self.epsilon = epsilon  # Initial exploration rate
-        self.epsilon_decay = epsilon_decay  # Exploration decay rate
+        self.gamma = gamma
+        self.epsilon = epsilon
+        self.epsilon_decay = epsilon_decay
 
         # Training performance tracking
         self.episode_rewards = []
@@ -74,6 +67,10 @@ class LunarLanderAgent:
                 # Exploitation - choose the best action (based on max Q-value)
                 action = np.argmax([np.sum(self.q_table[a][state_features]) for a in range(self.num_actions)])
 
+        # For debugging
+        # print(f"Action selected: {action}")
+        # print(self.epsilon)
+
         # action returns int in range 0-3
         return action
 
@@ -84,7 +81,9 @@ class LunarLanderAgent:
         Args:
             num_episodes (int): Number of episodes to train for.
         """
-
+        # Replace:
+        # episode_rewards = deque(maxlen=100)
+        # With:
         self.all_rewards = []  # Track rewards for ALL episodes
         episode_rewards = deque(maxlen=100)  # For recent 100-episode average
 
@@ -296,7 +295,6 @@ class LunarLanderAgent:
         Returns:
             dict: Reward components (distance, angle, velocity, ground contact, fuel).
         """
-
         # Landing pad coordinates (always at (0,0) in LunarLander)
         target_x, target_y = 0, 0
 
@@ -344,3 +342,38 @@ class LunarLanderAgent:
             print("FAILED! Crashed or timed out. 💥")
 
         print(f"Animation Episode Reward: {total_reward}")
+
+
+if __name__ == '__main__':
+
+    agent = LunarLanderAgent()
+    agent_model_file = 'model_test_1.pkl'  # Set the model file name
+
+    # Example usage:
+    # Uncomment the following lines to train your agent and save the model
+    # agent.load_agent('model_test_1.pkl')  # Load the previously saved model
+
+    # Load the previously saved best model (if available) to continue training from it
+    try:
+        agent.load_agent('best_model.pkl')  # Attempt to load the best model
+        print("Loaded the best model for training...")
+    except FileNotFoundError:
+        print("No saved model found, starting training from scratch...")
+
+    # -------------
+    ''' 
+    print("Training the agent...")
+    agent.train(num_training_episodes)
+    print("Training completed.")
+
+    # Save the trained model
+    #agent.save_agent(agent_model_file)
+    #print("Model saved.")
+
+    # Test the agent with greedy policy
+    print("\nTesting the agent...")
+    test_avg_reward = agent.test(num_episodes=100)
+    #print(f"Average test reward: {test_avg_reward}")
+    '''
+    # Visualize the trained agent
+    agent.animate_episode()
