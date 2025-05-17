@@ -127,8 +127,6 @@ class LunarLanderAgent:
             next_state (array): The new state after the action.
             done (bool): Whether the episode has ended.
         """
-        # TODO: Implement your agent's update logic here
-        # This method is where you would update your Q-table or neural network
 
         # Discretize the current and next states (convert cont. state to discrete features)
         state_features = self.state_discretizer.discretize(state)
@@ -144,14 +142,13 @@ class LunarLanderAgent:
         # Compute the TD target - target value that the Q-value should move toward
         td_target = reward + self.gamma * max_future_q
 
-        # Compute the TD error (difference between the target and the current Q-value)
+        # Compute the TD error
         td_error = td_target - current_q
 
         # Update the Q-values for the state-action pair using the TD error
         for idx in state_features:
             self.q_table[action][idx] += self.alpha * td_error
 
-        # if needed (for debugging)
         return self.q_table[action]
 
     def test(self, num_episodes=100):
