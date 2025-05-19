@@ -17,3 +17,9 @@ class DQN(torch.nn.Module):
         '''
         Define architecture of NN (two hidden layers).
         '''
+        super(DQN, self).__init__()
+        # Dense Layers
+        self.layer1 = torch.nn.Linear(state_size, hidden_size)
+        self.layer2 = torch.nn.Linear(hidden_size, hidden_size)
+        # Outputs Q-values, one for each possible action.
+        self.layer_out = torch.nn.Linear(hidden_size, action_size)
