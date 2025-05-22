@@ -23,3 +23,12 @@ class DQN(torch.nn.Module):
         self.layer2 = torch.nn.Linear(hidden_size, hidden_size)
         # Outputs Q-values, one for each possible action.
         self.layer_out = torch.nn.Linear(hidden_size, action_size)
+
+    def forward(self, state):
+        '''
+        Defines how data flows through the NN. Using ReLU activation to introduce non-linearity.
+        '''
+        x = torch.relu(self.layer1(state))
+        x = torch.relu(self.layer2(x))
+        actions = self.layer_out(x)
+        return actions
