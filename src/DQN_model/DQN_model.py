@@ -32,3 +32,15 @@ class DQN(torch.nn.Module):
         x = torch.relu(self.layer2(x))
         actions = self.layer_out(x)
         return actions
+
+class ReplayBuffer:
+    '''
+    This class stores experiences and sample mini-batches for training.
+    '''
+    def __init__(self, buffer_size=buffer_size):
+        '''
+        Initializes the replay buffer with a specified buffer size.
+        '''
+        self.buffer_size = buffer_size
+        self.buffer = deque(maxlen=buffer_size)  # deque automatically discards the oldest experiences
+        self.size = 0  # Tracks the number of experiences in the buffer
