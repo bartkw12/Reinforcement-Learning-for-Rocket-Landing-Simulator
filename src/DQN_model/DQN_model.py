@@ -59,3 +59,9 @@ class ReplayBuffer:
         '''
         states, actions, rewards, next_states, done = zip(*random.sample(self.buffer, batch_size))
         return np.stack(states), actions, rewards, np.stack(next_states), done
+
+    def __len__(self):
+        '''
+        Returns the current number of experiences in the buffer.
+        '''
+        return len(self.buffer)
