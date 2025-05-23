@@ -44,3 +44,18 @@ class ReplayBuffer:
         self.buffer_size = buffer_size
         self.buffer = deque(maxlen=buffer_size)  # deque automatically discards the oldest experiences
         self.size = 0  # Tracks the number of experiences in the buffer
+
+    def add(self, state, action, reward, next_state, done):
+        '''
+        Adds a new experience to the replay buffer.
+        '''
+        experience = (state, action, reward, next_state, done)
+        self.buffer.append(experience)
+        self.size = min(self.size + 1, self.buffer_size)  # do not exceed buffer size
+
+    def sample(self, batch_size):
+        '''
+        Randomly samples a batch of experiences from the replay buffer.
+        '''
+        states, actions, rewards, next_states, done = zip(*random.sample(self.buffer, batch_size))
+        return np.stack(states), actions, rewards, np.stack(next_states), done
