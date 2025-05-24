@@ -90,3 +90,9 @@ class DQNAgent:
         self.q_network = DQN(state_size, action_size, hidden_size).to(self.device)
         self.target_network = DQN(state_size, action_size, hidden_size).to(self.device)
 
+        # Set identical weights for both NNs
+        self.target_network.load_state_dict(self.q_network.state_dict())
+
+        # Initialize the optimizer for updating the DQNs parameters
+        self.optimizer = torch.optim.Adam(self.q_network.parameters(), lr=alpha)
+
