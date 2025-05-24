@@ -74,3 +74,12 @@ class DQNAgent:
 
         # Initialize environment
         self.env = gym.make('LunarLander-v3')
+
+        # hyperparameter init
+        self.gamma = gamma
+        self.batch_size = batch_size
+        self.action_size = action_size
+        self.alpha = alpha
+        self.epsilon = epsilon
+        self.epsilon_decay = epsilon_decay
+        self.memory = ReplayBuffer(buffer_size)
