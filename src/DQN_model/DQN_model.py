@@ -83,3 +83,10 @@ class DQNAgent:
         self.epsilon = epsilon
         self.epsilon_decay = epsilon_decay
         self.memory = ReplayBuffer(buffer_size)  # Initialize the replay buffer memory
+
+        # NN initialization
+        # Initialize two NNs with the given state, action and hidden layer size
+        # use networks on selected processor
+        self.q_network = DQN(state_size, action_size, hidden_size).to(self.device)
+        self.target_network = DQN(state_size, action_size, hidden_size).to(self.device)
+
