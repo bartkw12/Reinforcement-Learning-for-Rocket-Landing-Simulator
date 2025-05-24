@@ -75,11 +75,11 @@ class DQNAgent:
         # Initialize environment
         self.env = gym.make('LunarLander-v3')
 
-        # hyperparameter init
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")  # Select GPU/CPU for training
         self.gamma = gamma
         self.batch_size = batch_size
         self.action_size = action_size
         self.alpha = alpha
         self.epsilon = epsilon
         self.epsilon_decay = epsilon_decay
-        self.memory = ReplayBuffer(buffer_size)
+        self.memory = ReplayBuffer(buffer_size)  # Initialize the replay buffer memory
