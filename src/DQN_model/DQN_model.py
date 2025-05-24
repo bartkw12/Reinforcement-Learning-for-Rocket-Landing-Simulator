@@ -65,3 +65,12 @@ class ReplayBuffer:
         Returns the current number of experiences in the buffer.
         '''
         return len(self.buffer)
+
+class DQNAgent:
+    '''
+    Deep Q-Learning agent that uses a Deep Q-Learning Network and a replay memory to solve Lunar Lander env.
+    '''
+    def __init__(self, state_size=8, action_size=4):
+
+        # Initialize environment
+        self.env = gym.make('LunarLander-v3')
