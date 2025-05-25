@@ -104,3 +104,17 @@ class DQNAgent:
         self.best_avg_reward = -float("inf")
         self.best_model_path = "best_model.pth"
 
+    def select_action(self, state, testing=False):
+        '''
+        Given a state, select an action to take. The function should operate in training and testing modes:
+            - Testing: Uses greedy policy.
+            - Training: Uses epsilon-greedy policy.
+
+            Args:
+                state (array): The current state of the environment.
+                testing (bool): If True, uses greedy policy; if False, uses epsilon-greedy policy.
+
+            Returns:
+                int: The action to take.
+        '''
+
