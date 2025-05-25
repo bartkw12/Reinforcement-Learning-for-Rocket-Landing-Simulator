@@ -121,6 +121,13 @@ class DQNAgent:
         state = torch.from_numpy(state).float().unsqueeze(0).to(self.device)
 
         # If testing (greedy policy)
+        if testing:
+            # Set the network to evaluation mode and get the Q-values for the given state
+            self.q_network.eval()
+            with torch.no_grad():
+                action_values = self.q_network(state)
+            # Choose the action with the highest Q-value (greedy)
+            action = np.argmax(action_values.cpu().data.numpy())
 
         # If training, use epsilon-greedy
 
