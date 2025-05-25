@@ -117,4 +117,10 @@ class DQNAgent:
             Returns:
                 int: The action to take.
         '''
+        # Convert the state to a PyTorch tensor and move it to the appropriate device (CPU or GPU)
+        state = torch.from_numpy(state).float().unsqueeze(0).to(self.device)
+
+        # If testing (greedy policy)
+
+        # If training, use epsilon-greedy
 
