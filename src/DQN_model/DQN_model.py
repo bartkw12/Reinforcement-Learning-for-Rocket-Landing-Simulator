@@ -96,3 +96,11 @@ class DQNAgent:
         # Initialize the optimizer for updating the DQNs parameters
         self.optimizer = torch.optim.Adam(self.q_network.parameters(), lr=alpha)
 
+        # Set target network to evaluation mode
+        # ensures that certain layers like dropout or batch normalization behave correctly during inference.
+        self.target_network.eval()
+
+        # Tracking best performance
+        self.best_avg_reward = -float("inf")
+        self.best_model_path = "best_model.pth"
+
