@@ -128,6 +128,9 @@ class DQNAgent:
                 action_values = self.q_network(state)
             # Choose the action with the highest Q-value (greedy)
             action = np.argmax(action_values.cpu().data.numpy())
-
-        # If training, use epsilon-greedy
+        else:
+            # If training, use epsilon-greedy
+            if random.random() < self.epsilon:
+                # Choose a random action with probability epsilon
+                action = random.choice(np.arange(self.action_size))
 
