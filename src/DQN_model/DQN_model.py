@@ -148,4 +148,7 @@ class DQNAgent:
         Take a step in the environment, add the experience to the memory - update DQN
         '''
         # add the experience to memory
+        self.memory.add(state, action, reward, next_state, done)
+
+
 
