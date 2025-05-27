@@ -143,4 +143,9 @@ class DQNAgent:
         # Return the selected action (integer)
         return action
 
+    def step(self, state, action, reward, next_state, done):
+        '''
+        Take a step in the environment, add the experience to the memory - update DQN
+        '''
+        # add the experience to memory
 
