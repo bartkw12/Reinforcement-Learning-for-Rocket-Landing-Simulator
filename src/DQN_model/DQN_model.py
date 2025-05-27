@@ -133,4 +133,14 @@ class DQNAgent:
             if random.random() < self.epsilon:
                 # Choose a random action with probability epsilon
                 action = random.choice(np.arange(self.action_size))
+            else:
+                # Choose the best action (greedy)
+                self.q_network.eval()
+                with torch.no_grad():
+                    action_values = self.q_network(state)
+                action = np.argmax(action_values.cpu().data.numpy())
+
+        # Return the selected action (integer)
+        return action
+
 
