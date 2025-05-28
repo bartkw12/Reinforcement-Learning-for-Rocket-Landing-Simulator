@@ -150,5 +150,9 @@ class DQNAgent:
         # add the experience to memory
         self.memory.add(state, action, reward, next_state, done)
 
+        # perform learning step when enough experiences are accumulated
+        if len(self.memory) > self.batch_size:
+            self.update_model()
+
 
 
