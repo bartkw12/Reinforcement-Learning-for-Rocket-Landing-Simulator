@@ -172,3 +172,34 @@ class DQNAgent:
         """
         pass
 
+    def train(self, num_episodes=num_training_episodes, target_update=10):
+        """
+        Contains the main training loop where the agent learns over multiple episodes.
+
+        Args:
+            num_episodes (int): Number of episodes to train for.
+        """
+        pass
+
+    def test(self, num_test_episodes=100):
+        """
+          Test your agent locally before submission to get a hint of the expected score.
+
+          Args:
+              num_episodes (int): Number of episodes to test for.
+          """
+        pass
+
+    def plot_training_progress(self, window_size=100):
+        pass
+
+    def animate_episode(self):
+        """
+        Run a single episode with rendering to visualize the agent's performance.
+        """
+        pass
+
+
+
+if __name__ == "__main__":
+    # Initialization of agent and environment
