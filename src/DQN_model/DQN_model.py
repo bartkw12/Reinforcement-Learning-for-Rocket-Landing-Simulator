@@ -154,5 +154,21 @@ class DQNAgent:
         if len(self.memory) > self.batch_size:
             self.update_model()
 
+    def update_model(self):
+        '''
+        Update the DQN based on experiences from the replay memory.
+        '''
+        pass
 
+    def sync_networks(self):
+        '''
+        Update the weights of the target NN to be identical to policy/Q NN (copy/paste).
+        '''
+        pass
+
+    def load_agent(self, file_path):
+        """
+        Load Q-network's weights.
+        """
+        pass
 
