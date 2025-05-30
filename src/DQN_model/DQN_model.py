@@ -161,6 +161,9 @@ class DQNAgent:
         # Sample random mini-batch of experiences from memory
         states, actions, rewards, next_states, done = self.memory.sample(self.batch_size)
 
+        # transform NumPy arrays into PyTorch tensors - set GPU/CPU
+        states = torch.from_numpy(states).float().to(self.device)
+
         print(states, actions, rewards, next_states)
 
     def sync_networks(self):
