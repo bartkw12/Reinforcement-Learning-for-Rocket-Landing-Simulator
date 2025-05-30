@@ -158,7 +158,8 @@ class DQNAgent:
         '''
         Update the DQN based on experiences from the replay memory.
         '''
-        pass
+        # Sample random mini-batch of experiences from memory
+        states, actions, rewards, next_states, done = self.memory.sample(self.batch_size)
 
     def sync_networks(self):
         '''
@@ -200,6 +201,7 @@ class DQNAgent:
         pass
 
 
-
 if __name__ == "__main__":
     # Initialization of agent and environment
+    env_name = "LunarLander-v3"
+    env = gym.make(env_name)
