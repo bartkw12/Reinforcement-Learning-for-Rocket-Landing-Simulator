@@ -161,6 +161,8 @@ class DQNAgent:
         # Sample random mini-batch of experiences from memory
         states, actions, rewards, next_states, done = self.memory.sample(self.batch_size)
 
+        print(states, actions, rewards, next_states)
+
     def sync_networks(self):
         '''
         Update the weights of the target NN to be identical to policy/Q NN (copy/paste).
