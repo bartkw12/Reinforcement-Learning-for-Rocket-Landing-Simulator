@@ -163,6 +163,10 @@ class DQNAgent:
 
         # transform NumPy arrays into PyTorch tensors - set GPU/CPU
         states = torch.from_numpy(states).float().to(self.device)
+        actions = torch.from_numpy(np.array(actions)).long().to(self.device)
+        rewards = torch.from_numpy(np.array(rewards)).float().to(self.device)
+        next_states = torch.from_numpy(next_states).float().to(self.device)
+        done = torch.from_numpy(np.array(done).astype(np.uint8)).float().to(self.device)
 
         print(states, actions, rewards, next_states)
 
