@@ -170,6 +170,9 @@ class DQNAgent:
 
         print(states, actions, rewards, next_states)
 
+        # Extracting tensor of Q-values for actions taken
+        q_values = self.q_network(states).gather(1, actions.unsqueeze(-1)).squeeze(-1)
+
     def sync_networks(self):
         '''
         Update the weights of the target NN to be identical to policy/Q NN (copy/paste).
