@@ -179,8 +179,10 @@ class DQNAgent:
         # Compute the TD target to get expected Q-values
         expected_q_values = rewards + self.gamma * next_q_values * (1 - done)
 
-        # steps left to add in method
-        # now just need to compute the loss between current and expect q values
+        # Compute the loss between the current and expected Q values
+        # Huber loss - less sensitive to outliers
+        loss_fn = torch.nn.SmoothL1Loss()
+        loss = loss_fn(q_values, expected_q_values)
         # clear old gradients
         # backpropagate and then step the optimizer to update weights
 
