@@ -176,6 +176,9 @@ class DQNAgent:
         # Get max Q-value for the next states from target NN
         next_q_values = self.target_network(next_states).max(1)[0].detach()
 
+        # Compute the TD target to get expected Q-values
+        expected_q_values = rewards + self.gamma * next_q_values * (1 - done)
+
     def sync_networks(self):
         '''
         Update the weights of the target NN to be identical to policy/Q NN (copy/paste).
