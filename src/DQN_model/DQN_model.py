@@ -179,6 +179,11 @@ class DQNAgent:
         # Compute the TD target to get expected Q-values
         expected_q_values = rewards + self.gamma * next_q_values * (1 - done)
 
+        # steps left to add in method
+        # now just need to compute the loss between current and expect q values
+        # clear old gradients
+        # backpropagate and then step the optimizer to update weights
+
     def sync_networks(self):
         '''
         Update the weights of the target NN to be identical to policy/Q NN (copy/paste).
