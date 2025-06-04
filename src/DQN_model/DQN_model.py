@@ -183,7 +183,10 @@ class DQNAgent:
         # Huber loss - less sensitive to outliers
         loss_fn = torch.nn.SmoothL1Loss()
         loss = loss_fn(q_values, expected_q_values)
+
         # clear old gradients
+        self.optimizer.zero_grad()
+
         # backpropagate and then step the optimizer to update weights
 
     def sync_networks(self):
