@@ -190,6 +190,9 @@ class DQNAgent:
         # Backpropagate - computes gradients of the loss w.r.t. the Q-network’s parameters
         loss.backward()
 
+        # Step the optimizer to update the weights
+        self.optimizer.step()
+
     def sync_networks(self):
         '''
         Update the weights of the target NN to be identical to policy/Q NN (copy/paste).
