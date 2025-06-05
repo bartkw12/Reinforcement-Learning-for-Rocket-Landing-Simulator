@@ -187,7 +187,8 @@ class DQNAgent:
         # clear old gradients
         self.optimizer.zero_grad()
 
-        # backpropagate and then step the optimizer to update weights
+        # Backpropagate - computes gradients of the loss w.r.t. the Q-network’s parameters
+        loss.backward()
 
     def sync_networks(self):
         '''
