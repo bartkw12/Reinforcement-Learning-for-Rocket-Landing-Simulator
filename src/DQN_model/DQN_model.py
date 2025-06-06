@@ -197,7 +197,7 @@ class DQNAgent:
         '''
         Update the weights of the target NN to be identical to policy/Q NN (copy/paste).
         '''
-        pass
+        self.target_network.load_state_dict(self.q_network.state_dict())
 
     def load_agent(self, file_path):
         """
