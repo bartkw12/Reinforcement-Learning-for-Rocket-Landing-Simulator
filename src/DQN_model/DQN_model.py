@@ -209,7 +209,7 @@ class DQNAgent:
         """
         Load Q-network's weights.
         """
-        pass
+        self.q_network.load_state_dict(torch.load(file_path, map_location=self.device))
 
     def train(self, num_episodes=num_training_episodes, target_update=10):
         """
