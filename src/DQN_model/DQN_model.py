@@ -220,7 +220,8 @@ class DQNAgent:
         Args:
             num_episodes (int): Number of episodes to train for.
         """
-        pass
+        self.scores = []
+        scores_window = deque(maxlen=100)  # rolling window for average scoring
 
     def test(self, num_test_episodes=100):
         """
