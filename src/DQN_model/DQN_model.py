@@ -199,6 +199,12 @@ class DQNAgent:
         '''
         self.target_network.load_state_dict(self.q_network.state_dict())
 
+    def save_agent(self, file_path):
+        """
+        Save the Q-network's weights.
+        """
+        torch.save(self.q_network.state_dict(), file_path)
+
     def load_agent(self, file_path):
         """
         Load Q-network's weights.
