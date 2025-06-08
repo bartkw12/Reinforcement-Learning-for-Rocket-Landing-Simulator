@@ -230,7 +230,8 @@ class DQNAgent:
           Args:
               num_episodes (int): Number of episodes to test for.
           """
-        pass
+        total_rewards = []  # Store rewards for each episode
+        success_count = 0
 
     def plot_training_progress(self, window_size=100):
         pass
