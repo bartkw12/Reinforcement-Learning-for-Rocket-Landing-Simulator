@@ -233,6 +233,12 @@ class DQNAgent:
         total_rewards = []  # Store rewards for each episode
         success_count = 0
 
+        # Testing loop
+        for episode in range(num_test_episodes):
+            state, _ = self.env.reset()
+            done = False
+            total_reward = 0
+
     def plot_training_progress(self, window_size=100):
         pass
 
