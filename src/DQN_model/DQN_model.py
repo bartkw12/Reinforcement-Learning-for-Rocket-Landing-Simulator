@@ -239,6 +239,11 @@ class DQNAgent:
             done = False
             total_reward = 0
 
+            # while loop to iterate while not done
+
+            # Store the total reward for the episode
+            total_rewards.append(total_reward)
+
     def plot_training_progress(self, window_size=100):
         pass
 
