@@ -223,6 +223,12 @@ class DQNAgent:
         self.scores = []
         scores_window = deque(maxlen=100)  # rolling window for average scoring
 
+        for episode in range(num_episodes):
+            # Reset environment
+            state, _ = self.env.reset()
+            score = 0
+            done = False
+
     def test(self, num_test_episodes=100):
         """
           Test your agent locally before submission to get a hint of the expected score.
