@@ -229,6 +229,10 @@ class DQNAgent:
             score = 0
             done = False
 
+            # Interact with environment until done
+            while not done:
+                action = self.select_action(state, testing=False)  # epsilon-greedy action
+
     def test(self, num_test_episodes=100):
         """
           Test your agent locally before submission to get a hint of the expected score.
