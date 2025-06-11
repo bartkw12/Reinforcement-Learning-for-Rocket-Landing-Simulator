@@ -235,6 +235,9 @@ class DQNAgent:
                 next_state, reward, terminated, truncated, info = self.env.step(action)
                 done = terminated or truncated
 
+                # Let the agent store and train
+                self.step(state, action, reward, next_state, done)
+
     def test(self, num_test_episodes=100):
         """
           Test your agent locally before submission to get a hint of the expected score.
