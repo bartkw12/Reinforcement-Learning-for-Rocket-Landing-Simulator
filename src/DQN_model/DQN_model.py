@@ -232,6 +232,8 @@ class DQNAgent:
             # Interact with environment until done
             while not done:
                 action = self.select_action(state, testing=False)  # epsilon-greedy action
+                next_state, reward, terminated, truncated, info = self.env.step(action)
+                done = terminated or truncated
 
     def test(self, num_test_episodes=100):
         """
