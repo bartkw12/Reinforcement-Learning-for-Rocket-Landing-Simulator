@@ -245,6 +245,9 @@ class DQNAgent:
             scores_window.append(score)
             self.scores.append(score)
 
+            # Decay epsilon
+            self.epsilon = max(0.01, self.epsilon * self.epsilon_decay)
+
     def test(self, num_test_episodes=100):
         """
           Test your agent locally before submission to get a hint of the expected score.
