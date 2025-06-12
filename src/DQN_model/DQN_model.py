@@ -241,6 +241,10 @@ class DQNAgent:
                 state = next_state
                 score += reward
 
+            # Save the most recent score
+            scores_window.append(score)
+            self.scores.append(score)
+
     def test(self, num_test_episodes=100):
         """
           Test your agent locally before submission to get a hint of the expected score.
