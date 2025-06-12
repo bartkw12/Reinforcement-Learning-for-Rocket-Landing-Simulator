@@ -238,6 +238,9 @@ class DQNAgent:
                 # Let the agent store and train
                 self.step(state, action, reward, next_state, done)
 
+                state = next_state
+                score += reward
+
     def test(self, num_test_episodes=100):
         """
           Test your agent locally before submission to get a hint of the expected score.
