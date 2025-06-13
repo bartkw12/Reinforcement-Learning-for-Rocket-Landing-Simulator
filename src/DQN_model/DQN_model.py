@@ -252,6 +252,9 @@ class DQNAgent:
             if episode % target_update == 0:
                 self.sync_networks()
 
+            # Print out average score
+            avg_score = np.mean(scores_window)
+
     def test(self, num_test_episodes=100):
         """
           Test your agent locally before submission to get a hint of the expected score.
