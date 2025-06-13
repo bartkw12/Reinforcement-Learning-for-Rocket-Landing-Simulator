@@ -248,6 +248,10 @@ class DQNAgent:
             # Decay epsilon
             self.epsilon = max(0.01, self.epsilon * self.epsilon_decay)
 
+            # Update target network every 'target_update' episodes
+            if episode % target_update == 0:
+                self.sync_networks()
+
     def test(self, num_test_episodes=100):
         """
           Test your agent locally before submission to get a hint of the expected score.
