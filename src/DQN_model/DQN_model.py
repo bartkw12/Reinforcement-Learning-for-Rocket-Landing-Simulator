@@ -254,6 +254,7 @@ class DQNAgent:
 
             # Print out average score
             avg_score = np.mean(scores_window)
+            print(f"\rEpisode {episode}\tAverage Score: {avg_score:.2f}", end="")
 
     def test(self, num_test_episodes=100):
         """
