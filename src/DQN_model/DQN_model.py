@@ -258,6 +258,9 @@ class DQNAgent:
 
             # Print after every 100 episodes
             if episode % 100 == 0:
+                print(f"\rEpisode {episode}\tAverage Score: {avg_score:.2f}")
+                self.plot_training_progress(window_size=100)  # Plot training progress every 100 episodes
+                print(f"Epsilon: {self.epsilon}")
 
     def test(self, num_test_episodes=100):
         """
