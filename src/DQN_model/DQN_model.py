@@ -256,6 +256,9 @@ class DQNAgent:
             avg_score = np.mean(scores_window)
             print(f"\rEpisode {episode}\tAverage Score: {avg_score:.2f}", end="")
 
+            # Print after every 100 episodes
+            if episode % 100 == 0:
+
     def test(self, num_test_episodes=100):
         """
           Test your agent locally before submission to get a hint of the expected score.
