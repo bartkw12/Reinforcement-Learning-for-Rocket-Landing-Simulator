@@ -292,6 +292,8 @@ class DQNAgent:
             total_reward = 0
 
             # while loop to iterate while not done
+            while not done:
+                action = self.select_action(state, testing=True)  # Purely greedy (testing mode)
 
             # Store the total reward for the episode
             total_rewards.append(total_reward)
