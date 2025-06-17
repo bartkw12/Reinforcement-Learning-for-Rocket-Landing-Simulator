@@ -271,6 +271,9 @@ class DQNAgent:
             # stop environment when reward for LunarLander ~200 (considered solved)
             if episode < 100 and avg_score < 200:
                 print(f"\nEnvironment solved in {episode} episodes! Average Score: {avg_score:.2f}")
+                self.save_agent(self.best_model_path)
+                print(f"Final model saved: {self.best_avg_reward:.2f}")
+                break
 
     def test(self, num_test_episodes=100):
         """
