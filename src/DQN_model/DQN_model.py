@@ -262,6 +262,10 @@ class DQNAgent:
                 self.plot_training_progress(window_size=100)  # Plot training progress every 100 episodes
                 print(f"Epsilon: {self.epsilon}")
 
+                # Autosave best model
+                if avg_score > self.best_avg_reward:
+                    self.best_avg_reward = avg_score  # Update best average reward
+
     def test(self, num_test_episodes=100):
         """
           Test your agent locally before submission to get a hint of the expected score.
