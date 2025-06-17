@@ -265,6 +265,8 @@ class DQNAgent:
                 # Autosave best model
                 if avg_score > self.best_avg_reward:
                     self.best_avg_reward = avg_score  # Update best average reward
+                    self.save_agent(self.best_model_path)
+                    print(f"New best model saved with avg reward: {self.best_avg_reward:.2f}")
 
     def test(self, num_test_episodes=100):
         """
