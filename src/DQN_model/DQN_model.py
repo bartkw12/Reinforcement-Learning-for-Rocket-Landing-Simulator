@@ -268,6 +268,8 @@ class DQNAgent:
                     self.save_agent(self.best_model_path)
                     print(f"New best model saved with avg reward: {self.best_avg_reward:.2f}")
 
+            # stop environment when reward for LunarLander ~200 (considered solved)
+
     def test(self, num_test_episodes=100):
         """
           Test your agent locally before submission to get a hint of the expected score.
