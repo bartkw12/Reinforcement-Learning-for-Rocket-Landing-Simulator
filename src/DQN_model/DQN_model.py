@@ -315,6 +315,7 @@ class DQNAgent:
         avg_test_reward = np.mean(total_rewards)
 
         print(f"Test Results (Over {num_test_episodes} Episodes):")
+        print(f"  Average Reward: {avg_test_reward}")
 
     def plot_training_progress(self, window_size=100):
         pass
