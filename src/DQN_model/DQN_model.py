@@ -297,6 +297,10 @@ class DQNAgent:
                 next_state, reward, terminated, truncated, info = self.env.step(action)
                 done = terminated or truncated
 
+                # Update total reward
+                total_reward += reward
+                state = next_state
+
             # Store the total reward for the episode
             total_rewards.append(total_reward)
 
