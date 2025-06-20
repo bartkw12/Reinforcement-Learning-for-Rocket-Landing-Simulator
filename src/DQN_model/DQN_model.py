@@ -329,18 +329,16 @@ class DQNAgent:
                       for i in range(len(self.scores))]
 
         # Plot moving averages with markers
-        plt.plot(moving_avg, 'g-', linewidth=4, marker='o', markersize=4,
+        plt.plot(moving_avg, 'g-', linewidth=2, marker='o', markersize=4,
                  label=f'Moving Average ({window_size} Episodes)')
 
         plt.xlabel('Episode')
         plt.ylabel('Average Reward')
         plt.title('Training Progress for DQN')
-
         plt.legend()
         plt.grid(True)
         plt.savefig('DQN_model_test.png')
         plt.close()  # Prevent memory leaks
-
 
 
     def animate_episode(self):
