@@ -319,10 +319,13 @@ class DQNAgent:
         print(f"  Success Rate: {success_rate:.2f}%")
 
     def plot_training_progress(self, window_size=100):
-        plt.figure(figsize=(8, 5))
+        plt.figure(figsize=(10, 5))
 
         # Plot all rewards
         plt.plot(self.scores, alpha=0.3, label='Episode Reward')
+
+        # Calculate moving averages for the entire history
+        moving_avg = [np.mean(self.scores[max(0, i - window_size + 1):i + 1])
 
         plt.xlabel('Episode')
         plt.ylabel('Average Reward')
