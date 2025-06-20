@@ -308,6 +308,9 @@ class DQNAgent:
             if terminated and total_reward >= 200:  # Adjust threshold as needed
                 success_count += 1
 
+                # Print the total reward for the current episode
+                print(f"Test Episode {episode + 1}: Total Reward: {total_reward:.2f}")
+
     def plot_training_progress(self, window_size=100):
         pass
 
