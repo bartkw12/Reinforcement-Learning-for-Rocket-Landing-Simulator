@@ -316,6 +316,7 @@ class DQNAgent:
 
         print(f"Test Results (Over {num_test_episodes} Episodes):")
         print(f"  Average Reward: {avg_test_reward}")
+        print(f"  Success Rate: {success_rate:.2f}%")
 
     def plot_training_progress(self, window_size=100):
         pass
