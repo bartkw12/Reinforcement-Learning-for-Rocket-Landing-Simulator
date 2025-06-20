@@ -314,6 +314,8 @@ class DQNAgent:
         success_rate = success_count / num_test_episodes * 100
         avg_test_reward = np.mean(total_rewards)
 
+        print(f"Test Results (Over {num_test_episodes} Episodes):")
+
     def plot_training_progress(self, window_size=100):
         pass
 
