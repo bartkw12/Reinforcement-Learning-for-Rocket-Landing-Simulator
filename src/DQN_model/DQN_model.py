@@ -319,7 +319,7 @@ class DQNAgent:
         print(f"  Success Rate: {success_rate:.2f}%")
 
     def plot_training_progress(self, window_size=100):
-        pass
+        plt.figure(figsize=(10, 5))
 
     def animate_episode(self):
         """
