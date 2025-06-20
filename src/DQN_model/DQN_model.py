@@ -328,6 +328,7 @@ class DQNAgent:
         plt.ylabel('Average Reward')
         plt.title('Training Progress for DQN')
 
+        plt.legend()
         plt.grid(True)
         plt.savefig('DQN_model_test.png')
         plt.close()  # Prevent memory leaks
