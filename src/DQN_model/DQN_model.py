@@ -324,6 +324,10 @@ class DQNAgent:
         # Plot all rewards
         plt.plot(self.scores, alpha=0.3, label='Episode Reward')
 
+        plt.xlabel('Episode')
+        plt.ylabel('Average Reward')
+        plt.title('Training Progress for DQN')
+
 
 
     def animate_episode(self):
