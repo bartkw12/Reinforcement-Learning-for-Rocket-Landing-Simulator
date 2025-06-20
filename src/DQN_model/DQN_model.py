@@ -328,6 +328,8 @@ class DQNAgent:
         plt.ylabel('Average Reward')
         plt.title('Training Progress for DQN')
 
+        plt.close()  # Prevent memory leaks
+
 
 
     def animate_episode(self):
