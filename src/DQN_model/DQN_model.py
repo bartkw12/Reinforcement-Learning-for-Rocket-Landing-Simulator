@@ -328,6 +328,10 @@ class DQNAgent:
         moving_avg = [np.mean(self.scores[max(0, i - window_size + 1):i + 1])
                       for i in range(len(self.scores))]
 
+        # Plot moving averages with markers
+        plt.plot(moving_avg, 'g-', linewidth=4, marker='o', markersize=4,
+                 label=f'Moving Average ({window_size} Episodes)')
+
         plt.xlabel('Episode')
         plt.ylabel('Average Reward')
         plt.title('Training Progress for DQN')
