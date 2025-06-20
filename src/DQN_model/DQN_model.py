@@ -321,6 +321,9 @@ class DQNAgent:
     def plot_training_progress(self, window_size=100):
         plt.figure(figsize=(8, 5))
 
+        # Plot all rewards
+        plt.plot(self.scores, alpha=0.3, label='Episode Reward')
+
 
 
     def animate_episode(self):
