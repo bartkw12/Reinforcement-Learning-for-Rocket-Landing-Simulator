@@ -326,6 +326,7 @@ class DQNAgent:
 
         # Calculate moving averages for the entire history
         moving_avg = [np.mean(self.scores[max(0, i - window_size + 1):i + 1])
+                      for i in range(len(self.scores))]
 
         plt.xlabel('Episode')
         plt.ylabel('Average Reward')
