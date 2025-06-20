@@ -304,6 +304,10 @@ class DQNAgent:
             # Store the total reward for the episode
             total_rewards.append(total_reward)
 
+            # Check if the episode ended with a successful landing
+            if terminated and total_reward >= 200:  # Adjust threshold as needed
+                success_count += 1
+
     def plot_training_progress(self, window_size=100):
         pass
 
