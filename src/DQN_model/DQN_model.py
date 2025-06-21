@@ -345,7 +345,8 @@ class DQNAgent:
         """
         Run a single episode with rendering to visualize the agent's performance.
         """
-        pass
+        # Create a new environment with rendering enabled
+        render_env = gym.make('LunarLander-v3', render_mode='human')
 
 
 if __name__ == "__main__":
