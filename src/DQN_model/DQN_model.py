@@ -347,6 +347,7 @@ class DQNAgent:
         """
         # Create a new environment with rendering enabled
         render_env = gym.make('LunarLander-v3', render_mode='human')
+        state, _ = render_env.reset()
 
 
 if __name__ == "__main__":
