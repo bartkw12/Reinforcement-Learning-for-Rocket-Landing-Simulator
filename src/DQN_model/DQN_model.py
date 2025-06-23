@@ -352,6 +352,8 @@ class DQNAgent:
         total_reward = 0
 
         while not done:
+            action = self.select_action(state, testing=True)
+            next_state, reward, terminated, truncated, info = render_env.step(action)
 
 
 if __name__ == "__main__":
