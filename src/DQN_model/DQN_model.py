@@ -367,6 +367,8 @@ class DQNAgent:
         else:
             print("FAILED! Crashed or timed out. 💥")
 
+        print(f"Animation Episode Reward: {total_reward}")
+
 if __name__ == "__main__":
     # Initialization of agent and environment
     env_name = "LunarLander-v3"
