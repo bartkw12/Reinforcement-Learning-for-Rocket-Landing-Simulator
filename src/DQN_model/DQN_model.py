@@ -360,6 +360,10 @@ class DQNAgent:
 
         render_env.close()
 
+        # Success message
+        print("\n")
+        if terminated and total_reward >= 200:
+            print("SUCCESS! Landed safely between the flags. 🚀")
 
 if __name__ == "__main__":
     # Initialization of agent and environment
