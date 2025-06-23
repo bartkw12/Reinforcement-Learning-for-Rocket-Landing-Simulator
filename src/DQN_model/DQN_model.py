@@ -351,6 +351,8 @@ class DQNAgent:
         done = False
         total_reward = 0
 
+        while not done:
+
 
 if __name__ == "__main__":
     # Initialization of agent and environment
