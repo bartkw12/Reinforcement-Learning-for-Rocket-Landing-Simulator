@@ -358,6 +358,8 @@ class DQNAgent:
             total_reward += reward
             state = next_state
 
+        render_env.close()
+
 
 if __name__ == "__main__":
     # Initialization of agent and environment
