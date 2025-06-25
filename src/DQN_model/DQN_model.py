@@ -373,3 +373,6 @@ if __name__ == "__main__":
     # Initialization of agent and environment
     env_name = "LunarLander-v3"
     env = gym.make(env_name)
+    state_size = env.observation_space.shape[0]
+    action_size = env.action_space.n
+    agent = DQNAgent(state_size, action_size)
