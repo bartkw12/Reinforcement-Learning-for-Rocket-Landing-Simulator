@@ -379,3 +379,6 @@ if __name__ == "__main__":
 
     # Load the previously saved best model (if available) to continue training from it
     model_path = "best_model.pth"
+
+    try:
+        agent.load_agent(model_path)  # Attempt to load the best model
