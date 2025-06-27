@@ -382,3 +382,6 @@ if __name__ == "__main__":
 
     try:
         agent.load_agent(model_path)  # Attempt to load the best model
+        print("Loaded the best model for training...")
+    except Exception as e:
+        print(f"Could not load model. Starting training. Error: {e}")
