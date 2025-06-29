@@ -391,3 +391,10 @@ if __name__ == "__main__":
         print("Training the agent...")
         scores = agent.train(num_training_episodes)
         print("\nTraining completed.")
+
+    # -------------
+
+    # Test the agent after training
+    print("\nTesting the agent...")
+    agent.test(num_test_episodes=100)  # Run tests for 100 episodes
+    print("Testing completed.")
