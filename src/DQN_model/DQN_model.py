@@ -385,3 +385,9 @@ if __name__ == "__main__":
         print("Loaded the best model for training...")
     except Exception as e:
         print(f"Could not load model. Starting training. Error: {e}")
+        print("No saved model found, starting training from scratch...")
+
+        # Train your agent
+        print("Training the agent...")
+        scores = agent.train(num_training_episodes)
+        print("\nTraining completed.")
