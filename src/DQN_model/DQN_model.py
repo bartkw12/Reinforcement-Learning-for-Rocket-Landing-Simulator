@@ -398,3 +398,6 @@ if __name__ == "__main__":
     print("\nTesting the agent...")
     agent.test(num_test_episodes=100)  # Run tests for 100 episodes
     print("Testing completed.")
+
+    # Visualize the trained agent
+    agent.animate_episode()
