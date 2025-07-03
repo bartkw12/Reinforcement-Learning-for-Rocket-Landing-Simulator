@@ -17,5 +17,9 @@ class PolicyNetwork(nn.Module):
     """
     Feedforward neural network in PyTorch for REINFORCE policy gradient method.
     """
-    pass
+    def __init__(self, input_dim, hidden_dim, output_dim):
+        super().__init__()
+        pass
 
+    def forward(self):
+        pass
