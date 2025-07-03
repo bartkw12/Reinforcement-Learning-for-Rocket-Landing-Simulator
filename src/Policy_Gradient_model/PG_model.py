@@ -12,3 +12,10 @@ import matplotlib.pyplot as plt
 from collections import deque
 
 from PG_config import alpha, gamma, hidden_size, num_training_episodes
+
+class PolicyNetwork(nn.Module):
+    """
+    Feedforward neural network in PyTorch for REINFORCE policy gradient method.
+    """
+    pass
+
