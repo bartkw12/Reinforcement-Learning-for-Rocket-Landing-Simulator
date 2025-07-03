@@ -8,3 +8,5 @@ import torch.distributions as distributions
 import numpy as np
 import gymnasium as gym
 import matplotlib.pyplot as plt
+
+from collections import deque
