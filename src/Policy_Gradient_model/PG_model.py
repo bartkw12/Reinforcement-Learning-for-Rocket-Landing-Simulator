@@ -21,6 +21,7 @@ class PolicyNetwork(nn.Module):
         super().__init__()
         self.layer1 = nn.Linear(input_dim, hidden_dim)
         self.layer2 = nn.Linear(hidden_dim, output_dim)
+        self.relu = nn.ReLU()
 
     def forward(self):
         pass
