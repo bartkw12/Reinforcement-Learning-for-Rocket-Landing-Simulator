@@ -10,3 +10,5 @@ import gymnasium as gym
 import matplotlib.pyplot as plt
 
 from collections import deque
+
+from PG_config import alpha, gamma, hidden_size, num_training_episodes
