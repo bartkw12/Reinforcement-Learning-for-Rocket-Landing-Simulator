@@ -23,7 +23,7 @@ class PolicyNetwork(nn.Module):
         self.layer2 = nn.Linear(hidden_dim, output_dim)
         self.relu = nn.ReLU()
 
-    def forward(self):
+    def forward(self, state):
         x = self.relu(self.layer1(state))
         logits = self.layer2(x)
         return logits
