@@ -29,8 +29,16 @@ class PolicyNetwork(nn.Module):
         return logits
 
 class ReinforceAgent:
-    def  __init__(self):
-        pass
+    def  __init__(self, env, hidden_dim=hidden_size, gamma=gamma, lr=alpha):
+
+        # initialize environment
+        self.env = env
+
+        self.lr = alpha
+        self.gamma = gamma
+        self.hidden_dim = hidden_size
+        self.state_dim = env.observation_space.shape[0]
+        self.action_dim = env.action_space.n
 
     def get_action(self):
         pass
