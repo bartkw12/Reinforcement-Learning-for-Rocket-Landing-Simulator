@@ -27,3 +27,16 @@ class PolicyNetwork(nn.Module):
         x = self.relu(self.layer1(state))
         logits = self.layer2(x)
         return logits
+
+class ReinforceAgent:
+    def  __init__(self):
+        pass
+
+    def get_action(self):
+        pass
+
+    def compute_returns(self):
+        pass
+
+    def update_policy(self):
+        pass
