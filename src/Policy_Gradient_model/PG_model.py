@@ -24,4 +24,6 @@ class PolicyNetwork(nn.Module):
         self.relu = nn.ReLU()
 
     def forward(self):
-        pass
+        x = self.relu(self.layer1(state))
+        logits = self.layer2(x)
+        return logits
