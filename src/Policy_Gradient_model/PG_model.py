@@ -40,6 +40,10 @@ class ReinforceAgent:
         self.state_dim = env.observation_space.shape[0]
         self.action_dim = env.action_space.n
 
+        self.policy = PolicyNetwork(self.state_dim, hidden_dim, self.action_dim)
+        self.optimizer = optim.Adam(self.policy.parameters(), lr=lr)
+        self.eps = np.finfo(np.float32).eps.item()
+
     def get_action(self):
         pass
 
