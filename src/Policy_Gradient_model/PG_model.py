@@ -29,7 +29,7 @@ class PolicyNetwork(nn.Module):
         return logits
 
 class ReinforceAgent:
-    def  __init__(self, env, hidden_dim=hidden_size, gamma=gamma, lr=alpha):
+    def __init__(self, env, hidden_dim=hidden_size, gamma=gamma, lr=alpha):
 
         # initialize environment
         self.env = env
@@ -43,6 +43,12 @@ class ReinforceAgent:
         self.policy = PolicyNetwork(self.state_dim, hidden_dim, self.action_dim)
         self.optimizer = optim.Adam(self.policy.parameters(), lr=lr)
         self.eps = np.finfo(np.float32).eps.item()
+
+        # Training method tracking variables
+        self.scores = []
+        self.scores_window = deque(maxlen=100)
+        self.best_avg_reward = -np.inf
+        self.best_model_path = "reinforce_best_model.pth"
 
     def get_action(self):
         pass
