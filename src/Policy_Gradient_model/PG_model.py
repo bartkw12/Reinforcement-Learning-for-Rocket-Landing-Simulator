@@ -50,7 +50,7 @@ class ReinforceAgent:
         self.best_avg_reward = -np.inf
         self.best_model_path = "reinforce_best_model.pth"
 
-    def get_action(self):
+    def get_action(self, state, training=True):
         """
         Samples an action from the categorical distribution defined by the network's logits. Returns the sampled action
         and the log probability of the action. Log probability is used during the policy update (REINFORCE).
