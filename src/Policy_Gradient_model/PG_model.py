@@ -58,6 +58,7 @@ class ReinforceAgent:
         During testing - select the action with the highest probability (greedy action).
         """
         state = torch.FloatTensor(state).unsqueeze(0)
+        logits = self.policy(state)
 
     def compute_returns(self):
         pass
