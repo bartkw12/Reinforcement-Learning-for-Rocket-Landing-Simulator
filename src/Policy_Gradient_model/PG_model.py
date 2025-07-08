@@ -62,6 +62,8 @@ class ReinforceAgent:
         dist = distributions.Categorical(logits=logits)
         action = dist.sample()
 
+        return action.item(), dist.log_prob(action)
+
     def compute_returns(self):
         pass
 
