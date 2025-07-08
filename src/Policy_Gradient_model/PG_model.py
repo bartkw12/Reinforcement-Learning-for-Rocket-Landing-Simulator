@@ -60,6 +60,7 @@ class ReinforceAgent:
         state = torch.FloatTensor(state).unsqueeze(0)
         logits = self.policy(state)
         dist = distributions.Categorical(logits=logits)
+        action = dist.sample()
 
     def compute_returns(self):
         pass
