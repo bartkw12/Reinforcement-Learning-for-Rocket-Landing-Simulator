@@ -68,7 +68,8 @@ class ReinforceAgent:
         """
         Calculate the discounted returns from the rewards collected during an episode.
         """
-        pass
+        returns = []
+        discounted_sum = 0
 
     def update_policy(self):
         pass
