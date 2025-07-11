@@ -71,5 +71,10 @@ class ReinforceAgent:
         returns = []
         discounted_sum = 0
 
+        # Method reverses the rewards
+        for r in reversed(rewards):
+            # calculate the cumulative discounted sum
+            discounted_sum = r + self.gamma * discounted_sum
+
     def update_policy(self):
         pass
