@@ -64,7 +64,7 @@ class ReinforceAgent:
 
         return action.item(), dist.log_prob(action)
 
-    def compute_returns(self):
+    def compute_returns(self, rewards, standardize=True):
         """
         Calculate the discounted returns from the rewards collected during an episode.
         """
