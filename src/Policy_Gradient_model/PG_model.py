@@ -77,5 +77,8 @@ class ReinforceAgent:
             discounted_sum = r + self.gamma * discounted_sum
             returns.insert(0, discounted_sum)
 
+        # normalize the returns
+        returns = torch.tensor(returns)
+
     def update_policy(self):
         pass
