@@ -79,6 +79,8 @@ class ReinforceAgent:
 
         # normalize the returns
         returns = torch.tensor(returns)
+        if standardize: # training stability
+            returns = (returns - returns.mean()) / (returns.std() + self.eps)
 
     def update_policy(self):
         pass
