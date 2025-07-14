@@ -82,5 +82,7 @@ class ReinforceAgent:
         if standardize: # training stability
             returns = (returns - returns.mean()) / (returns.std() + self.eps)
 
+        return returns
+
     def update_policy(self):
         pass
