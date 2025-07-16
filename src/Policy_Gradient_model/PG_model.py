@@ -85,4 +85,8 @@ class ReinforceAgent:
         return returns
 
     def update_policy(self):
+        """
+        Use the log probabilities and the returns (discounted future rewards) to calculate the policy loss (the
+        negative log-likelihood weighted by the returns).
+        """
         pass
