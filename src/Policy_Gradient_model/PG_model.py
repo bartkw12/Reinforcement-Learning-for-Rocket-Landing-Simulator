@@ -89,4 +89,4 @@ class ReinforceAgent:
         Use the log probabilities and the returns (discounted future rewards) to calculate the policy loss (the
         negative log-likelihood weighted by the returns).
         """
-        pass
+        policy_loss = []
