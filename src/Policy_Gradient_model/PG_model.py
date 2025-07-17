@@ -90,3 +90,5 @@ class ReinforceAgent:
         negative log-likelihood weighted by the returns).
         """
         policy_loss = []
+        for log_prob, Gt in zip(log_probs, returns):
+            policy_loss.append(-log_prob * Gt)
