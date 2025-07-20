@@ -92,3 +92,6 @@ class ReinforceAgent:
         policy_loss = []
         for log_prob, Gt in zip(log_probs, returns):
             policy_loss.append(-log_prob * Gt)
+
+        # clear old gradients
+        self.optimizer.zero_grad()
