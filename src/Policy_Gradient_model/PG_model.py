@@ -98,3 +98,6 @@ class ReinforceAgent:
 
         # loss calc
         loss = torch.stack(policy_loss).sum()
+
+        # Backpropagate - computes gradients of the loss w.r.t. the Q-network’s parameters
+        loss.backward()
