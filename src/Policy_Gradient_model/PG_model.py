@@ -95,3 +95,6 @@ class ReinforceAgent:
 
         # clear old gradients
         self.optimizer.zero_grad()
+
+        # loss calc
+        loss = torch.stack(policy_loss).sum()
