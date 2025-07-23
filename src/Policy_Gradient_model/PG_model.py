@@ -101,3 +101,6 @@ class ReinforceAgent:
 
         # Backpropagate - computes gradients of the loss w.r.t. the Q-network’s parameters
         loss.backward()
+
+        # Step the optimizer to update the weights
+        self.optimizer.step()
