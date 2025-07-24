@@ -106,4 +106,9 @@ class ReinforceAgent:
         self.optimizer.step()
 
     def train(self):
+        """
+            Contains the main training loop where the agent learns over multiple episodes.
+        Args:
+            num_episodes (int): Number of episodes to train for.
+        """
         pass
