@@ -104,3 +104,6 @@ class ReinforceAgent:
 
         # Step the optimizer to update the weights
         self.optimizer.step()
+
+    def train(self):
+        pass
