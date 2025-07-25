@@ -111,4 +111,5 @@ class ReinforceAgent:
         Args:
             num_episodes (int): Number of episodes to train for.
         """
-        pass
+        self.scores = []
+        self.scores_window = deque(maxlen=100)
