@@ -120,3 +120,7 @@ class ReinforceAgent:
             rewards = []
             score = 0
             done = False
+
+            while not done:
+                pass
+
