@@ -122,5 +122,5 @@ class ReinforceAgent:
             done = False
 
             while not done:
-                pass
+                action, log_prob = self.get_action(state)
 
