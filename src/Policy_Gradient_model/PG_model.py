@@ -118,3 +118,4 @@ class ReinforceAgent:
             state, _ = self.env.reset()
             log_probs = []
             rewards = []
+            score = 0
