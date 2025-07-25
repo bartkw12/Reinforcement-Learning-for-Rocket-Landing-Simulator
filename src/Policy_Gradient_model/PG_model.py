@@ -116,3 +116,4 @@ class ReinforceAgent:
 
         for episode in range(num_episodes):
             state, _ = self.env.reset()
+            log_probs = []
