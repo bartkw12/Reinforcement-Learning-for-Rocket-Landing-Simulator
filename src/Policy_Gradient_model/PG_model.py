@@ -119,3 +119,4 @@ class ReinforceAgent:
             log_probs = []
             rewards = []
             score = 0
+            done = False
