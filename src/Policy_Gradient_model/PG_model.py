@@ -113,3 +113,6 @@ class ReinforceAgent:
         """
         self.scores = []
         self.scores_window = deque(maxlen=100)
+
+        for episode in range(num_episodes):
+            pass
