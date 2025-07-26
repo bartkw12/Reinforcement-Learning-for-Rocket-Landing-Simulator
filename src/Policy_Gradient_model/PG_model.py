@@ -123,4 +123,6 @@ class ReinforceAgent:
 
             while not done:
                 action, log_prob = self.get_action(state)
+                next_state, reward, terminated, truncated, _ = self.env.step(action)
+                done = terminated or truncated
 
