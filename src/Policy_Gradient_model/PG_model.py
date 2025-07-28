@@ -126,3 +126,5 @@ class ReinforceAgent:
                 next_state, reward, terminated, truncated, _ = self.env.step(action)
                 done = terminated or truncated
 
+                log_probs.append(log_prob)
+
