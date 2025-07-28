@@ -128,4 +128,6 @@ class ReinforceAgent:
 
                 log_probs.append(log_prob)
                 rewards.append(reward)
+                state = next_state
+                score += reward
 
