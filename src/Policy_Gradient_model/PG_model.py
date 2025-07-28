@@ -127,4 +127,5 @@ class ReinforceAgent:
                 done = terminated or truncated
 
                 log_probs.append(log_prob)
+                rewards.append(reward)
 
