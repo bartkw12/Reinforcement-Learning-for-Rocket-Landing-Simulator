@@ -133,4 +133,5 @@ class ReinforceAgent:
 
             # Compute returns and update policy
             returns = self.compute_returns(rewards)
+            self.update_policy(log_probs, returns)
 
