@@ -131,3 +131,6 @@ class ReinforceAgent:
                 state = next_state
                 score += reward
 
+            # Compute returns and update policy
+            returns = self.compute_returns(rewards)
+
