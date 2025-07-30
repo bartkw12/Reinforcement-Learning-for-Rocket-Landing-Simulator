@@ -135,3 +135,6 @@ class ReinforceAgent:
             returns = self.compute_returns(rewards)
             self.update_policy(log_probs, returns)
 
+            # Save scores and update window
+            self.scores_window.append(score)
+
