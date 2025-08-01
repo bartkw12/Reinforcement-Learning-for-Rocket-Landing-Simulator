@@ -147,6 +147,9 @@ class ReinforceAgent:
                 self.plot_training_progress()
                 print(f"Current Score: {score:.2f}")
 
+                # Autosave best model
+                if avg_score > self.best_avg_reward:
+
 
 
 
