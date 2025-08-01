@@ -151,6 +151,7 @@ class ReinforceAgent:
                 if avg_score > self.best_avg_reward:
                     self.best_avg_reward = avg_scoreself.best_avg_reward = avg_score
                     torch.save(self.policy.state_dict(), self.best_model_path)
+                    print(f"New best model saved with avg reward: {self.best_avg_reward:.2f}")
 
 
 
