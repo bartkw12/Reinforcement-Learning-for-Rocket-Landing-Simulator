@@ -149,6 +149,7 @@ class ReinforceAgent:
 
                 # Autosave best model
                 if avg_score > self.best_avg_reward:
+                    self.best_avg_reward = avg_score
 
 
 
