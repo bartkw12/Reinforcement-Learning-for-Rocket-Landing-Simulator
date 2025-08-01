@@ -144,6 +144,8 @@ class ReinforceAgent:
             print(f"\rEpisode {episode}\tAverage Score: {avg_score:.2f}", end="")
             if episode % 100 == 0:
                 print(f"\rEpisode {episode}\tAverage Score: {avg_score:.2f}")
+                self.plot_training_progress()
+                print(f"Current Score: {score:.2f}")
 
 
 
