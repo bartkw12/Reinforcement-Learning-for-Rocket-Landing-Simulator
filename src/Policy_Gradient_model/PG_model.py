@@ -149,7 +149,9 @@ class ReinforceAgent:
 
                 # Autosave best model
                 if avg_score > self.best_avg_reward:
-                    self.best_avg_reward = avg_score
+                    self.best_avg_reward = avg_scoreself.best_avg_reward = avg_score
+                    torch.save(self.policy.state_dict(), self.best_model_path)
+
 
 
 
