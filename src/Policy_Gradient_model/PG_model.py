@@ -140,4 +140,9 @@ class ReinforceAgent:
             self.scores.append(score)
             avg_score = np.mean(self.scores_window)
 
+            # Print progress
+            print(f"\rEpisode {episode}\tAverage Score: {avg_score:.2f}", end="")
+
+
+
 
