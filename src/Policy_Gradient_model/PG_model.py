@@ -138,5 +138,6 @@ class ReinforceAgent:
             # Save scores and update window
             self.scores_window.append(score)
             self.scores.append(score)
+            avg_score = np.mean(self.scores_window)
 
 
