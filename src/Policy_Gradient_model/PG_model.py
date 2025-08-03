@@ -155,7 +155,7 @@ class ReinforceAgent:
 
             # Early stopping if solved
             if episode >= 100 and avg_score >= 200:
-                pass
+                print(f"\nEnvironment solved in {episode} episodes! Average Score: {avg_score:.2f}")
 
 
 
