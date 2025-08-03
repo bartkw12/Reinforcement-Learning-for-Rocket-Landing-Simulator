@@ -153,6 +153,10 @@ class ReinforceAgent:
                     torch.save(self.policy.state_dict(), self.best_model_path)
                     print(f"New best model saved with avg reward: {self.best_avg_reward:.2f}")
 
+            # Early stopping if solved
+            if episode >= 100 and avg_score >= 200:
+                pass
+
 
 
 
