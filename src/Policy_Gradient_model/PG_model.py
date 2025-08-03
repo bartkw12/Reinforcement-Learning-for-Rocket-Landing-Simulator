@@ -156,6 +156,7 @@ class ReinforceAgent:
             # Early stopping if solved
             if episode >= 100 and avg_score >= 200:
                 print(f"\nEnvironment solved in {episode} episodes! Average Score: {avg_score:.2f}")
+                torch.save(self.policy.state_dict(), self.best_model_path)
 
 
 
