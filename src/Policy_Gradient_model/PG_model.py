@@ -159,6 +159,9 @@ class ReinforceAgent:
                 torch.save(self.policy.state_dict(), self.best_model_path)
                 break
 
+    def test(self):
+        pass
+
 
 
 
