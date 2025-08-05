@@ -160,6 +160,13 @@ class ReinforceAgent:
                 break
 
     def test(self):
+        """
+        Test the REINFORCE agent with greedy policy execution.
+        Adapted from your DQN implementation with success tracking.
+
+        Args:
+            num_test_episodes (int): Number of episodes to test for.
+        """
         pass
 
 
