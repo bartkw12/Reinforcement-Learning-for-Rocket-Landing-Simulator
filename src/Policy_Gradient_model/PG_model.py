@@ -168,6 +168,8 @@ class ReinforceAgent:
             num_test_episodes (int): Number of episodes to test for.
         """
         self.policy.eval()  # Set to evaluation mode
+        total_rewards = []
+        success_count = 0
 
 
 
