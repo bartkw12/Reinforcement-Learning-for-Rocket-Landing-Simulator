@@ -167,7 +167,7 @@ class ReinforceAgent:
         Args:
             num_test_episodes (int): Number of episodes to test for.
         """
-        pass
+        self.policy.eval()  # Set to evaluation mode
 
 
 
