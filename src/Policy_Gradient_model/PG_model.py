@@ -173,6 +173,8 @@ class ReinforceAgent:
 
         for episode in range(num_test_episodes):
             state, _ = self.env.reset()
+            done = False
+            total_reward = 0
 
 
 
