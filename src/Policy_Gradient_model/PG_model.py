@@ -178,6 +178,8 @@ class ReinforceAgent:
 
             while not done:
                 with torch.no_grad():
+                    # Greedy action selection (no exploration)
+                    state_tensor = torch.FloatTensor(state).unsqueeze(0)
 
 
 
