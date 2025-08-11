@@ -184,6 +184,9 @@ class ReinforceAgent:
                     action = torch.argmax(action_probs).item()
 
                 next_state, reward, terminated, truncated, _ = self.env.step(action)
+                done = terminated or truncated
+                total_reward += reward
+                state = next_state
 
 
 
