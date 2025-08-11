@@ -183,6 +183,8 @@ class ReinforceAgent:
                     action_probs = torch.softmax(self.policy(state_tensor), dim=-1)
                     action = torch.argmax(action_probs).item()
 
+                next_state, reward, terminated, truncated, _ = self.env.step(action)
+
 
 
 
