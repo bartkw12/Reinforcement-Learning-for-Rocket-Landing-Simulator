@@ -188,6 +188,8 @@ class ReinforceAgent:
                 total_reward += reward
                 state = next_state
 
+            total_rewards.append(total_reward)
+
 
 
 
