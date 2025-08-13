@@ -190,7 +190,9 @@ class ReinforceAgent:
 
             total_rewards.append(total_reward)
 
-
+            # Check for successful landing (LunarLander-specific)
+            if terminated and total_reward >= 200:
+                success_count += 1
 
 
 
