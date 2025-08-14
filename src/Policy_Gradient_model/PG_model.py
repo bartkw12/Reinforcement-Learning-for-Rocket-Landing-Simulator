@@ -159,7 +159,7 @@ class ReinforceAgent:
                 torch.save(self.policy.state_dict(), self.best_model_path)
                 break
 
-    def test(self):
+    def test(self, num_test_episodes=100):
         """
         Test the REINFORCE agent with greedy policy execution.
         Adapted from your DQN implementation with success tracking.
