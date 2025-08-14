@@ -194,5 +194,8 @@ class ReinforceAgent:
             if terminated and total_reward >= 200:
                 success_count += 1
 
+            # episode reward updates
+            print(f"Test Episode {episode + 1}: Total Reward: {total_reward:.2f}")
+
 
 
