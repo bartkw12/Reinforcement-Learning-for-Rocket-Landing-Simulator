@@ -197,8 +197,7 @@ class ReinforceAgent:
             # episode reward updates
             print(f"Test Episode {episode + 1}: Total Reward: {total_reward:.2f}")
 
-            # testet
-            print("test")
+
 
 
 
