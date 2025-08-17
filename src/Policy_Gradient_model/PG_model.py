@@ -199,5 +199,9 @@ class ReinforceAgent:
 
 
 
+if __name__ == "__main__":
+    # Initialization
+    env_name = "LunarLander-v3"
+
 
 
