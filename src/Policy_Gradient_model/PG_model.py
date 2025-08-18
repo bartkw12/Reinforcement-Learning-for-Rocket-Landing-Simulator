@@ -202,6 +202,8 @@ class ReinforceAgent:
 if __name__ == "__main__":
     # Initialization
     env_name = "LunarLander-v3"
+    env = gym.make(env_name)
+    agent = ReinforceAgent(env)
 
 
 
