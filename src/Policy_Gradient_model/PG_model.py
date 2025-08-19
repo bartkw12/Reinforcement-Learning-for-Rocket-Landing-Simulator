@@ -199,6 +199,8 @@ class ReinforceAgent:
 
         # Calculate final metrics
         success_rate = success_count / num_test_episodes * 100
+        avg_test_reward = np.mean(total_rewards)
+        std_reward = np.std(total_rewards)
 
 
 
