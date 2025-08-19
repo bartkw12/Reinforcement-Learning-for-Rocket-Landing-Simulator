@@ -202,6 +202,9 @@ class ReinforceAgent:
         avg_test_reward = np.mean(total_rewards)
         std_reward = np.std(total_rewards)
 
+        print("\nTest Results:")
+        print(f"  Episodes: {num_test_episodes}")
+
 
 
 if __name__ == "__main__":
