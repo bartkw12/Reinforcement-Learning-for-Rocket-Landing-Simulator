@@ -204,6 +204,9 @@ class ReinforceAgent:
 
         print("\nTest Results:")
         print(f"  Episodes: {num_test_episodes}")
+        print(f"  Average Reward: {avg_test_reward:.2f} ± {std_reward:.2f}")
+        print(f"  Success Rate: {success_rate:.2f}%")
+        print(f"  Min/Max Reward: {np.min(total_rewards):.2f}/{np.max(total_rewards):.2f}")
 
 
 
