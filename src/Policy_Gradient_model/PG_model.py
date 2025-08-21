@@ -210,7 +210,11 @@ class ReinforceAgent:
 
         return avg_test_reward
 
-    def
+    def plot_training_progress(self, window_size=100):
+        """
+        Plot training progress.
+        """
+        pass
 
 
 
