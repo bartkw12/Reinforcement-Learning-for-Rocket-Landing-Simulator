@@ -208,6 +208,10 @@ class ReinforceAgent:
         print(f"  Success Rate: {success_rate:.2f}%")
         print(f"  Min/Max Reward: {np.min(total_rewards):.2f}/{np.max(total_rewards):.2f}")
 
+        return avg_test_reward
+
+    def
+
 
 
 if __name__ == "__main__":
