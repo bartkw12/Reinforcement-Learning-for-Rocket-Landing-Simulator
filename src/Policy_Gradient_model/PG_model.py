@@ -215,6 +215,7 @@ class ReinforceAgent:
         Plot training progress.
         """
         plt.figure(figsize=(10, 6))
+        plt.plot(self.scores, alpha=0.3, label='Episode Scores')
 
 
 
