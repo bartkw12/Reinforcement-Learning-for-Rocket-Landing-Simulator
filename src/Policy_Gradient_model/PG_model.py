@@ -214,7 +214,7 @@ class ReinforceAgent:
         """
         Plot training progress.
         """
-        pass
+        plt.figure(figsize=(10, 6))
 
 
 
