@@ -217,6 +217,10 @@ class ReinforceAgent:
         plt.figure(figsize=(10, 6))
         plt.plot(self.scores, alpha=0.3, label='Episode Scores')
 
+        # calc running avg
+
+        # plot titles/axis
+
 
 
 if __name__ == "__main__":
