@@ -219,6 +219,7 @@ class ReinforceAgent:
 
         # Calculate running average
         if len(self.scores) >= window_size:
+            running_avg = np.convolve(self.scores, np.ones(window_size) / window_size, mode='valid')
 
         # plot titles/axis
 
