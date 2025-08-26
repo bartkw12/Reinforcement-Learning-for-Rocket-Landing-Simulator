@@ -223,6 +223,8 @@ class ReinforceAgent:
             plt.plot(running_avg, label=f'Running Avg ({window_size} episodes)')
 
         # plot titles/axis
+        plt.xlabel('Episode')
+        plt.ylabel('Average Reward')
 
 
 
