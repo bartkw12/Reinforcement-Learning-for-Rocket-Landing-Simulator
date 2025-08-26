@@ -225,6 +225,8 @@ class ReinforceAgent:
         # plot titles/axis
         plt.xlabel('Episode')
         plt.ylabel('Average Reward')
+        plt.title('Training Progress for Policy Gradient Agent under Configuration 1')
+        plt.legend()
 
 
 
