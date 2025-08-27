@@ -227,7 +227,8 @@ class ReinforceAgent:
         plt.ylabel('Average Reward')
         plt.title('Training Progress for Policy Gradient Agent under Configuration 1')
         plt.legend()
-
+        plt.grid(True)
+        plt.savefig('REINFORCE_training_configuration_1.png')
 
 
 if __name__ == "__main__":
