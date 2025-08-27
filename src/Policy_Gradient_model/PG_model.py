@@ -229,6 +229,7 @@ class ReinforceAgent:
         plt.legend()
         plt.grid(True)
         plt.savefig('REINFORCE_training_configuration_1.png')
+        plt.close()  # Prevent memory leaks
 
 
 if __name__ == "__main__":
