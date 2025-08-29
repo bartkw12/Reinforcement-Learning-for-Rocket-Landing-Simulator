@@ -231,6 +231,13 @@ class ReinforceAgent:
         plt.savefig('REINFORCE_training_configuration_1.png')
         plt.close()  # Prevent memory leaks
 
+    def animate_episode(self):
+        """
+        Run a single episode with rendering to visualize the agent's performance.
+        Adapted from DQN implementation with REINFORCE-specific action selection.
+        """
+        pass
+
 
 if __name__ == "__main__":
     # Initialization
