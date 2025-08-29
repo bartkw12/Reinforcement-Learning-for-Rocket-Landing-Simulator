@@ -236,7 +236,7 @@ class ReinforceAgent:
         Run a single episode with rendering to visualize the agent's performance.
         Adapted from DQN implementation with REINFORCE-specific action selection.
         """
-        pass
+        render_env = gym.make('LunarLander-v3', render_mode='human')
 
 
 if __name__ == "__main__":
