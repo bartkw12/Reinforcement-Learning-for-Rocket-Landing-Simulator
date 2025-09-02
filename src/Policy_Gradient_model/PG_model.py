@@ -239,6 +239,7 @@ class ReinforceAgent:
         render_env = gym.make('LunarLander-v3', render_mode='human')
         state, _ = render_env.reset()
         done = False
+        total_reward = 0
 
 
 if __name__ == "__main__":
