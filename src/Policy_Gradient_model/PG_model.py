@@ -241,6 +241,8 @@ class ReinforceAgent:
         done = False
         total_reward = 0
 
+        self.policy.eval()  # Set to evaluation mode
+
 
 if __name__ == "__main__":
     # Initialization
