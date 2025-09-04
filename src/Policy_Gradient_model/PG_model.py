@@ -243,6 +243,11 @@ class ReinforceAgent:
 
         self.policy.eval()  # Set to evaluation mode
 
+        while not done:
+            with torch.no_grad():
+                # Greedy action selection (no exploration)
+                pass
+
 
 if __name__ == "__main__":
     # Initialization
