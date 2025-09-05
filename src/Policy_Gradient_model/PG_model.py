@@ -255,5 +255,9 @@ if __name__ == "__main__":
     env = gym.make(env_name)
     agent = ReinforceAgent(env)
 
+    # Training parameters
+    num_test_episodes = 100
+    model_path = "reinforce_best_model.pth"
+
 
 
