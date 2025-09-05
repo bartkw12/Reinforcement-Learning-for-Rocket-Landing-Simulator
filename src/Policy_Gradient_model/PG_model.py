@@ -259,5 +259,10 @@ if __name__ == "__main__":
     num_test_episodes = 100
     model_path = "reinforce_best_model.pth"
 
+    # Testing phase
+    print("Testing the agent...")
+    agent.test(num_test_episodes=num_test_episodes)
+    print("Testing completed.")
+
 
 
