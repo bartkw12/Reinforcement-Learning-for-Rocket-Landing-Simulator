@@ -264,5 +264,9 @@ if __name__ == "__main__":
     agent.test(num_test_episodes=num_test_episodes)
     print("Testing completed.")
 
+    # Visualization
+    print("Running animation...")
+    agent.animate_episode()
+
 
 
