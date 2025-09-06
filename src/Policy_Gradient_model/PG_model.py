@@ -246,7 +246,7 @@ class ReinforceAgent:
         while not done:
             with torch.no_grad():
                 # Greedy action selection (no exploration)
-                pass
+                state_tensor = torch.FloatTensor(state).unsqueeze(0)
 
 
 if __name__ == "__main__":
