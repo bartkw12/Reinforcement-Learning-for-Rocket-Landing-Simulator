@@ -248,6 +248,7 @@ class ReinforceAgent:
                 # Greedy action selection (no exploration)
                 state_tensor = torch.FloatTensor(state).unsqueeze(0)
                 action_probs = torch.softmax(self.policy(state_tensor), dim=-1)
+                action = torch.argmax(action_probs).item()
 
 
 if __name__ == "__main__":
