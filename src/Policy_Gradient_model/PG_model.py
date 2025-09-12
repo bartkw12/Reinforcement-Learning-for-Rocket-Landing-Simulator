@@ -257,6 +257,11 @@ class ReinforceAgent:
 
         render_env.close()
 
+        if terminated and total_reward >= 200:
+            print("SUCCESS! Landed safely between the flags. 🚀")
+        else:
+            print("FAILED! Crashed or timed out. 💥")
+
 if __name__ == "__main__":
     # Initialization
     env_name = "LunarLander-v3"
