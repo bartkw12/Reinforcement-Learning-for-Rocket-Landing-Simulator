@@ -257,10 +257,14 @@ class ReinforceAgent:
 
         render_env.close()
 
+        # Success message
+        print("\n")
         if terminated and total_reward >= 200:
             print("SUCCESS! Landed safely between the flags. 🚀")
         else:
             print("FAILED! Crashed or timed out. 💥")
+
+        print(f"Animation Episode Reward: {total_reward}")
 
 if __name__ == "__main__":
     # Initialization
