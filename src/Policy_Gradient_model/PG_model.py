@@ -276,11 +276,17 @@ if __name__ == "__main__":
     num_test_episodes = 100
     model_path = "reinforce_best_model.pth"
 
-    # add try except to load model if one exists
+    # Attempt to load saved model
     try:
-        pass
+        agent.policy.load_state_dict(torch.load(model_path))
+        print("Loaded saved model for continued training...")
     except Exception as e:
-        print("No Model.")
+        print(f"No saved model found. Starting fresh. Error: {e}")
+
+        # Training phase
+        print("Training the REINFORCE agent...")
+        agent.train(num_episodes=num_training_episodes)
+        print("Training completed.")
 
     # Testing phase
     print("Testing the agent...")
