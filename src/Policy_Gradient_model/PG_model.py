@@ -276,6 +276,12 @@ if __name__ == "__main__":
     num_test_episodes = 100
     model_path = "reinforce_best_model.pth"
 
+    # add try except to load model if one exists
+    try:
+        pass
+    except Exception as e:
+        print("No Model.")
+
     # Testing phase
     print("Testing the agent...")
     agent.test(num_test_episodes=num_test_episodes)
