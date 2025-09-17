@@ -4,12 +4,10 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 import torch.distributions as distributions
-
 import numpy as np
 import gymnasium as gym
-import matplotlib.pyplot as plt
-
 from collections import deque
+import matplotlib.pyplot as plt
 
 from PG_config import alpha, gamma, hidden_size, num_training_episodes
 
@@ -19,7 +17,7 @@ class PolicyNetwork(nn.Module):
     """
     def __init__(self, input_dim, hidden_dim, output_dim):
         super().__init__()
-        self.layer1 = nn.Linear(input_dim, hidden_dim)
+        self.layer1= nn.Linear(input_dim, hidden_dim)
         self.layer2 = nn.Linear(hidden_dim, output_dim)
         self.relu = nn.ReLU()
 
@@ -29,6 +27,9 @@ class PolicyNetwork(nn.Module):
         return logits
 
 class ReinforceAgent:
+    """
+    REINFORCE policy gradient method implementation.
+    """
     def __init__(self, env, hidden_dim=hidden_size, gamma=gamma, lr=alpha):
 
         # initialize environment
@@ -107,7 +108,8 @@ class ReinforceAgent:
 
     def train(self, num_episodes=num_training_episodes):
         """
-            Contains the main training loop where the agent learns over multiple episodes.
+        Contains the main training loop where the agent learns over multiple episodes.
+
         Args:
             num_episodes (int): Number of episodes to train for.
         """
@@ -149,7 +151,7 @@ class ReinforceAgent:
 
                 # Autosave best model
                 if avg_score > self.best_avg_reward:
-                    self.best_avg_reward = avg_scoreself.best_avg_reward = avg_score
+                    self.best_avg_reward = avg_score
                     torch.save(self.policy.state_dict(), self.best_model_path)
                     print(f"New best model saved with avg reward: {self.best_avg_reward:.2f}")
 
@@ -222,7 +224,6 @@ class ReinforceAgent:
             running_avg = np.convolve(self.scores, np.ones(window_size) / window_size, mode='valid')
             plt.plot(running_avg, label=f'Running Avg ({window_size} episodes)')
 
-        # plot titles/axis
         plt.xlabel('Episode')
         plt.ylabel('Average Reward')
         plt.title('Training Progress for Policy Gradient Agent under Configuration 1')
@@ -236,6 +237,7 @@ class ReinforceAgent:
         Run a single episode with rendering to visualize the agent's performance.
         Adapted from DQN implementation with REINFORCE-specific action selection.
         """
+        # Create a new environment with rendering
         render_env = gym.make('LunarLander-v3', render_mode='human')
         state, _ = render_env.reset()
         done = False
@@ -265,6 +267,7 @@ class ReinforceAgent:
             print("FAILED! Crashed or timed out. 💥")
 
         print(f"Animation Episode Reward: {total_reward}")
+
 
 if __name__ == "__main__":
     # Initialization
@@ -296,6 +299,3 @@ if __name__ == "__main__":
     # Visualization
     print("Running animation...")
     agent.animate_episode()
-
-
-
