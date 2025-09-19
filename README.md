@@ -15,6 +15,10 @@ https://www.youtube.com/watch?v=gMgj4pSHLww
 
 ### Q-Learning
 
+Q-learning is a reinforcement learning algorithm that trains an agent to assign values to its possible actions based on its current state, without requiring a model of the environment (model-free).
+
 ### Deep Q-Learning Network
+
+Deep Q-Network (DQN) is defined as a model that combines Q-learning with a deep CNN to train a network to approximate the value of the Q function, which maps state-action pairs to their expected discounted return.
 
 ### Policy Gradient
