@@ -1,6 +1,13 @@
 # Reinforcement-Learning-for-Rocket-Landing-Simulator
 
-Three implementations of RL agents (Q-learning, DQN, and PG) to solve the LunarLander rocket trajectory optimization problem from the Gymnasium Python library.
+The goal of this project is to develop, train, and compare three reinforcement learning
+agents to solve the Lunar Lander problem; a game where you must land a spacecraft safely
+between two flags in a “windy” environment. The environment assigns rewards based on
+the lander's actions and state, encouraging successful landings, and penalizing crashes, or
+taking too long. The reinforcement learning algorithms used will be Q-learning, Deep Q-
+learning (DQN), and a policy gradient method, each aimed at training an agent to maximize
+reward.
+
 
 ### Important Links
 
