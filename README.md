@@ -8,6 +8,10 @@ taking too long. The reinforcement learning algorithms used will be Q-learning, 
 learning (DQN), and a policy gradient method, each aimed at training an agent to maximize
 reward.
 
+Each agent will be trained to attain a satisfactory performance based on performance
+metrics such as cumulative reward. The agents' learning curves with varying configurations
+will be compared, and insights into their strengths and weaknesses will be analyzed to
+further cement our reinforcement learning understanding.
 
 ### Important Links
 
