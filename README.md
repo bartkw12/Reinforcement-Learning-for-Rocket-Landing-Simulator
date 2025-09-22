@@ -33,3 +33,9 @@ Q-learning is a reinforcement learning algorithm that trains an agent to assign 
 Deep Q-Network (DQN) is defined as a model that combines Q-learning with a deep CNN to train a network to approximate the value of the Q function, which maps state-action pairs to their expected discounted return.
 
 ### Policy Gradient
+
+The third reinforcement learning algorithm implemented and used in the Lunar Lander
+environment was REINFORCE, a policy gradient method. It uses Monte Carlo methods to
+estimate the necessary policy gradients and returns. Unlike Q-learning or DQN, the agent
+directly samples all actions from the Lunar Lander environment. The previous two
+methods determine their actions based on value function estimating a Q-value.
