@@ -26,7 +26,12 @@ https://www.youtube.com/watch?v=gMgj4pSHLww
 
 ### Q-Learning
 
-Q-learning is a reinforcement learning algorithm that trains an agent to assign values to its possible actions based on its current state, without requiring a model of the environment (model-free).
+The first reinforcement learning algorithm implemented was Q-learning. Q-learning is an
+off-policy RL method for control, leveraging the Bellman equation to estimate Q-values
+(representing the value of state-action pairs) by episodically updating estimates of future
+rewards. These Q-values tell the agent what the reward value is, given taking an action in a
+certain state. These equations help the agent identify the best moves to maximize the
+long-term reward.
 
 ### Deep Q-Learning Network
 
