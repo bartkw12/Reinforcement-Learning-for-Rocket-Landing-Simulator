@@ -35,7 +35,12 @@ long-term reward.
 
 ### Deep Q-Learning Network
 
-Deep Q-Network (DQN) is defined as a model that combines Q-learning with a deep CNN to train a network to approximate the value of the Q function, which maps state-action pairs to their expected discounted return.
+The second reinforcement learning algorithm implemented was deep Q-learning. Unlike
+regular Q-learning, deep Q-learning uses a neural network to approximate the different Q-
+values for each state and possible action. It does not rely on using discrete observation
+spaces as in Q-learning, which becomes infeasible for large state spaces. The loss function
+compares Q-values between the two neural networks and uses gradient descent to update
+the weights.
 
 ### Policy Gradient
 
