@@ -1,0 +1,80 @@
+Q-learning Test Results:
+
+Configuration 1:
+Testing the agent...
+Test Results (Over 100 Episodes):
+Average Reward: 129.65632538691318
+Success Rate: 62.00%
+SUCCESS! Landed safely between the flags.
+Animation Episode Reward: 258.532679896297
+
+Configuration 2:
+Testing the agent...
+Test Results (Over 100 Episodes):
+Average Reward: -106.67292110214439
+Success Rate: 8.00%
+FAILED! Crashed or timed out.
+Animation Episode Reward: -200.66220498540306
+
+Configuration 3:
+Testing the agent...
+Test Results (Over 100 Episodes):
+Average Reward: -117.0200907750351
+Success Rate: 10.00%
+FAILED! Crashed or timed out.
+Animation Episode Reward: -118.77353640008165
+
+DQN Test Results:
+
+Configuration 1:
+Test Results (Over 100 Episodes):
+Average Reward: 194.73783163723942
+Success Rate: 67.00%
+Testing completed.
+SUCCESS! Landed safely between the flags.
+Animation Episode Reward: 250.75246908735826
+Configuration 2:
+Test Results (Over 100 Episodes):
+Average Reward: 108.20406746171395
+Success Rate: 31.00%
+Testing completed.
+SUCCESS! Landed safely between the flags.
+Animation Episode Reward: 214.53344256356075
+Configuration 3:
+Test Results (Over 100 Episodes):
+Average Reward: -90.32153446558041
+Success Rate: 0.00%
+Testing completed.
+FAILED! Crashed or timed out.
+Animation Episode Reward: -83.16228086496513
+REINFORCE Test Results:
+Configuration 1:
+Test Results:
+Episodes: 100
+Average Reward: -35.21 ± 19.13
+Success Rate: 0.00%
+Min/Max Reward: -86.69/14.17
+Testing completed.
+Running animation...
+FAILED! Crashed or timed out.
+Animation Episode Reward: -72.2729755388949
+Configuration 2:
+Test Results:
+Episodes: 100
+Average Reward: -3.03 ± 21.92
+Success Rate: 0.00%
+Min/Max Reward: -53.51/38.58
+Testing completed.
+Running animation...
+FAILED! Crashed or timed out.
+Animation Episode Reward: 20.76786796901844
+Configuration 3:
+Test Results:
+Episodes: 100
+Average Reward: 119.32 ± 38.40
+Success Rate: 7.00%
+Min/Max Reward: 67.93/259.03
+Testing completed.
+Running animation...
+FAILED! Crashed or timed out.
+Animation Episode Reward: 144.73446034597538
