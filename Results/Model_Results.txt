@@ -33,6 +33,7 @@ Success Rate: 67.00%
 Testing completed.
 SUCCESS! Landed safely between the flags.
 Animation Episode Reward: 250.75246908735826
+
 Configuration 2:
 Test Results (Over 100 Episodes):
 Average Reward: 108.20406746171395
@@ -40,6 +41,7 @@ Success Rate: 31.00%
 Testing completed.
 SUCCESS! Landed safely between the flags.
 Animation Episode Reward: 214.53344256356075
+
 Configuration 3:
 Test Results (Over 100 Episodes):
 Average Reward: -90.32153446558041
@@ -47,7 +49,9 @@ Success Rate: 0.00%
 Testing completed.
 FAILED! Crashed or timed out.
 Animation Episode Reward: -83.16228086496513
+
 REINFORCE Test Results:
+
 Configuration 1:
 Test Results:
 Episodes: 100
@@ -58,6 +62,7 @@ Testing completed.
 Running animation...
 FAILED! Crashed or timed out.
 Animation Episode Reward: -72.2729755388949
+
 Configuration 2:
 Test Results:
 Episodes: 100
@@ -68,6 +73,7 @@ Testing completed.
 Running animation...
 FAILED! Crashed or timed out.
 Animation Episode Reward: 20.76786796901844
+
 Configuration 3:
 Test Results:
 Episodes: 100
