@@ -49,3 +49,10 @@ environment was REINFORCE, a policy gradient method. It uses Monte Carlo methods
 estimate the necessary policy gradients and returns. Unlike Q-learning or DQN, the agent
 directly samples all actions from the Lunar Lander environment. The previous two
 methods determine their actions based on value function estimating a Q-value.
+
+#### Results
+
+Each RL algorithm was tested with 3 different configurations of hyperparameters.
+The results can be seen in the Results directory. Please note that these hyperparameter
+values implemented were not the most optimal, and more value testing needs to be done.
+Please let me know if you find better ones!
