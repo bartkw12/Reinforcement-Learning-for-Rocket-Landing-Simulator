@@ -50,9 +50,13 @@ estimate the necessary policy gradients and returns. Unlike Q-learning or DQN, t
 directly samples all actions from the Lunar Lander environment. The previous two
 methods determine their actions based on value function estimating a Q-value.
 
-#### Results
+### Results
 
 Each RL algorithm was tested with 3 different configurations of hyperparameters.
-The results can be seen in the Results directory. Please note that these hyperparameter
+The detailed results can be seen in the Results directory. Please note that these hyperparameter
 values implemented were not the most optimal, and more value testing needs to be done.
 Please let me know if you find better ones!
+
+After extensive training and hyperparameter tuning, the agents achieved the following performance on 100 test episodes:
+
+Conclusion: For the Lunar Lander problem, DQN proved to be the most effective algorithm, reliably learning a high-performance policy. Q-Learning was a strong, simpler contender, while the vanilla REINFORCE algorithm required more episodes and was less stable.
