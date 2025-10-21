@@ -68,5 +68,5 @@ Conclusion: For the Lunar Lander problem, DQN proved to be the most effective al
 | REINFORCE | Config 3 (Long-term focus) | 119.32 | 7% | Struggles with high variance and slow convergence, but shows potential with careful tuning. |
 
 
-
+<img src="Results/Q-learning_config1.JPG" width="400" />
 <img src="Results/DQN_config1.JPG" width="400" />
