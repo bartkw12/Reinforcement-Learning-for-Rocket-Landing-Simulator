@@ -63,9 +63,9 @@ Conclusion: For the Lunar Lander problem, DQN proved to be the most effective al
 
 | Algorithm | Best Configuration | Average Reward | Success Rate | Key Insight |
  | :------- | :------: |:--------------:|:------------:|:-----------:|
-|Tabular Q-Learning | Config 1 (Baseline) | 194.74 |
-| Deep Q-Network (DQN)| Config 1 (Baseline) | 129.66 |
-| REINFORCE | Config 3 (Long-term focus) | 119.32 |
+|Tabular Q-Learning | Config 1 (Baseline) | 129.66 |     62%      |
+| Deep Q-Network (DQN)| Config 1 (Baseline) | 194.74 | 67% |
+| REINFORCE | Config 3 (Long-term focus) | 119.32 | 7% |
 
 
 
