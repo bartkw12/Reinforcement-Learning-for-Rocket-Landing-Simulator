@@ -61,11 +61,11 @@ After extensive training and hyperparameter tuning, the agents achieved the foll
 
 Conclusion: For the Lunar Lander problem, DQN proved to be the most effective algorithm, reliably learning a high-performance policy. Q-Learning was a strong, simpler contender, while the vanilla REINFORCE algorithm required more episodes and was less stable.
 
-| Algorithm | Best Configuration | Average Reward | Success Rate| Key Insight |
- | :------- | :------: | -------: | -------: | -------: |
-|Tabular Q-Learning | Config 1 (Baseline) |
-| Deep Q-Network (DQN)| Config 1 (Baseline) |
-| REINFORCE | Config 3 (Long-term focus) |
+| Algorithm | Best Configuration | Average Reward | Success Rate | Key Insight |
+ | :------- | :------: |:--------------:|:------------:|:-----------:|
+|Tabular Q-Learning | Config 1 (Baseline) | 194.74 |
+| Deep Q-Network (DQN)| Config 1 (Baseline) | 129.66 |
+| REINFORCE | Config 3 (Long-term focus) | 119.32 |
 
 
 
