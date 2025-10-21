@@ -71,3 +71,13 @@ Q-Learning was a strong, simpler contender, while the vanilla REINFORCE algorith
 
 <img src="Results/Q-learning_config1.JPG" width="400" />
 <img src="Results/DQN_config1.JPG" width="400" />
+
+### References          
+
+    Gymnasium Lunar Lander Documentation
+
+    Sutton, R. S., & Barto, A. G. (2018). Reinforcement Learning: An Introduction. MIT Press.
+
+    Mnih, V. et al. (2015). Human-level control through deep reinforcement learning. Nature.
+
+    Williams, R. J. (1992). Simple statistical gradient-following algorithms for connectionist reinforcement learning.
