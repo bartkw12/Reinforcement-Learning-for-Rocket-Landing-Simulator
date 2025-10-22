@@ -74,7 +74,7 @@ Visualized Training Results:
 <img src="Results/Q-learning_config1.JPG" width="400" />
 
 ![Alt text](Results/Q-learning_config1.JPG "Optional Title")
-**
+*Q-Learning (Config 1): Learns quickly initially and converges to a stable, good-performing policy.*
 
 <img src="Results/DQN_config1.JPG" width="400" />
 <img src="Results/Policy_Gradient_REINFORCE_config3.JPG" width="400" />
@@ -88,3 +88,16 @@ Visualized Training Results:
     Mnih, V. et al. (2015). Human-level control through deep reinforcement learning. Nature.
 
     Williams, R. J. (1992). Simple statistical gradient-following algorithms for connectionist reinforcement learning.
+
+### Installation & Setup
+
+1) Clone the repository
+
+
+    git clone https://github.com/bartkw12/Reinforcement-Learning-for-Rocket-Landing-Simulator.git
+    cd Reinforcement-Learning-for-Rocket-Landing-Simulator
+
+
+
+
+
