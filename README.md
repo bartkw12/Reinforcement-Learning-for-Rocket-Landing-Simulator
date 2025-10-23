@@ -16,11 +16,11 @@ further cement our reinforcement learning understanding.
 ### Important Links
 
 Link to find the LunarLander-Gymnasium Python library:
-https://gymnasium.farama.org/environments/box2d/lunar_lander/
+[Gymnasium Documentation - Lunar Lander](https://gymnasium.farama.org/environments/box2d/lunar_lander/)
 
 *Note: *there is a very common problem with Box2D environments (such as LunarLander) in Gymnasium on Windows typically involving missing C++ build tools and dependencies. 
-I did not run into any issues using Linux, but if you do use Windows here is a great video that solves the problem:*
-https://www.youtube.com/watch?v=gMgj4pSHLww
+I did not run into any issues using Linux, but if you do use Windows here is a great video that solves the problem:
+[Install Gymnasium (OpenAI Gym) on Windows by Johnny Code](https://www.youtube.com/watch?v=gMgj4pSHLww)
 
 ## Model Summary
 
@@ -96,8 +96,4 @@ Visualized Training Results:
 
     git clone https://github.com/bartkw12/Reinforcement-Learning-for-Rocket-Landing-Simulator.git
     cd Reinforcement-Learning-for-Rocket-Landing-Simulator
-
-
-
-
 
