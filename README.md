@@ -15,7 +15,8 @@ further cement our reinforcement learning understanding.
 
 #### Table of Contents
 
-- [Important Links](#Important_Links)
+- [Important Links](#Important-Links)
+- [Model Summary](#Model-Summary)
 - [Results](#Results)
 
 
