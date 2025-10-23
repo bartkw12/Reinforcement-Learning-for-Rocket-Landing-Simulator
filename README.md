@@ -94,13 +94,13 @@ Visualized Training Results:
 
 ### References          
 
-    Gymnasium Lunar Lander Documentation
+    1. Gymnasium Lunar Lander Documentation
 
-    Sutton, R. S., & Barto, A. G. (2018). Reinforcement Learning: An Introduction. MIT Press.
+    2. Sutton, R. S., & Barto, A. G. (2018). Reinforcement Learning: An Introduction. MIT Press.
 
-    Mnih, V. et al. (2015). Human-level control through deep reinforcement learning. Nature.
+    3. Mnih, V. et al. (2015). Human-level control through deep reinforcement learning. Nature.
 
-    Williams, R. J. (1992). Simple statistical gradient-following algorithms for connectionist reinforcement learning.
+    4. Williams, R. J. (1992). Simple statistical gradient-following algorithms for connectionist reinforcement learning.
 
 ### Installation & Setup
 
