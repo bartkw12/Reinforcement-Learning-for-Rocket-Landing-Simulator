@@ -18,6 +18,8 @@ further cement our reinforcement learning understanding.
 - [Important Links](#Important-Links)
 - [Model Summary](#Model-Summary)
 - [Results](#Results)
+- [References](#References)
+- [Installation & Setup](#Installation-&-Setup)
 
 
 ### Important Links
