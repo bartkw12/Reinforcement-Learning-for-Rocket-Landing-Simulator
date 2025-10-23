@@ -15,7 +15,7 @@ further cement our reinforcement learning understanding.
 
 #### Table of Contents
 
-- [Important Links](#Important Links)
+- [ImportantLinks](#ImportantLinks)
 - [Results](#Results)
 
 
@@ -103,9 +103,11 @@ Visualized Training Results:
 
 1) Clone the repository
 
+<bash>
 
     git clone https://github.com/bartkw12/Reinforcement-Learning-for-Rocket-Landing-Simulator.git
     cd Reinforcement-Learning-for-Rocket-Landing-Simulator
 
+</bash>
 
-<font color="orange">This text is red!</font>
+
