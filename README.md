@@ -19,7 +19,7 @@ further cement our reinforcement learning understanding.
 - [Model Summary](#Model-Summary)
 - [Results](#Results)
 - [References](#References)
-- [Installation & Setup](#Installation-Setup)
+- [Installation & Setup](#Installation--Setup)
 
 
 ### Important Links
