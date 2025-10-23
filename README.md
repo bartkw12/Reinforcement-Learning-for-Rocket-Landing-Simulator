@@ -13,13 +13,20 @@ metrics such as cumulative reward. The agents' learning curves with varying conf
 will be compared, and insights into their strengths and weaknesses will be analyzed to
 further cement our reinforcement learning understanding.
 
+#### Table of Contents
+
+- [Important Links](#Important Links)
+- [Results](#Results)
+
+
 ### Important Links
 
 Link to find the LunarLander-Gymnasium Python library:
 [Gymnasium Documentation - Lunar Lander](https://gymnasium.farama.org/environments/box2d/lunar_lander/)
 
+
 *Note: *there is a very common problem with Box2D environments (such as LunarLander) in Gymnasium on Windows typically involving missing C++ build tools and dependencies. 
-I did not run into any issues using Linux, but if you do use Windows here is a great video that solves the problem:
+I did not run into any issues using Linux, but if you do use Windows here is a great video that solves the problem:*
 [Install Gymnasium (OpenAI Gym) on Windows by Johnny Code](https://www.youtube.com/watch?v=gMgj4pSHLww)
 
 ## Model Summary
@@ -101,4 +108,4 @@ Visualized Training Results:
     cd Reinforcement-Learning-for-Rocket-Landing-Simulator
 
 
-
+<font color="orange">This text is red!</font>
