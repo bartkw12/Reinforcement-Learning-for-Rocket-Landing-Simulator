@@ -120,4 +120,12 @@ Visualized Training Results:
 
 </bash>
 
+2) Create a virtual environment (Recommended)
+
+<bash>
+
+    python -m venv venv
+    source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+</bash>
 
