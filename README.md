@@ -81,16 +81,20 @@ Q-Learning was a strong, simpler contender, while the vanilla REINFORCE algorith
 
 Visualized Training Results:
 
-<img src="Results/Q-learning_config1.JPG" width="400" />
-
 <center>
 
 ![Alt text](Results/Q-learning_config1.JPG "Optional Title")
 *Q-Learning (Config 1): Learns quickly initially and converges to a stable, good-performing policy.*
+
+![Alt text](Results/DQN_config1.JPG "Optional Title")
+*DQN (Config 1): Shows a smooth, steady increase in reward, consistently solving the environment (achieving a score >200).*
+
+![Alt text](Results/Policy_Gradient_REINFORCE_config3.JPG "Optional Title")
+*REINFORCE (Config 3): Learns slowly and noisily, eventually reaching a moderate performance level.*
+
 </center>
 
-<img src="Results/DQN_config1.JPG" width="400" />
-<img src="Results/Policy_Gradient_REINFORCE_config3.JPG" width="400" />
+
 
 ### References          
 
