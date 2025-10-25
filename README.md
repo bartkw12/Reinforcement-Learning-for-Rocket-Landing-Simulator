@@ -129,3 +129,10 @@ Visualized Training Results:
 
 </bash>
 
+3) Install dependencies
+
+<bash>
+
+    pip install -r requirements.txt
+
+</bash>
