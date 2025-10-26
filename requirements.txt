@@ -16,3 +16,7 @@ tqdm>=4.62.0  # For progress bars during training
 pillow>=8.3.0  # For image handling/rendering
 imageio>=2.9.0  # For creating GIFs of agent performance
 imageio-ffmpeg>=0.4.5  # For video/GIF support
+
+# Code Quality & Development
+black>=22.0.0  # Code formatting
+flake8>=4.0.0  # Linting
