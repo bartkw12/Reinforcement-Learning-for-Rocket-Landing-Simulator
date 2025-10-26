@@ -1,3 +1,8 @@
 # Core Machine Learning & Deep Learning
 torch>=1.9.0
 numpy>=1.21.0
+
+# Reinforcement Learning Environment
+gymnasium>=0.28.0
+gymnasium[box2d]>=0.28.0
+swig>=4.0.0  # Required for Box2D compilation
