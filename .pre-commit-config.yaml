@@ -1,0 +1,32 @@
+# Install once with `pre-commit install`; run on everything with `pre-commit run --all-files`.
+# The v1.0 coursework scripts and results are left untouched until they are ported.
+exclude: ^(docs/legacy/|src/(DQN_model|Policy_Gradient_model|Q_learning_model)/)
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-toml
+      - id: check-merge-conflict
+      - id: check-added-large-files
+        args: [--maxkb=5000]
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.16.9
+    hooks:
+      - id: ruff-check
+        args: [--fix]
+      - id: ruff-format
+
+  # Runs in the active environment so it sees the project's installed dependencies.
+  - repo: local
+    hooks:
+      - id: mypy
+        name: mypy
+        entry: mypy
+        language: system
+        types: [python]
+        pass_filenames: false

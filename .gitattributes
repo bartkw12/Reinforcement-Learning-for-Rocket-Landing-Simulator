@@ -1,0 +1,11 @@
+# Store text with LF in the repository regardless of the contributor's platform.
+* text=auto
+
+*.jpg binary
+*.JPG binary
+*.png binary
+*.gif binary
+*.mp4 binary
+*.pdf binary
+*.pt  binary
+*.npz binary

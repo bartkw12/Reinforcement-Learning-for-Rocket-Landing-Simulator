@@ -1,14 +1,34 @@
-# PyCharm
+# Editors
 .idea/
 *.iml
 *.ipr
 *.iws
+.vscode/
 
 # Python
 __pycache__/
 *.py[cod]
 *$py.class
+*.egg-info/
+build/
+dist/
 
-# Virtual environment
+# Virtual environments
 venv/
+.venv/
 env/
+
+# Tooling caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Experiment outputs (regenerable; committed summaries live in results/)
+runs/
+wandb/
+*.pt
+*.pth
+*.pkl

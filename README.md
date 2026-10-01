@@ -28,7 +28,7 @@ Link to find the LunarLander-Gymnasium Python library:
 [Gymnasium Documentation - Lunar Lander](https://gymnasium.farama.org/environments/box2d/lunar_lander/)
 
 
-*Note: *there is a very common problem with Box2D environments (such as LunarLander) in Gymnasium on Windows typically involving missing C++ build tools and dependencies. 
+*Note: *there is a very common problem with Box2D environments (such as LunarLander) in Gymnasium on Windows typically involving missing C++ build tools and dependencies.
 I did not run into any issues using Linux, but if you do use Windows here is a great video that solves the problem:*
 [Install Gymnasium (OpenAI Gym) on Windows by Johnny Code](https://www.youtube.com/watch?v=gMgj4pSHLww)
 
@@ -63,7 +63,7 @@ methods determine their actions based on value function estimating a Q-value.
 ### Results
 
 Each RL algorithm was tested with 3 different configurations of hyperparameters.
-The detailed results can be seen in the Results directory. Please note that these hyperparameter
+The detailed results can be seen in the [docs/legacy/v1_results](docs/legacy/v1_results) directory. Please note that these hyperparameter
 values implemented were not the most optimal, and more value testing needs to be done.
 Please let me know if you find better ones!
 
@@ -71,27 +71,27 @@ After extensive training and hyperparameter tuning, the agents achieved the foll
 
 
 | Algorithm | Best Configuration | Average Reward | Success Rate |                                      Key Insight                                       |
- | :------- | :------: |:--------------:|:------------:|:--------------------------------------------------------------------------------------:| 
+ | :------- | :------: |:--------------:|:------------:|:--------------------------------------------------------------------------------------:|
 |Tabular Q-Learning | Config 1 (Baseline) | 129.66 |     62%      | Performs remarkably well given its simplicity, but is limited by state discretization. |
 | Deep Q-Network (DQN)| Config 1 (Baseline) | 194.74 | 67% | Most stable and successful. Effectively balances exploration and exploitation with a stable neural network approximation. |
 | REINFORCE | Config 3 (Long-term focus) | 119.32 | 7% | Struggles with high variance and slow convergence, but shows potential with careful tuning. |
 
-Conclusion: For the Lunar Lander problem, DQN proved to be the most effective algorithm, reliably learning a high-performance policy. 
+Conclusion: For the Lunar Lander problem, DQN proved to be the most effective algorithm, reliably learning a high-performance policy.
 Q-Learning was a strong, simpler contender, while the vanilla REINFORCE algorithm required more episodes and was less stable.
 
 Visualized Training Results:
 
 <center>
 
-![Alt text](Results/Q-learning_config1.JPG "Optional Title")
+![Alt text](docs/legacy/v1_results/Q-learning_config1.JPG "Optional Title")
 
 *Q-Learning (Config 1): Learns quickly initially and converges to a stable, good-performing policy.*
 
-![Alt text](Results/DQN_config1.JPG "Optional Title")
+![Alt text](docs/legacy/v1_results/DQN_config1.JPG "Optional Title")
 
 *DQN (Config 1): Shows a smooth, steady increase in reward, consistently solving the environment (achieving a score >200).*
 
-![Alt text](Results/Policy_Gradient_REINFORCE_config3.JPG "Optional Title")
+![Alt text](docs/legacy/v1_results/Policy_Gradient_REINFORCE_config3.JPG "Optional Title")
 
 *REINFORCE (Config 3): Learns slowly and noisily, eventually reaching a moderate performance level.*
 
@@ -99,7 +99,7 @@ Visualized Training Results:
 
 
 
-### References          
+### References
 
     1. Gymnasium Lunar Lander Documentation
 
@@ -133,7 +133,17 @@ Visualized Training Results:
 
 <bash>
 
-    pip install -r requirements.txt
+    pip install -e ".[dev]"
+
+</bash>
+
+4) Check the installation
+
+<bash>
+
+    ruff check .
+    mypy
+    pytest
 
 </bash>
 

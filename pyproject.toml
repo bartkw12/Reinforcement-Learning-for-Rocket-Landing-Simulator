@@ -1,0 +1,120 @@
+[build-system]
+requires = ["hatchling>=1.21"]
+build-backend = "hatchling.build"
+
+[project]
+name = "lunarlander-rl"
+dynamic = ["version"]
+description = "Reproducible comparison of tabular Q-learning, DQN and REINFORCE against modern baselines on Gymnasium's LunarLander-v3."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [{ name = "Bart Kowal" }]
+keywords = ["reinforcement-learning", "lunar-lander", "dqn", "q-learning", "reinforce", "gymnasium", "pytorch"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    # LunarLander-v3 was introduced in Gymnasium 1.0.
+    "gymnasium[box2d]>=1.0,<2",
+    "torch>=2.2",
+    "numpy>=1.26",
+    "pyyaml>=6.0",
+    "pandas>=2.0",
+    "matplotlib>=3.8",
+    "imageio>=2.31",
+]
+
+[project.optional-dependencies]
+sb3 = ["stable-baselines3>=2.4"]
+analysis = ["rliable>=1.2"]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+    "ruff>=0.6",
+    "mypy>=1.10",
+    "pre-commit>=3.7",
+    "types-PyYAML",
+    "pandas-stubs",
+]
+
+[project.urls]
+Repository = "https://github.com/bartkw12/Reinforcement-Learning-for-Rocket-Landing-Simulator"
+
+[tool.hatch.version]
+path = "src/lunarlander_rl/__init__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/lunarlander_rl"]
+
+# --------------------------------------------------------------------------- #
+# Linting and formatting
+# --------------------------------------------------------------------------- #
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+src = ["src", "tests"]
+# The v1.0 coursework scripts stay untouched until they are ported in Phase 2.
+extend-exclude = [
+    "src/DQN_model",
+    "src/Policy_Gradient_model",
+    "src/Q_learning_model",
+    "docs/legacy",
+]
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "B",   # flake8-bugbear
+    "UP",  # pyupgrade
+    "SIM", # flake8-simplify
+    "NPY", # numpy-specific rules (flags legacy global RNG use)
+    "RUF", # ruff-specific rules
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["lunarlander_rl"]
+
+# --------------------------------------------------------------------------- #
+# Type checking
+# --------------------------------------------------------------------------- #
+[tool.mypy]
+python_version = "3.10"
+files = ["src/lunarlander_rl", "tests"]
+disallow_untyped_defs = true
+check_untyped_defs = true
+warn_return_any = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+no_implicit_optional = true
+
+[[tool.mypy.overrides]]
+module = ["rliable.*", "stable_baselines3.*"]
+ignore_missing_imports = true
+
+# --------------------------------------------------------------------------- #
+# Tests
+# --------------------------------------------------------------------------- #
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers --strict-config"
+filterwarnings = [
+    # Emitted by Box2D's SWIG bindings at import time; not actionable here.
+    "ignore:builtin type .* has no __module__ attribute:DeprecationWarning",
+]
+markers = [
+    "slow: long-running tests (training runs); deselect with -m 'not slow'",
+]
+
+[tool.coverage.run]
+source = ["lunarlander_rl"]
+branch = true
