@@ -89,7 +89,7 @@ known-first-party = ["lunarlander_rl"]
 # --------------------------------------------------------------------------- #
 [tool.mypy]
 python_version = "3.10"
-files = ["src/lunarlander_rl", "tests"]
+files = ["src/lunarlander_rl", "tests", "scripts"]
 disallow_untyped_defs = true
 check_untyped_defs = true
 warn_return_any = true
