@@ -1,0 +1,6 @@
+# LunarLander-v3 with wind and turbulence, at Gymnasium's default strengths.
+id: LunarLander-v3
+kwargs:
+  enable_wind: true
+  wind_power: 15.0
+  turbulence_power: 1.5
