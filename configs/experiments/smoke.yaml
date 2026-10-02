@@ -1,0 +1,15 @@
+# A few seconds of work that exercises the whole pipeline: training loop, periodic and
+# final evaluation, checkpoints and logging.
+name: smoke
+seeds: [0, 1]
+base:
+  env: configs/env/lunarlander.yaml
+  train:
+    total_steps: 3000
+  eval:
+    interval_steps: 1000
+    episodes: 3
+    final_episodes: 10
+variants:
+  - label: random
+    agent: configs/agent/random.yaml
