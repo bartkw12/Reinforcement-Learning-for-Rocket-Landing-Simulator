@@ -147,6 +147,28 @@ Visualized Training Results:
 
 </bash>
 
+### Running experiments (v2, work in progress)
+
+The v2 experiment pipeline is being built on the `lunarlander_rl` package. Only a random-action
+baseline is available so far; the three algorithms above are being ported to it.
+
+<bash>
+
+    # one run: trains, evaluates on held-out seeds, writes runs/<name>/<variant>/seed_<k>/
+    python scripts/train.py --agent configs/agent/random.yaml --seed 0 --set train.total_steps=20000
+
+    # every (variant, seed) of an experiment file, in parallel; completed runs are skipped
+    python scripts/sweep.py configs/experiments/smoke.yaml
+
+    # re-evaluate a saved policy, optionally under different conditions
+    python scripts/evaluate.py runs/smoke/random/seed_0 --set env.kwargs.enable_wind=true
+
+</bash>
+
+Each run directory holds the resolved `config.yaml`, provenance in `meta.json`, per-episode
+training data in `train_episodes.csv`, periodic evaluations in `eval.csv`, the final evaluation
+in `final_eval.json`, and checkpoints.
+
 ### Future Work
 
 TO BE ADDRESSED.
