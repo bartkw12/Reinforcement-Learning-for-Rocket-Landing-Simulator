@@ -149,8 +149,10 @@ Visualized Training Results:
 
 ### Running experiments (v2, work in progress)
 
-The v2 experiment pipeline is being built on the `lunarlander_rl` package. Only a random-action
-baseline is available so far; the three algorithms above are being ported to it.
+The v2 experiment pipeline is being built on the `lunarlander_rl` package. The three algorithms
+above have been re-implemented on it with the v1 bugs fixed (agent configs in
+[configs/agent](configs/agent)); the v1 scripts are preserved under the `v1.0-course-project` tag.
+The v2 results are not in yet: the table above still reports v1.
 
 <bash>
 
