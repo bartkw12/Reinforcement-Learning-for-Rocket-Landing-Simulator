@@ -1,6 +1,6 @@
 # Install once with `pre-commit install`; run on everything with `pre-commit run --all-files`.
-# The v1.0 coursework scripts and results are left untouched until they are ported.
-exclude: ^(docs/legacy/|src/(DQN_model|Policy_Gradient_model|Q_learning_model)/)
+# The v1.0 results are kept exactly as they were published.
+exclude: ^docs/legacy/
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
