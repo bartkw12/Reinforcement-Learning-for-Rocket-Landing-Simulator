@@ -1,0 +1,28 @@
+# Q-learning with a tile-coded linear value function. Starting point for tuning (Phase 5).
+name: q_learning
+params:
+  alpha: 0.3
+  gamma: 0.99
+  num_tilings: 16
+  # Six tiled dimensions make resolution expensive: 8 tiles per dimension gives ~262k
+  # cells per tiling, too many to visit in 1M steps, and learning stalled in a 300k-step
+  # probe (Phase 2 notes). 4 tiles generalise far better.
+  tiles_per_dim: 4
+  table_size: 262144
+  # x, y, vx, vy, angle, angular velocity. Chosen to cover the states visited by
+  # Gymnasium's heuristic lander with a margin; values outside fall in the edge tiles.
+  # The observation space's own bounds (+-10 for velocities, used by v1.0) put nearly
+  # all visited velocities inside a single tile.
+  bounds:
+    - [-1.0, 1.0]
+    - [-0.2, 1.6]
+    - [-1.5, 1.5]
+    - [-1.5, 0.5]
+    - [-1.0, 1.0]
+    - [-2.0, 2.0]
+  discrete_dims: [6, 7]
+  epsilon:
+    schedule: linear_steps
+    start: 1.0
+    end: 0.05
+    decay_steps: 200000

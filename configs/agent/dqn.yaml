@@ -1,0 +1,23 @@
+# DQN. Hyperparameters follow RL Baselines3 Zoo's tuned DQN for LunarLander
+# (hyperparams/dqn.yml), so this implementation can be checked against SB3's DQN with the
+# same settings. Starting point for tuning (Phase 5).
+name: dqn
+params:
+  hidden_sizes: [256, 256]
+  lr: 6.3e-4
+  gamma: 0.99
+  batch_size: 128
+  buffer_size: 50000
+  learning_starts: 0
+  train_frequency: 4
+  gradient_steps: 4
+  target_update_interval: 250
+  target_update_unit: steps
+  double: false
+  loss: huber
+  max_grad_norm: 10.0
+  epsilon:
+    schedule: linear_steps
+    start: 1.0
+    end: 0.1
+    decay_steps: 12000
