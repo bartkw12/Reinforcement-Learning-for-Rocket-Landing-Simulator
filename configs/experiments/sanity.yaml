@@ -1,0 +1,19 @@
+# Does each agent learn at all? One seed and a short budget: a check of the
+# implementations before any tuning, not a result to report.
+name: sanity
+seeds: [0]
+base:
+  env: configs/env/lunarlander.yaml
+  train:
+    total_steps: 300000
+  eval:
+    interval_steps: 25000
+    episodes: 10
+    final_episodes: 100
+variants:
+  - label: q_learning
+    agent: configs/agent/q_learning.yaml
+  - label: dqn
+    agent: configs/agent/dqn.yaml
+  - label: reinforce
+    agent: configs/agent/reinforce.yaml
