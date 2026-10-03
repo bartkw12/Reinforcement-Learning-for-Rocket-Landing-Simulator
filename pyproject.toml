@@ -60,13 +60,7 @@ packages = ["src/lunarlander_rl"]
 line-length = 100
 target-version = "py310"
 src = ["src", "tests"]
-# The v1.0 coursework scripts stay untouched until they are ported in Phase 2.
-extend-exclude = [
-    "src/DQN_model",
-    "src/Policy_Gradient_model",
-    "src/Q_learning_model",
-    "docs/legacy",
-]
+extend-exclude = ["docs/legacy"]
 
 [tool.ruff.lint]
 select = [
