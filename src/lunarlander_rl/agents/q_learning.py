@@ -52,6 +52,10 @@ class QLearningConfig:
     discrete_dims: tuple[int, ...] = (6, 7)
     # Initial value of Q(s, a) for every state and action.
     initial_value: float = 0.0
+    # Re-introduce v1.0's two learning bugs, to measure their effect in the replication
+    # study: training acts greedily (argmax, ties to action 0, no exploration) and the TD
+    # target bootstraps from terminal states. Never use otherwise.
+    reproduce_v1_bugs: bool = False
 
     def __post_init__(self) -> None:
         if not 0.0 < self.alpha <= 1.0:
@@ -118,6 +122,8 @@ class QLearningAgent(Agent):
         return values
 
     def act(self, obs: Observation) -> int:
+        if self.config.reproduce_v1_bugs:
+            return int(np.argmax(self.q_values(self._features(obs))))
         if self._rng.random() < self.epsilon.value:
             return int(self._rng.integers(self.num_actions))
         q = self.q_values(self._features(obs))
@@ -133,7 +139,7 @@ class QLearningAgent(Agent):
     def observe(self, transition: Transition) -> dict[str, float]:
         features = self._features(transition.obs)
         target = transition.reward
-        if not transition.terminated:
+        if not transition.terminated or self.config.reproduce_v1_bugs:
             next_q = self.q_values(self._features(transition.next_obs))
             target += self.config.gamma * float(next_q.max())
         td_error = target - float(self.weights[transition.action, features].sum())
