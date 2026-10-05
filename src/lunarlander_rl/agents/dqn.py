@@ -48,6 +48,9 @@ class DQNConfig:
     loss: Literal["huber", "mse"] = "huber"
     max_grad_norm: float | None = None
     epsilon: EpsilonConfig = field(default_factory=EpsilonConfig)
+    # Re-introduce v1.0's learning bug, to measure its effect in the replication study:
+    # time-limit truncation is stored as termination. Never use otherwise.
+    reproduce_v1_bugs: bool = False
 
     def __post_init__(self) -> None:
         for name in (
@@ -135,7 +138,7 @@ class DQNAgent(Agent):
             transition.action,
             transition.reward,
             transition.next_obs,
-            transition.terminated,
+            transition.done if c.reproduce_v1_bugs else transition.terminated,
         )
         metrics = {"epsilon": self.epsilon.value}
         self._steps += 1
