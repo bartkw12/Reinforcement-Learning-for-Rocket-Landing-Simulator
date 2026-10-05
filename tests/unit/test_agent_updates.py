@@ -75,6 +75,21 @@ def test_q_learning_epsilon_follows_its_schedule() -> None:
     assert seen == pytest.approx([1.0, 0.75, 0.5, 0.25, 0.0])
 
 
+def test_q_learning_can_reproduce_v1_bugs() -> None:
+    agent: QLearningAgent = make(
+        "q_learning", alpha=0.5, gamma=GAMMA, num_tilings=8, reproduce_v1_bugs=True
+    )
+    agent.weights[1, agent.coder(RIGHT)] = 10.0 / 8
+    # Bootstraps from the terminal state, as v1.0 did...
+    agent.observe(transition(terminated=True))
+    assert agent.q_values(agent.coder(LEFT))[0] == pytest.approx(0.5 * (1.0 + GAMMA * 10.0))
+    # ...and trains greedily, ties going to action 0, even though epsilon is 1.
+    assert agent.epsilon.value > 0.99
+    assert {agent.act(RIGHT) for _ in range(50)} == {1}
+    unvisited = np.array([2.4, -2.4, 0, 0, 0, 0, 0, 0], dtype=np.float32)
+    assert {agent.act(unvisited) for _ in range(50)} == {0}
+
+
 def test_q_learning_evaluation_does_not_touch_the_tile_table() -> None:
     agent: QLearningAgent = make("q_learning")
     agent.act(LEFT)
@@ -112,6 +127,13 @@ def test_dqn_replay_stores_termination_not_truncation() -> None:
     agent.observe(transition(truncated=True))
     agent.observe(transition(terminated=True))
     np.testing.assert_array_equal(agent.buffer.terminated[:2], [0.0, 1.0])
+
+
+def test_dqn_can_reproduce_v1_bugs() -> None:
+    agent: DQNAgent = make("dqn", learning_starts=10_000, reproduce_v1_bugs=True)
+    agent.observe(transition(truncated=True))
+    agent.observe(transition())
+    np.testing.assert_array_equal(agent.buffer.terminated[:2], [1.0, 0.0])
 
 
 def test_dqn_waits_for_learning_starts_then_updates() -> None:
