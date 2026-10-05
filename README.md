@@ -62,6 +62,10 @@ methods determine their actions based on value function estimating a Q-value.
 
 ### Results
 
+> **Note (v2):** the results below are from the original v1.0 project: one unseeded run per
+> configuration. A five-seed replication on the corrected code changes several of these
+> conclusions; see the [replication study](docs/replication.md).
+
 Each RL algorithm was tested with 3 different configurations of hyperparameters.
 The detailed results can be seen in the [docs/legacy/v1_results](docs/legacy/v1_results) directory. Please note that these hyperparameter
 values implemented were not the most optimal, and more value testing needs to be done.
