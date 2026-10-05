@@ -1,0 +1,10 @@
+variant,mean_return,std_return,success_rate,episodes
+q_learning_cfg1,129.65632538691318,,0.62,100
+q_learning_cfg2,-106.67292110214439,,0.08,100
+q_learning_cfg3,-117.0200907750351,,0.10,100
+dqn_cfg1,194.73783163723942,,0.67,100
+dqn_cfg2,108.20406746171395,,0.31,100
+dqn_cfg3,-90.32153446558041,,0.00,100
+reinforce_cfg1,-35.21,19.13,0.00,100
+reinforce_cfg2,-3.03,21.92,0.00,100
+reinforce_cfg3,119.32,38.40,0.07,100
