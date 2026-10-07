@@ -8,16 +8,16 @@ from typing import Any, TypeVar
 
 import gymnasium as gym
 
-from lunarlander_rl.agents.base import Agent
+from lunarlander_rl.agents.base import Policy
 from lunarlander_rl.config import AgentConfig, ConfigError, from_dict
 
-A = TypeVar("A", bound=Agent)
+A = TypeVar("A", bound=Policy)
 
 
 @dataclass(frozen=True)
 class AgentSpec:
     config_cls: type[Any]
-    agent_cls: Callable[..., Agent]
+    agent_cls: Callable[..., Policy]
 
 
 _REGISTRY: dict[str, AgentSpec] = {}
@@ -50,7 +50,7 @@ def build_agent(
     *,
     seed: int,
     device: str = "cpu",
-) -> Agent:
+) -> Policy:
     if config.name not in _REGISTRY:
         raise ConfigError(f"unknown agent {config.name!r}; available: {available_agents()}")
     if not isinstance(action_space, gym.spaces.Discrete):
