@@ -1,0 +1,21 @@
+# Phase 4 check: does the project's DQN match Stable-Baselines3's DQN when both use the same
+# hyperparameters (RL Baselines3 Zoo's, for LunarLander-v3)? SB3 PPO is included to confirm
+# the PPO baseline learns under this project's protocol. A short check on three seeds; the
+# headline comparison is the main benchmark.
+name: baseline_check
+seeds: [0, 1, 2]
+base:
+  env: configs/env/lunarlander.yaml
+  train:
+    total_steps: 500000
+  eval:
+    interval_steps: 25000
+    episodes: 10
+    final_episodes: 100
+variants:
+  - label: dqn
+    agent: configs/agent/dqn.yaml
+  - label: sb3_dqn
+    agent: configs/agent/sb3_dqn.yaml
+  - label: sb3_ppo
+    agent: configs/agent/sb3_ppo.yaml
