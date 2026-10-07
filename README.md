@@ -137,7 +137,7 @@ Visualized Training Results:
 
 <bash>
 
-    pip install -e ".[dev]"
+    pip install -e ".[dev,sb3]"   # sb3: Stable-Baselines3 reference baselines (optional)
 
 </bash>
 
@@ -156,7 +156,9 @@ Visualized Training Results:
 The v2 experiment pipeline is being built on the `lunarlander_rl` package. The three algorithms
 above have been re-implemented on it with the v1 bugs fixed (agent configs in
 [configs/agent](configs/agent)); the v1 scripts are preserved under the `v1.0-course-project` tag.
-The v2 results are not in yet: the table above still reports v1.
+Stable-Baselines3 DQN and PPO run through the same pipeline as reference baselines
+([docs/baselines.md](docs/baselines.md)). The v2 results are not in yet: the table above still
+reports v1.
 
 <bash>
 
