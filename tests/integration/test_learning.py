@@ -6,6 +6,7 @@ Slow, so excluded from CI; run with ``pytest -m slow``.
 """
 
 import csv
+import importlib.util
 from pathlib import Path
 from typing import Any
 
@@ -54,12 +55,52 @@ CASES: dict[str, tuple[dict[str, Any], int, float]] = {
         60_000,
         195.0,
     ),
+    # SB3 settings from RL Baselines3 Zoo's CartPole-v1 entries.
+    "sb3_dqn": (
+        {
+            "name": "sb3_dqn",
+            "params": {
+                "learning_rate": 2.3e-3,
+                "batch_size": 64,
+                "buffer_size": 100_000,
+                "learning_starts": 1_000,
+                "target_update_interval": 10,
+                "train_freq": 256,
+                "gradient_steps": 128,
+                "exploration_decay_steps": 8_000,
+                "exploration_final_eps": 0.04,
+                "net_arch": [256, 256],
+            },
+        },
+        50_000,
+        195.0,
+    ),
+    "sb3_ppo": (
+        {
+            "name": "sb3_ppo",
+            "params": {
+                "n_envs": 8,
+                "n_steps": 32,
+                "batch_size": 256,
+                "gae_lambda": 0.8,
+                "gamma": 0.98,
+                "n_epochs": 20,
+                "learning_rate": 1e-3,
+            },
+        },
+        60_000,
+        195.0,
+    ),
 }
+
+HAS_SB3 = importlib.util.find_spec("stable_baselines3") is not None
 
 
 @pytest.mark.slow
 @pytest.mark.parametrize("agent", sorted(CASES))
 def test_agent_learns_cartpole(agent: str, tmp_path: Path) -> None:
+    if agent.startswith("sb3_") and not HAS_SB3:
+        pytest.skip("Stable-Baselines3 is not installed")
     agent_config, steps, threshold = CASES[agent]
     config = build_experiment_config(
         {

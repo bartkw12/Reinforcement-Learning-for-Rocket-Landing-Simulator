@@ -5,7 +5,7 @@ from pathlib import Path
 import pandas as pd
 import pytest
 
-from lunarlander_rl.analysis import replication
+from lunarlander_rl.analysis import benchmark, replication
 from lunarlander_rl.analysis.aggregate import (
     evaluation_curves,
     final_results,
@@ -91,3 +91,22 @@ def test_replication_report_files(experiment: Path, tmp_path: Path) -> None:
     # Regenerating from the same data gives byte-identical figures.
     second = replication.plot_final_comparison(rows, runs, tmp_path / "b" / "final")
     assert [p.read_bytes() for p in second] == [p.read_bytes() for p in first[2:]]
+
+
+def test_benchmark_report_files(experiment: Path, tmp_path: Path) -> None:
+    summary = summarize_variants(final_results(experiment))
+    order = ["dqn_cfg2", "q_learning_cfg1"]
+    text = benchmark.table(summary, order)
+    rows = text.splitlines()[2:]
+    assert len(rows) == len(VARIANTS)
+    # Listed variants come first, in the given order; the rest follow.
+    assert [row.split(" | ")[0].lstrip("| ") for row in rows] == [
+        "dqn_cfg2",
+        "q_learning_cfg1",
+        "dqn_cfg1_v1bugs",
+    ]
+    paths = benchmark.plot_learning_curves(
+        evaluation_curves(experiment), tmp_path / "curves", order
+    )
+    assert [p.suffix for p in paths] == [".png", ".pdf"]
+    assert all(p.stat().st_size > 1000 for p in paths)

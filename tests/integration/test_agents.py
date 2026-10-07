@@ -6,7 +6,7 @@ from typing import Any
 import gymnasium as gym
 import pytest
 
-from lunarlander_rl.agents import build_agent
+from lunarlander_rl.agents import Agent, build_agent
 from lunarlander_rl.config import build_experiment_config, load_yaml
 from lunarlander_rl.evaluation import evaluate_checkpoint
 from lunarlander_rl.tracking import read_json
@@ -92,7 +92,7 @@ def test_checkpoint_reproduces_the_reported_evaluation(finished_run: Any, checkp
     assert reloaded["episodes"] == reported["episodes"]
 
 
-@pytest.mark.parametrize("name", ["q_learning", "dqn", "reinforce", "random"])
+@pytest.mark.parametrize("name", ["q_learning", "dqn", "reinforce", "random", "sb3_dqn", "sb3_ppo"])
 def test_shipped_agent_configs_are_valid(name: str) -> None:
     config = build_experiment_config(
         {"agent": load_yaml(REPO_ROOT / "configs" / "agent" / f"{name}.yaml")}
@@ -102,7 +102,8 @@ def test_shipped_agent_configs_are_valid(name: str) -> None:
     try:
         # Building the agent validates its parameters against the agent's own schema.
         agent = build_agent(config.agent, env.observation_space, env.action_space, seed=0)
-        obs, _ = env.reset(seed=0)
-        assert agent.act(obs) in range(4)
+        if isinstance(agent, Agent):
+            obs, _ = env.reset(seed=0)
+            assert agent.act(obs) in range(4)
     finally:
         env.close()
