@@ -1,14 +1,18 @@
-"""The interface every agent implements."""
+"""The interfaces every agent implements."""
 
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from collections.abc import Mapping
+from collections.abc import Callable, Mapping
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, ClassVar
+from typing import TYPE_CHECKING, Any, ClassVar
 
 import numpy.typing as npt
+
+if TYPE_CHECKING:
+    from lunarlander_rl.envs import Env
+    from lunarlander_rl.training.recorder import TrainingRecorder
 
 Observation = npt.NDArray[Any]
 
@@ -36,22 +40,14 @@ class Transition:
         return self.terminated or self.truncated
 
 
-class Agent(ABC):
-    """A learning agent for a discrete-action environment.
-
-    The training loop calls :meth:`act` then :meth:`observe` once per environment step.
-    All learning happens inside :meth:`observe`: an off-policy agent may update on every
-    step, an on-policy agent when ``transition.done`` closes an episode.
-    """
+class Policy(ABC):
+    """Anything that can be evaluated and checkpointed: the part of an agent the
+    evaluation pipeline sees, whoever runs its training loop."""
 
     # File extension of this agent's checkpoints, including the dot.
     checkpoint_suffix: ClassVar[str] = ".pt"
-    # Names of the diagnostics that :meth:`observe` may return (loss, epsilon, ...).
+    # Names of the per-episode diagnostics the agent reports (loss, epsilon, ...).
     metric_names: ClassVar[tuple[str, ...]] = ()
-
-    @abstractmethod
-    def act(self, obs: Observation) -> int:
-        """Choose an action while training. May explore and may record internal state."""
 
     @abstractmethod
     def predict(self, obs: Observation, *, deterministic: bool = True) -> int:
@@ -60,10 +56,6 @@ class Agent(ABC):
         Must not change anything that training depends on: no learning state and no
         training random stream. Runs with and without evaluation then train identically.
         """
-
-    def observe(self, transition: Transition) -> Mapping[str, float]:
-        """Learn from one transition and return any diagnostics produced by the update."""
-        return {}
 
     def seed_eval(self, seed: int) -> None:
         """Reseed the randomness used by non-deterministic :meth:`predict` calls.
@@ -80,3 +72,35 @@ class Agent(ABC):
     @abstractmethod
     def load(self, path: Path) -> None:
         """Restore the policy written by :meth:`save`."""
+
+
+class Agent(Policy):
+    """An agent trained by this project's own loop.
+
+    The training loop calls :meth:`act` then :meth:`observe` once per environment step.
+    All learning happens inside :meth:`observe`: an off-policy agent may update on every
+    step, an on-policy agent when ``transition.done`` closes an episode.
+    """
+
+    @abstractmethod
+    def act(self, obs: Observation) -> int:
+        """Choose an action while training. May explore and may record internal state."""
+
+    def observe(self, transition: Transition) -> Mapping[str, float]:
+        """Learn from one transition and return any diagnostics produced by the update."""
+        return {}
+
+
+class SelfTrainingAgent(Policy):
+    """An agent that runs its own training loop, such as a Stable-Baselines3 algorithm.
+
+    It reports to the shared :class:`~lunarlander_rl.training.recorder.TrainingRecorder`,
+    so its run directory has exactly the same contents and evaluation protocol as one
+    trained by this project's loop.
+    """
+
+    @abstractmethod
+    def learn(self, env_factory: Callable[[], Env], recorder: TrainingRecorder) -> None:
+        """Train on environments built by ``env_factory`` until the recorder's budget is
+        reached. Must call ``recorder.start()`` once the policy can act, then report
+        every environment step and finished episode to the recorder."""
