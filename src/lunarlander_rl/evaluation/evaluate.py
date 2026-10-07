@@ -6,7 +6,7 @@ from collections.abc import Iterable, Sequence
 from pathlib import Path
 from typing import Any
 
-from lunarlander_rl.agents import Agent, build_agent
+from lunarlander_rl.agents import Policy, build_agent
 from lunarlander_rl.config import ExperimentConfig, build_experiment_config, load_config, to_dict
 from lunarlander_rl.envs import Env, make_env
 from lunarlander_rl.evaluation.metrics import EpisodeResult, classify_outcome, summarize
@@ -16,7 +16,7 @@ from lunarlander_rl.tracking import RunPaths
 
 def run_episode(
     env: Env,
-    agent: Agent,
+    agent: Policy,
     seed: int,
     *,
     deterministic: bool = True,
@@ -46,7 +46,7 @@ def run_episode(
 
 
 def evaluate(
-    agent: Agent,
+    agent: Policy,
     env: Env,
     seeds: Iterable[int],
     *,
