@@ -1,9 +1,10 @@
-# Stable-Baselines3 DQN with RL Baselines3 Zoo's tuned hyperparameters for LunarLander-v3
-# (rl-baselines3-zoo, hyperparams/dqn.yml). These are also the settings of
-# configs/agent/dqn.yaml, so this run checks the project's DQN against SB3's.
+# Stable-Baselines3 DQN with the same hyperparameters as configs/agent/dqn.yaml, so that it
+# checks the project's DQN implementation. These are RL Baselines3 Zoo's tuned values for
+# LunarLander-v3 (rl-baselines3-zoo, hyperparams/dqn.yml) with the learning rate lowered from
+# 6.3e-4 to 3e-4, the change tuning selected for a 1M-step budget.
 name: sb3_dqn
 params:
-  learning_rate: 6.3e-4
+  learning_rate: 3.0e-4
   batch_size: 128
   buffer_size: 50000
   learning_starts: 0
