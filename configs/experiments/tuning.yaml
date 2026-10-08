@@ -1,0 +1,95 @@
+# Hyperparameter tuning for the main benchmark (Phase 5).
+#
+# Protocol:
+# - Tuning uses its own training seeds (0-2) and its own validation episodes
+#   (seeds 30000-30099). The benchmark's training seeds (100-109) and its test episodes
+#   (10000-10099) are never used for selection.
+# - Every candidate trains for the benchmark's full budget of 1M environment steps, so
+#   settings that only look good early (or collapse late) are not selected.
+# - The selection score is the final policy's mean return on the validation episodes,
+#   averaged over the three seeds: the same statistic the benchmark reports.
+#
+# Agent settings are written out here rather than read from configs/agent/, because those
+# files are updated with the selected values afterwards.
+#
+# The SB3 baselines are not tuned: they use RL Baselines3 Zoo's tuned values. DQN is tuned
+# around the same Zoo values (tuned there for 100k steps) one factor at a time; Double DQN is
+# left to ablation A2.
+name: tuning
+seeds: [0, 1, 2]
+base:
+  env: configs/env/lunarlander.yaml
+  train:
+    total_steps: 1000000
+  eval:
+    interval_steps: 20000
+    episodes: 10
+    final_episodes: 100
+    final_seed_start: 30000
+
+variants:
+  # ------------------------------------------------------------------ DQN (4 candidates)
+  # Longest runs first, so they start straight away.
+  - label: dqn__zoo
+    agent: &dqn
+      name: dqn
+      params:
+        hidden_sizes: [256, 256]
+        lr: 6.3e-4
+        gamma: 0.99
+        batch_size: 128
+        buffer_size: 50000
+        learning_starts: 0
+        train_frequency: 4
+        gradient_steps: 4
+        target_update_interval: 250
+        target_update_unit: steps
+        double: false
+        loss: huber
+        max_grad_norm: 10.0
+        epsilon: {schedule: linear_steps, start: 1.0, end: 0.1, decay_steps: 12000}
+  - label: dqn__lr=0.0003
+    agent: *dqn
+    overrides: {agent.params.lr: 3.0e-4}
+  - label: dqn__target_update_interval=1000
+    agent: *dqn
+    overrides: {agent.params.target_update_interval: 1000}
+  - label: dqn__buffer_size=200000
+    agent: *dqn
+    overrides: {agent.params.buffer_size: 200000}
+
+  # ------------------------------------------------------------ REINFORCE (12 candidates)
+  - label: reinforce
+    agent:
+      name: reinforce
+      params:
+        hidden_sizes: [128]
+        gamma: 0.99
+        value_hidden_sizes: [128]
+        value_lr: 1.0e-3
+    grid:
+      agent.params.lr: [3.0e-4, 1.0e-3, 3.0e-3]
+      agent.params.baseline: [normalize, value]
+      agent.params.entropy_coef: [0.0, 0.01]
+
+  # ----------------------------------------------------------- Q-learning (12 candidates)
+  - label: q_learning
+    agent:
+      name: q_learning
+      params:
+        gamma: 0.99
+        num_tilings: 16
+        table_size: 1048576
+        bounds:
+          - [-1.0, 1.0]
+          - [-0.2, 1.6]
+          - [-1.5, 1.5]
+          - [-1.5, 0.5]
+          - [-1.0, 1.0]
+          - [-2.0, 2.0]
+        discrete_dims: [6, 7]
+        epsilon: {schedule: linear_steps, start: 1.0, end: 0.05, decay_steps: 200000}
+    grid:
+      agent.params.alpha: [0.1, 0.3]
+      agent.params.tiles_per_dim: [3, 4, 6]
+      agent.params.epsilon.decay_steps: [100000, 300000]
