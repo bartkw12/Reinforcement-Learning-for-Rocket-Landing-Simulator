@@ -68,8 +68,16 @@ repository in October 2026. Values the Zoo leaves unset are SB3's defaults.
 | Target network | synced every 250 steps | n/a |
 | Zoo budget | 100,000 steps | 1,000,000 steps |
 
-The project's own DQN ([configs/agent/dqn.yaml](../configs/agent/dqn.yaml)) uses the same DQN
-values: Huber loss, gradient-norm clipping at 10, learning from the first step.
+For the implementation check below, the project's own DQN used the same DQN values: Huber
+loss, gradient-norm clipping at 10, learning from the first step.
+
+**Change for the main benchmark.** Tuning at the benchmark's 1M-step budget found that the
+Zoo's DQN settings, tuned for 100k steps, end in collapsed final policies. Halving the
+learning rate to 3e-4 removed the collapse ([results/tables/tuning.md](../results/tables/tuning.md)).
+Both [configs/agent/dqn.yaml](../configs/agent/dqn.yaml) and
+[configs/agent/sb3_dqn.yaml](../configs/agent/sb3_dqn.yaml) now use 3e-4, so the two DQNs still
+share every hyperparameter. The check below was run with the Zoo's 6.3e-4; its settings are
+recorded in [configs/experiments/baseline_check.yaml](../configs/experiments/baseline_check.yaml).
 
 ## Implementation check on LunarLander
 
@@ -79,11 +87,11 @@ benchmark uses 1M steps and 10 seeds.
 
 ![Evaluation return during training](../results/figures/baseline_check/learning_curves.png)
 
-| Agent | Seeds | Env steps | Final return [95% CI] | Seed range | Success [95% CI] | Best checkpoint return | Training time |
-| :--- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| DQN | 3 | 500k | 195.8 [177.4, 231.4] | 177.4 to 231.4 | 68% [64%, 75%] | 235.2 | 19 min |
-| SB3 DQN | 3 | 500k | 116.9 [-24.7, 226.3] | -24.7 to 226.3 | 30% [3%, 84%] | 242.4 | 21 min |
-| SB3 PPO | 3 | 500k | 139.3 [21.2, 246.7] | 21.2 to 246.7 | 39% [4%, 96%] | 139.3 | 2 min |
+| Agent | Seeds | Env steps | Final return [95% CI] | IQM over seeds | Seed range | Success [95% CI] | Reached 200 | Best checkpoint return | Training time |
+| :--- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| DQN | 3 | 500k | 195.8 [177.4, 231.4] | 195.8 | 177.4 to 231.4 | 68% [64%, 75%] | 3/3 runs, median 200k | 235.2 | 19 min |
+| SB3 DQN | 3 | 500k | 116.9 [-24.7, 226.3] | 116.9 | -24.7 to 226.3 | 30% [3%, 84%] | 3/3 runs, median 75k | 242.4 | 21 min |
+| SB3 PPO | 3 | 500k | 139.3 [21.2, 246.7] | 139.3 | 21.2 to 246.7 | 39% [4%, 96%] | 1/3 runs | 139.3 | 2 min |
 
 **The project's DQN behaves like SB3's.** The two learning curves are indistinguishable for
 most of training: every seed of both first reaches an evaluation return of 150 within
@@ -100,6 +108,11 @@ more than 100 return points between neighbouring evaluations late in training, s
 score depends on exactly when training stops. The main benchmark reports the final policy as
 its primary result. Its 10 seeds and the best-checkpoint numbers it reports alongside keep this
 from going unnoticed.
+
+**The check holds at full scale.** In the [main benchmark](benchmark.md), with 10 seeds, 1M
+steps and the tuned learning rate, the two DQNs reach the same typical performance. The IQM over
+seeds is 235.1 for the project's DQN and 237.9 for SB3's, and the best checkpoints score 272.8
+and 266.7. SB3 DQN's lower mean (183.2) comes from a single seed whose final policy collapsed.
 
 **PPO learns more slowly per step and far faster per second.** At 500,000 steps it is still
 improving (its best checkpoint is its final policy in every seed), consistent with the Zoo's
