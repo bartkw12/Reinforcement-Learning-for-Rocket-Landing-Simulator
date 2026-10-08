@@ -43,6 +43,17 @@ def available_agents() -> list[str]:
     return sorted(_REGISTRY)
 
 
+def _spec(name: str) -> AgentSpec:
+    if name not in _REGISTRY:
+        raise ConfigError(f"unknown agent {name!r}; available: {available_agents()}")
+    return _REGISTRY[name]
+
+
+def parse_params(config: AgentConfig) -> Any:
+    """The agent's hyperparameter dataclass, with defaults filled in and values checked."""
+    return from_dict(_spec(config.name).config_cls, config.params, where="agent.params")
+
+
 def build_agent(
     config: AgentConfig,
     observation_space: gym.Space[Any],
@@ -51,10 +62,8 @@ def build_agent(
     seed: int,
     device: str = "cpu",
 ) -> Policy:
-    if config.name not in _REGISTRY:
-        raise ConfigError(f"unknown agent {config.name!r}; available: {available_agents()}")
+    spec = _spec(config.name)
     if not isinstance(action_space, gym.spaces.Discrete):
         raise ConfigError(f"agents need a discrete action space, got {action_space}")
-    spec = _REGISTRY[config.name]
-    params = from_dict(spec.config_cls, config.params, where="agent.params")
+    params = parse_params(config)
     return spec.agent_cls(params, observation_space, action_space, seed=seed, device=device)
