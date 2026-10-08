@@ -48,6 +48,55 @@ def test_expand_experiment_creates_one_run_per_variant_and_seed(tmp_path: Path) 
     assert runs[2].config.train.total_steps == 50
 
 
+def test_grid_variants_cover_every_combination(tmp_path: Path) -> None:
+    spec = make_spec(
+        seeds=[0],
+        variants=[
+            {
+                "label": "rnd",
+                "agent": {"name": "random"},
+                "overrides": {"train.total_steps": 50},
+                "grid": {
+                    "eval.episodes": [1, 2],
+                    "env.kwargs.wind_power": [5.0, 0.0001],
+                    "env.kwargs.enable_wind": [True],
+                },
+            }
+        ],
+    )
+    runs = expand_experiment(spec, tmp_path)
+    assert [run.config.variant for run in runs] == [
+        "rnd__episodes=1__wind_power=5__enable_wind=True",
+        "rnd__episodes=1__wind_power=0.0001__enable_wind=True",
+        "rnd__episodes=2__wind_power=5__enable_wind=True",
+        "rnd__episodes=2__wind_power=0.0001__enable_wind=True",
+    ]
+    assert [run.config.eval.episodes for run in runs] == [1, 1, 2, 2]
+    assert runs[1].config.env.kwargs == {"wind_power": 0.0001, "enable_wind": True}
+    # Fixed overrides apply to every grid point.
+    assert all(run.config.train.total_steps == 50 for run in runs)
+
+
+@pytest.mark.parametrize(
+    "grid", [{}, {"eval.episodes": []}, {"eval.episodes": 3}, [["eval.episodes", [1]]]]
+)
+def test_malformed_grids_are_rejected(grid: Any) -> None:
+    spec = make_spec(variants=[{"label": "rnd", "agent": {"name": "random"}, "grid": grid}])
+    with pytest.raises(ConfigError, match="grid"):
+        expand_experiment(spec)
+
+
+def test_grid_labels_must_stay_unique() -> None:
+    spec = make_spec(
+        variants=[
+            {"label": "rnd__episodes=1", "agent": {"name": "random"}},
+            {"label": "rnd", "agent": {"name": "random"}, "grid": {"eval.episodes": [1]}},
+        ]
+    )
+    with pytest.raises(ConfigError, match="duplicate"):
+        expand_experiment(spec)
+
+
 @pytest.mark.parametrize(
     ("changes", "message"),
     [
