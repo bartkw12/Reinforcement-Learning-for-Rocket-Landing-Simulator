@@ -1,0 +1,29 @@
+# Main benchmark (Phase 5): five methods at an equal budget of 1M environment steps.
+#
+# - Ten training seeds (100-109) that tuning never used.
+# - Every final policy is tested on the same 100 held-out episodes (seeds 10000-10099), which
+#   tuning never saw either; periodic evaluations use episodes 20000-20009.
+# - The project's agents use the hyperparameters selected in configs/experiments/tuning.yaml
+#   (results/tables/tuning.md); the SB3 agents use RL Baselines3 Zoo's tuned values.
+name: main_benchmark
+seeds: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109]
+base:
+  env: configs/env/lunarlander.yaml
+  train:
+    total_steps: 1000000
+  eval:
+    interval_steps: 10000
+    episodes: 10
+    final_episodes: 100
+variants:
+  # Longest runs first, so they start straight away.
+  - label: dqn
+    agent: configs/agent/dqn.yaml
+  - label: sb3_dqn
+    agent: configs/agent/sb3_dqn.yaml
+  - label: q_learning
+    agent: configs/agent/q_learning.yaml
+  - label: reinforce
+    agent: configs/agent/reinforce.yaml
+  - label: sb3_ppo
+    agent: configs/agent/sb3_ppo.yaml
