@@ -1,11 +1,13 @@
-# REINFORCE with a learned value baseline. Starting point for tuning (Phase 5); the
-# baseline choice itself is ablation A1.
+# REINFORCE as selected by tuning for a budget of 1M environment steps
+# (configs/experiments/tuning.yaml, results/tables/tuning.md). The choice of baseline is
+# studied separately in ablation A1.
 name: reinforce
 params:
   hidden_sizes: [128]
-  lr: 1.0e-3
+  lr: 3.0e-3
   gamma: 0.99
-  baseline: value
+  baseline: normalize
+  # Used only by the value baseline; kept so the settings match the tuned candidate exactly.
   value_hidden_sizes: [128]
   value_lr: 1.0e-3
-  entropy_coef: 0.0
+  entropy_coef: 0.01
