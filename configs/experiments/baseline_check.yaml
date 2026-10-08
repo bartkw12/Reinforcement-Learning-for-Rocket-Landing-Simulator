@@ -2,6 +2,9 @@
 # hyperparameters (RL Baselines3 Zoo's, for LunarLander-v3)? SB3 PPO is included to confirm
 # the PPO baseline learns under this project's protocol. A short check on three seeds; the
 # headline comparison is the main benchmark.
+#
+# Agent settings are written out (they are the Zoo values configs/agent/ held at the time),
+# so later tuning of configs/agent/ does not change what this experiment reproduces.
 name: baseline_check
 seeds: [0, 1, 2]
 base:
@@ -14,8 +17,39 @@ base:
     final_episodes: 100
 variants:
   - label: dqn
-    agent: configs/agent/dqn.yaml
+    agent:
+      name: dqn
+      params:
+        hidden_sizes: [256, 256]
+        lr: 6.3e-4
+        gamma: 0.99
+        batch_size: 128
+        buffer_size: 50000
+        learning_starts: 0
+        train_frequency: 4
+        gradient_steps: 4
+        target_update_interval: 250
+        target_update_unit: steps
+        double: false
+        loss: huber
+        max_grad_norm: 10.0
+        epsilon: {schedule: linear_steps, start: 1.0, end: 0.1, decay_steps: 12000}
   - label: sb3_dqn
-    agent: configs/agent/sb3_dqn.yaml
+    agent:
+      name: sb3_dqn
+      params:
+        learning_rate: 6.3e-4
+        batch_size: 128
+        buffer_size: 50000
+        learning_starts: 0
+        gamma: 0.99
+        target_update_interval: 250
+        train_freq: 4
+        gradient_steps: -1
+        exploration_decay_steps: 12000
+        exploration_initial_eps: 1.0
+        exploration_final_eps: 0.1
+        max_grad_norm: 10.0
+        net_arch: [256, 256]
   - label: sb3_ppo
     agent: configs/agent/sb3_ppo.yaml
