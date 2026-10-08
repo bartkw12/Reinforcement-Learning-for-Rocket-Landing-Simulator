@@ -64,7 +64,16 @@ methods determine their actions based on value function estimating a Q-value.
 
 > **Note (v2):** the results below are from the original v1.0 project: one unseeded run per
 > configuration. A five-seed replication on the corrected code changes several of these
-> conclusions; see the [replication study](docs/replication.md).
+> conclusions; see the [replication study](docs/replication.md). In the v2
+> [main benchmark](docs/benchmark.md) (10 seeds, 1M steps each, 100 held-out test episodes):
+>
+> | Method | Final test return [95% CI] | Success |
+> | :--- | ---: | ---: |
+> | SB3 PPO (reference) | 258.8 [251.6, 265.0] | 99% |
+> | DQN | 234.1 [213.2, 254.5] | 79% |
+> | Q-learning (tile coding) | 211.5 [203.0, 218.6] | 76% |
+> | SB3 DQN (reference) | 183.2 [65.9, 253.6] | 76% |
+> | REINFORCE | 178.9 [141.7, 210.3] | 62% |
 
 Each RL algorithm was tested with 3 different configurations of hyperparameters.
 The detailed results can be seen in the [docs/legacy/v1_results](docs/legacy/v1_results) directory. Please note that these hyperparameter
@@ -157,8 +166,8 @@ The v2 experiment pipeline is being built on the `lunarlander_rl` package. The t
 above have been re-implemented on it with the v1 bugs fixed (agent configs in
 [configs/agent](configs/agent)); the v1 scripts are preserved under the `v1.0-course-project` tag.
 Stable-Baselines3 DQN and PPO run through the same pipeline as reference baselines
-([docs/baselines.md](docs/baselines.md)). The v2 results are not in yet: the table above still
-reports v1.
+([docs/baselines.md](docs/baselines.md)). The v2 results are in the
+[main benchmark](docs/benchmark.md); the table above still reports v1.
 
 <bash>
 
