@@ -47,6 +47,7 @@ def table(summary: pd.DataFrame, order: Sequence[str] | None = None) -> str:
                     r["mean_return"], r["mean_return_ci_low"], r["mean_return_ci_high"]
                 ),
             ),
+            ("IQM over seeds", lambda r: number(r["iqm_over_seeds"])),
             (
                 "Seed range",
                 lambda r: f"{number(r['seed_min_return'])} to {number(r['seed_max_return'])}",
@@ -57,8 +58,32 @@ def table(summary: pd.DataFrame, order: Sequence[str] | None = None) -> str:
                     r["success_rate"], r["success_rate_ci_low"], r["success_rate_ci_high"], percent
                 ),
             ),
+            ("Reached 200", lambda r: _reached(r)),
             ("Best checkpoint return", lambda r: number(r["best_mean_return"])),
             ("Training time", lambda r: f"{r['training_minutes']:.0f} min"),
+        ],
+    )
+
+
+def _reached(row: pd.Series) -> str:
+    """``"8/10 runs, median 180k"``: runs whose evaluation reached a return of 200, and the
+    median steps it took (shown only if at least half of the runs got there)."""
+    text = f"{row['runs_reaching_200']:.0f}/{row['seeds']:.0f} runs"
+    if not pd.isna(row["median_steps_to_200"]):
+        text += f", median {row['median_steps_to_200'] / 1e3:,.0f}k"
+    return text
+
+
+def outcome_table(summary: pd.DataFrame, order: Sequence[str] | None = None) -> str:
+    """How the final policies' test episodes ended, averaged over seeds."""
+    return markdown_table(
+        ordered(summary, order),
+        [
+            ("Agent", lambda r: display_name(r["variant"])),
+            ("Landed", lambda r: percent(r["frac_landed"])),
+            ("Crashed", lambda r: percent(r["frac_crashed"])),
+            ("Out of bounds", lambda r: percent(r["frac_out_of_bounds"])),
+            ("Timed out", lambda r: percent(r["frac_timeout"])),
         ],
     )
 
