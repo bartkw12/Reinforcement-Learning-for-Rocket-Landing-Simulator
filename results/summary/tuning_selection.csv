@@ -1,0 +1,4 @@
+family,variant,mean_return,seeds
+dqn,dqn__lr=0.0003,237.0405399938733,3
+q_learning,q_learning__alpha=0.3__tiles_per_dim=6__decay_steps=100000,216.77376849687508,3
+reinforce,reinforce__lr=0.003__baseline=normalize__entropy_coef=0.01,203.87168376290347,3
