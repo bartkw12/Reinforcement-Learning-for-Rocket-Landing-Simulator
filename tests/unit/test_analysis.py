@@ -2,7 +2,8 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from lunarlander_rl.analysis import replication
+from lunarlander_rl.analysis import replication, tuning
+from lunarlander_rl.analysis.aggregate import steps_to_threshold
 from lunarlander_rl.analysis.stats import bootstrap_ci
 from lunarlander_rl.analysis.tables import markdown_table, number, percent, with_interval
 
@@ -87,3 +88,53 @@ def test_comparison_orders_rows_and_matches_v1_numbers() -> None:
     # The bug-reproducing variant is compared against the config it copies.
     assert by_variant.loc["dqn_cfg1_v1bugs", "v1_mean_return"] == 194.7
     assert by_variant.loc["dqn_cfg1_v1bugs", "v1_success_rate"] == 0.67
+
+
+def test_steps_to_threshold() -> None:
+    evaluations = pd.DataFrame(
+        {"env_step": [0, 10, 20, 30], "mean_return": [-100.0, 150.0, 205.0, 190.0]}
+    )
+    assert steps_to_threshold(evaluations, 200.0) == 20.0
+    assert np.isnan(steps_to_threshold(evaluations, 300.0))
+
+
+def tuning_summary() -> pd.DataFrame:
+    summary: pd.DataFrame = pd.DataFrame(
+        {
+            "variant": [
+                "dqn__zoo",
+                "dqn__lr=0.0003",
+                "q_learning__alpha=0.1__tiles_per_dim=4",
+                "q_learning__alpha=0.3__tiles_per_dim=4",
+            ],
+            "mean_return": [180.0, 210.0, 50.0, 20.0],
+            "seeds": [3, 3, 3, 3],
+        }
+    )
+    return summary
+
+
+def test_tuning_selection_picks_the_best_candidate_per_family() -> None:
+    selected = tuning.selection(tuning_summary())
+    assert selected["variant"].tolist() == [
+        "dqn__lr=0.0003",
+        "q_learning__alpha=0.1__tiles_per_dim=4",
+    ]
+    assert tuning.family("q_learning__alpha=0.1") == "q_learning"
+    assert tuning.settings("q_learning__alpha=0.1__tiles_per_dim=4") == "alpha=0.1, tiles_per_dim=4"
+    assert tuning.settings("dqn") == "(base)"
+
+
+def test_tuning_table_marks_the_selection() -> None:
+    summary = tuning_summary().assign(
+        mean_return_ci_low=0.0,
+        mean_return_ci_high=1.0,
+        seed_min_return=0.0,
+        seed_max_return=1.0,
+        success_rate=0.5,
+        best_mean_return=1.0,
+    )
+    text = tuning.table(summary)
+    assert text.index("#### DQN") < text.index("#### Q-learning")
+    assert "**lr=0.0003** (selected)" in text
+    assert "| zoo |" in text
