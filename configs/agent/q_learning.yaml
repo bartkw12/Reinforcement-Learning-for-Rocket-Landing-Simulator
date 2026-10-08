@@ -1,14 +1,13 @@
-# Q-learning with a tile-coded linear value function. Starting point for tuning (Phase 5).
+# Q-learning with a tile-coded linear value function, as selected by tuning for a budget of
+# 1M environment steps (configs/experiments/tuning.yaml, results/tables/tuning.md).
 name: q_learning
 params:
   alpha: 0.3
   gamma: 0.99
   num_tilings: 16
-  # Six tiled dimensions make resolution expensive: 8 tiles per dimension gives ~262k
-  # cells per tiling, too many to visit in 1M steps, and learning stalled in a 300k-step
-  # probe (Phase 2 notes). 4 tiles generalise far better.
-  tiles_per_dim: 4
-  table_size: 262144
+  tiles_per_dim: 6
+  # Large enough for the tiles visited in 1M steps without hash collisions.
+  table_size: 1048576
   # x, y, vx, vy, angle, angular velocity. Chosen to cover the states visited by
   # Gymnasium's heuristic lander with a margin; values outside fall in the edge tiles.
   # The observation space's own bounds (+-10 for velocities, used by v1.0) put nearly
@@ -25,4 +24,4 @@ params:
     schedule: linear_steps
     start: 1.0
     end: 0.05
-    decay_steps: 200000
+    decay_steps: 100000
