@@ -13,12 +13,20 @@ An experiment file looks like::
       - label: dqn_double
         agent: configs/agent/dqn.yaml
         overrides: {agent.params.double: true}
+      - label: q_learning      # a grid: one variant per combination of the listed values
+        agent: configs/agent/q_learning.yaml
+        grid:
+          agent.params.alpha: [0.1, 0.3]
+          agent.params.tiles_per_dim: [4, 6]
 
-File paths inside it are relative to the working directory.
+A grid variant expands into variants labelled ``q_learning__alpha=0.1__tiles_per_dim=4`` and
+so on (the last component of each key and its value). File paths inside an experiment file
+are relative to the working directory.
 """
 
 from __future__ import annotations
 
+import itertools
 import time
 import traceback
 from collections.abc import Callable, Mapping, Sequence
@@ -39,7 +47,7 @@ from lunarlander_rl.tracking import RunPaths
 from lunarlander_rl.training import run_experiment
 
 _SPEC_KEYS = {"name", "seeds", "base", "variants"}
-_VARIANT_KEYS = {"label", "agent", "overrides"}
+_VARIANT_KEYS = {"label", "agent", "overrides", "grid"}
 _RESERVED_BASE_KEYS = {"name", "label", "seed", "agent"}
 
 
@@ -94,29 +102,57 @@ def expand_experiment(spec: Mapping[str, Any], runs_root: str | Path = "runs") -
         _check_keys(variant, _VARIANT_KEYS, where)
         if "label" not in variant or "agent" not in variant:
             raise ConfigError(f"{where}: 'label' and 'agent' are required")
-        label = str(variant["label"])
-        if label in labels:
-            raise ConfigError(f"{where}: duplicate label {label!r}")
-        labels.add(label)
         overrides = variant.get("overrides") or {}
         if not isinstance(overrides, Mapping):
             raise ConfigError(f"{where}.overrides: expected a mapping of key.path to value")
 
-        for seed in seeds:
-            raw: dict[str, Any] = {
-                **resolve_section(base, "experiment.base"),
-                "name": spec["name"],
-                "label": label,
-                "seed": seed,
-                "agent": resolve_section(variant["agent"], f"{where}.agent"),
-            }
-            if "env" in raw:
-                raw["env"] = resolve_section(raw["env"], "experiment.base.env")
-            for dotted_key, value in overrides.items():
-                set_by_path(raw, str(dotted_key), value)
-            config = build_experiment_config(raw)
-            runs.append(RunSpec(config=config, run_dir=config.run_dir(runs_root)))
+        for label, combination in _grid_points(str(variant["label"]), variant.get("grid"), where):
+            if label in labels:
+                raise ConfigError(f"{where}: duplicate label {label!r}")
+            labels.add(label)
+            for seed in seeds:
+                raw: dict[str, Any] = {
+                    **resolve_section(base, "experiment.base"),
+                    "name": spec["name"],
+                    "label": label,
+                    "seed": seed,
+                    "agent": resolve_section(variant["agent"], f"{where}.agent"),
+                }
+                if "env" in raw:
+                    raw["env"] = resolve_section(raw["env"], "experiment.base.env")
+                for dotted_key, value in {**overrides, **combination}.items():
+                    set_by_path(raw, str(dotted_key), value)
+                config = build_experiment_config(raw)
+                runs.append(RunSpec(config=config, run_dir=config.run_dir(runs_root)))
     return runs
+
+
+def _format_value(value: Any) -> str:
+    if isinstance(value, float):
+        return f"{value:g}"
+    if isinstance(value, (list, tuple)):
+        return "-".join(_format_value(v) for v in value)
+    return str(value)
+
+
+def _grid_points(label: str, grid: Any, where: str) -> list[tuple[str, dict[str, Any]]]:
+    """``(label, overrides)`` for every combination of a variant's grid (one point if none)."""
+    if grid is None:
+        return [(label, {})]
+    if not isinstance(grid, Mapping) or not grid:
+        raise ConfigError(f"{where}.grid: expected a non-empty mapping of key.path to values")
+    for key, values in grid.items():
+        if not isinstance(values, list) or not values:
+            raise ConfigError(f"{where}.grid.{key}: expected a non-empty list of values")
+    keys = [str(key) for key in grid]
+    points = []
+    for values in itertools.product(*grid.values()):
+        suffix = "".join(
+            f"__{key.rsplit('.', 1)[-1]}={_format_value(value)}"
+            for key, value in zip(keys, values, strict=True)
+        )
+        points.append((label + suffix, dict(zip(keys, values, strict=True))))
+    return points
 
 
 def load_experiment(path: str | Path, runs_root: str | Path = "runs") -> list[RunSpec]:
