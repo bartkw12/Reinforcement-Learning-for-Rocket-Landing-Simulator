@@ -1,10 +1,12 @@
-# DQN. Hyperparameters follow RL Baselines3 Zoo's tuned DQN for LunarLander
-# (hyperparams/dqn.yml), so this implementation can be checked against SB3's DQN with the
-# same settings. Starting point for tuning (Phase 5).
+# DQN as selected by tuning for a budget of 1M environment steps
+# (configs/experiments/tuning.yaml, results/tables/tuning.md). These are RL Baselines3 Zoo's
+# tuned values for LunarLander-v3 (hyperparams/dqn.yml) with the learning rate lowered from
+# 6.3e-4 to 3e-4: the Zoo tuned for 100k steps, and at 1M its final policies collapsed.
+# configs/agent/sb3_dqn.yaml uses the same values, so SB3's DQN checks this implementation.
 name: dqn
 params:
   hidden_sizes: [256, 256]
-  lr: 6.3e-4
+  lr: 3.0e-4
   gamma: 0.99
   batch_size: 128
   buffer_size: 50000
