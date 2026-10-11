@@ -190,4 +190,4 @@ in `final_eval.json`, and checkpoints.
 
 TO BE ADDRESSED.
 
-Last phase 7 updates coming soon.
+Last phase 7 updates coming soon edits to be made to read me and results presentation.
