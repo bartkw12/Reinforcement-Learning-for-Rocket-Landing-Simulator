@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from collections.abc import Sequence
+from collections.abc import Mapping, Sequence
 from pathlib import Path
 
 import pandas as pd
@@ -22,7 +22,11 @@ from lunarlander_rl.analysis.tables import markdown_table, number, percent, with
 
 
 def display_name(variant: str) -> str:
-    return ALGORITHM_NAMES.get(variant, variant)
+    """``"dqn"`` -> ``"DQN"``, and ``"dqn__double=True__loss=mse"`` ->
+    ``"DQN (double=True, loss=mse)"``."""
+    family, _, rest = variant.partition("__")
+    name = ALGORITHM_NAMES.get(family, family)
+    return f"{name} ({rest.replace('__', ', ')})" if rest else name
 
 
 def ordered(frame: pd.DataFrame, order: Sequence[str] | None) -> pd.DataFrame:
@@ -89,12 +93,16 @@ def outcome_table(summary: pd.DataFrame, order: Sequence[str] | None = None) -> 
 
 
 def plot_learning_curves(
-    evaluations: pd.DataFrame, out: str | Path, order: Sequence[str] | None = None
+    evaluations: pd.DataFrame,
+    out: str | Path,
+    order: Sequence[str] | None = None,
+    colors: Mapping[str, str] | None = None,
 ) -> list[Path]:
     """Periodic evaluation return against environment steps.
 
     The line is the mean over seeds of each evaluation's mean return (10 episodes on fixed
-    seeds); the band spans the lowest to the highest seed.
+    seeds); the band spans the lowest to the highest seed. Colours default to each method's
+    house colour; pass ``colors`` (variant -> colour) when variants share a method.
     """
     fig = new_figure(6.5, 3.8)
     ax = fig.subplots()
@@ -103,7 +111,9 @@ def plot_learning_curves(
     for _, row in variants.iterrows():
         group = evaluations.loc[evaluations["variant"] == row["variant"]]
         wide = group.pivot(index="env_step", columns="seed", values="mean_return")
-        color = ALGORITHM_COLORS.get(row["variant"], ALGORITHM_COLORS.get(row["agent"], "#444444"))
+        color = (colors or {}).get(row["variant"]) or ALGORITHM_COLORS.get(
+            row["variant"], ALGORITHM_COLORS.get(row["agent"], "#444444")
+        )
         ax.fill_between(wide.index, wide.min(axis=1), wide.max(axis=1), color=color, alpha=0.15)
         ax.plot(wide.index, wide.mean(axis=1), color=color, linewidth=1.6)
         handles.append(

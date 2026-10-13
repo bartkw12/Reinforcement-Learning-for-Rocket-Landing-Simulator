@@ -1,0 +1,27 @@
+# Ablation A3: how well do the benchmark's final policies cope with wind they never saw?
+#
+# Every final policy of the main benchmark (5 methods x 10 seeds) is re-evaluated, without
+# retraining, on the same 100 held-out test episodes under increasing wind. Gymnasium's
+# LunarLander adds a sideways wind force (wind_power, up to 20) and a rotational turbulence
+# (turbulence_power, up to 2); both scale together here, and wind 15 with turbulence 1.5 is
+# Gymnasium's default "windy" setting. The calm condition repeats each run's own final
+# evaluation, as a check that the re-evaluation is exact.
+name: wind
+runs: runs/main_benchmark
+checkpoint: final
+conditions:
+  - label: calm
+    level: 0
+    overrides: {}
+  - label: wind_5
+    level: 5
+    overrides: {env.kwargs.enable_wind: true, env.kwargs.wind_power: 5.0, env.kwargs.turbulence_power: 0.5}
+  - label: wind_10
+    level: 10
+    overrides: {env.kwargs.enable_wind: true, env.kwargs.wind_power: 10.0, env.kwargs.turbulence_power: 1.0}
+  - label: wind_15
+    level: 15
+    overrides: {env.kwargs.enable_wind: true, env.kwargs.wind_power: 15.0, env.kwargs.turbulence_power: 1.5}
+  - label: wind_20
+    level: 20
+    overrides: {env.kwargs.enable_wind: true, env.kwargs.wind_power: 20.0, env.kwargs.turbulence_power: 2.0}

@@ -1,0 +1,39 @@
+# Ablation A2b: why did v1.0's DQN config 3 fail - its discount factor or its MSE loss?
+#
+# v1.0 config 3 changed three things at once from config 1 (gamma 0.99 -> 0.90, Huber -> MSE,
+# buffer 10k -> 50k), and both versions of it failed (docs/replication.md). This 2 x 2
+# factorial varies gamma and the loss on v1.0 config 1, keeping its buffer and everything else,
+# under the replication study's protocol (1,000 episodes, seeds 0-4). The gamma 0.99/Huber
+# cell is v1.0 config 1 itself, so it reproduces the replication's dqn_cfg1 runs exactly.
+name: ablation_dqn_v1
+seeds: [0, 1, 2, 3, 4]
+base:
+  env: configs/env/lunarlander.yaml
+  train:
+    total_steps: null
+    total_episodes: 1000
+  eval:
+    interval_steps: 50000
+    episodes: 10
+    final_episodes: 100
+variants:
+  - label: dqn_v1
+    agent:
+      name: dqn
+      params:
+        hidden_sizes: [64, 64]
+        lr: 1.0e-3
+        gamma: 0.99
+        batch_size: 64
+        buffer_size: 10000
+        learning_starts: 65
+        train_frequency: 1
+        gradient_steps: 1
+        target_update_interval: 10
+        target_update_unit: episodes
+        loss: huber
+        max_grad_norm: null
+        epsilon: {schedule: exponential_episodes, start: 1.0, end: 0.01, decay_rate: 0.995}
+    grid:
+      agent.params.gamma: [0.99, 0.9]
+      agent.params.loss: [huber, mse]
