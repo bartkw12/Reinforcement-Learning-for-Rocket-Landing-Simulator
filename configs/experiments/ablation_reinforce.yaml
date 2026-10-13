@@ -1,0 +1,36 @@
+# Ablation A1: what REINFORCE's learning signal is made of.
+#
+# A 3 x 2 factorial on the benchmark's REINFORCE (settings written out below, identical to
+# configs/agent/reinforce.yaml at the time of the benchmark):
+#   baseline:     none (raw returns), normalize (returns standardised per episode),
+#                 value (returns minus a learned state value)
+#   entropy_coef: 0 or 0.01
+# The learning rate stays at its tuned value (3e-3), which was selected with the normalize
+# baseline; the other cells are therefore compared at a learning rate not tuned for them.
+# Ten benchmark seeds at the full 1M-step budget. The normalize/0.01 cell is the benchmark
+# configuration on benchmark seeds, so it reproduces the ten benchmark runs exactly.
+name: ablation_reinforce
+seeds: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109]
+base:
+  env: configs/env/lunarlander.yaml
+  train:
+    total_steps: 1000000
+  eval:
+    interval_steps: 10000
+    episodes: 10
+    final_episodes: 100
+variants:
+  - label: reinforce
+    agent:
+      name: reinforce
+      params:
+        hidden_sizes: [128]
+        lr: 3.0e-3
+        gamma: 0.99
+        baseline: normalize
+        value_hidden_sizes: [128]
+        value_lr: 1.0e-3
+        entropy_coef: 0.01
+    grid:
+      agent.params.baseline: [none, normalize, value]
+      agent.params.entropy_coef: [0.0, 0.01]
