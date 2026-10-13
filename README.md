@@ -167,7 +167,8 @@ above have been re-implemented on it with the v1 bugs fixed (agent configs in
 [configs/agent](configs/agent)); the v1 scripts are preserved under the `v1.0-course-project` tag.
 Stable-Baselines3 DQN and PPO run through the same pipeline as reference baselines
 ([docs/baselines.md](docs/baselines.md)). The v2 results are in the
-[main benchmark](docs/benchmark.md); the table above still reports v1.
+[main benchmark](docs/benchmark.md) and the [ablations](docs/ablations.md); the table above
+still reports v1.
 
 <bash>
 
