@@ -143,7 +143,9 @@ updates make each step of improvement small but reliable.
 checkpoints average 38.7 points more than the final policies. The two weakest final policies
 (seeds 103 and 109) had scored 268.6 and 267.7 at their best, then degraded into more crashes
 and timeouts. This is the same late instability that made the Zoo's settings collapse in
-tuning. The lower learning rate contains it but does not remove it.
+tuning. The lower learning rate contains it but does not remove it. Double DQN does: in ablation
+A2a its final policies score 257.3 [253.1, 264.3] on five of these seeds
+([ablations](ablations.md)).
 
 **The two DQN implementations are equivalent.** Their learning curves overlap throughout, their
 IQMs differ by 2.8 points and their best checkpoints by 6.1. SB3 DQN's one collapsed seed (105)
@@ -188,8 +190,9 @@ configurations.
   improvement.
 - **Stochastic policies are evaluated greedily.** For REINFORCE this can understate
   performance ([replication study](replication.md)); ablation A6 measures the effect here.
-- **One environment.** The conclusions are about LunarLander-v3 without wind. Ablation A3
-  tests robustness to wind.
+- **One environment.** The conclusions are about LunarLander-v3 without wind. Under wind the
+  ranking changes: at Gymnasium's default wind, REINFORCE's policies hold up best and
+  Q-learning's worst ([ablation A3](ablations.md#a3-robustness-to-wind)).
 
 ## Reproducing
 
