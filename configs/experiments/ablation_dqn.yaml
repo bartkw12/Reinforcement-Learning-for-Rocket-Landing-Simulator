@@ -1,0 +1,42 @@
+# Ablation A2a: Double DQN and the TD loss, on the benchmark's DQN.
+#
+# A 2 x 2 factorial: target {standard DQN, Double DQN} x loss {Huber, MSE}, everything else
+# as in the main benchmark (agent settings written out below, identical to
+# configs/agent/dqn.yaml at the time of the benchmark). Five of the benchmark's training seeds
+# at the full 1M-step budget: Double DQN addresses overestimation, whose effects here (late
+# instability of the final policy) appear only after several hundred thousand steps.
+#
+# The standard-DQN/Huber cell is the benchmark configuration on benchmark seeds, so it
+# reproduces those five benchmark runs exactly.
+name: ablation_dqn
+seeds: [100, 101, 102, 103, 104]
+base:
+  env: configs/env/lunarlander.yaml
+  train:
+    total_steps: 1000000
+  eval:
+    interval_steps: 10000
+    episodes: 10
+    final_episodes: 100
+variants:
+  - label: dqn
+    agent:
+      name: dqn
+      params:
+        hidden_sizes: [256, 256]
+        lr: 3.0e-4
+        gamma: 0.99
+        batch_size: 128
+        buffer_size: 50000
+        learning_starts: 0
+        train_frequency: 4
+        gradient_steps: 4
+        target_update_interval: 250
+        target_update_unit: steps
+        double: false
+        loss: huber
+        max_grad_norm: 10.0
+        epsilon: {schedule: linear_steps, start: 1.0, end: 0.1, decay_steps: 12000}
+    grid:
+      agent.params.double: [false, true]
+      agent.params.loss: [huber, mse]
