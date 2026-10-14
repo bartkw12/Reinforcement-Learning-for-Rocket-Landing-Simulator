@@ -64,16 +64,19 @@ methods determine their actions based on value function estimating a Q-value.
 
 > **Note (v2):** the results below are from the original v1.0 project: one unseeded run per
 > configuration. A five-seed replication on the corrected code changes several of these
-> conclusions; see the [replication study](docs/replication.md). In the v2
-> [main benchmark](docs/benchmark.md) (10 seeds, 1M steps each, 100 held-out test episodes):
->
-> | Method | Final test return [95% CI] | Success |
-> | :--- | ---: | ---: |
-> | SB3 PPO (reference) | 258.8 [251.6, 265.0] | 99% |
-> | DQN | 234.1 [213.2, 254.5] | 79% |
-> | Q-learning (tile coding) | 211.5 [203.0, 218.6] | 76% |
-> | SB3 DQN (reference) | 183.2 [65.9, 253.6] | 76% |
-> | REINFORCE | 178.9 [141.7, 210.3] | 62% |
+> conclusions; see the [replication study](docs/replication.md). The v2
+> [main benchmark](docs/benchmark.md) (10 seeds, 1M steps each, 100 held-out test episodes;
+> SB3 rows are reference baselines) gives:
+
+<!-- include: results/tables/main_benchmark_headline.md -->
+| Method | IQM test return [95% CI] | Mean test return [95% CI] | Success | Training time |
+| :--- | ---: | ---: | ---: | ---: |
+| SB3 PPO | 260.3 [252.4, 265.8] | 258.8 [251.6, 265.0] | 99% | 8 min |
+| DQN | 235.1 [206.6, 260.5] | 234.1 [213.2, 254.5] | 79% | 62 min |
+| SB3 DQN | 237.9 [121.3, 262.5] | 183.2 [65.9, 253.6] | 76% | 70 min |
+| Q-learning | 213.4 [203.6, 220.8] | 211.5 [203.0, 218.6] | 76% | 4 min |
+| REINFORCE | 195.4 [136.8, 219.2] | 178.9 [141.7, 210.3] | 62% | 5 min |
+<!-- end include -->
 
 Each RL algorithm was tested with 3 different configurations of hyperparameters.
 The detailed results can be seen in the [docs/legacy/v1_results](docs/legacy/v1_results) directory. Please note that these hyperparameter
@@ -180,6 +183,14 @@ still reports v1.
 
     # re-evaluate a saved policy, optionally under different conditions
     python scripts/evaluate.py runs/smoke/random/seed_0 --set env.kwargs.enable_wind=true
+
+    # every experiment, table and figure of the project (hours), or a few-minute smoke test
+    python scripts/reproduce_all.py --workers 20
+    python scripts/reproduce_all.py --quick --workers 4
+
+    # rebuild one experiment's tables and figures from its runs, and copy tables into the docs
+    python scripts/report.py main_benchmark
+    python scripts/sync_docs.py
 
 </bash>
 
