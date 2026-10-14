@@ -46,6 +46,7 @@ so the other baselines run at a learning rate not tuned for them.
 
 ![A1 final returns](../results/figures/ablation_reinforce/final_returns.png)
 
+<!-- include: results/tables/ablation_reinforce.md -->
 | Agent | Seeds | Env steps | Final return [95% CI] | IQM over seeds | Seed range | Success [95% CI] | Reached 200 | Best checkpoint return | Training time |
 | :--- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | REINFORCE (baseline=none, entropy_coef=0) | 10 | 1,000k | 133.5 [89.8, 175.5] | 131.5 | -12.1 to 239.7 | 32% [14%, 53%] | 5/10 runs | 175.2 | 6 min |
@@ -54,7 +55,9 @@ so the other baselines run at a learning rate not tuned for them.
 | REINFORCE (baseline=normalize, entropy_coef=0.01) | 10 | 1,000k | 178.9 [141.7, 210.3] | 195.4 | 73.0 to 234.8 | 62% [44%, 76%] | 10/10 runs, median 385k | 232.2 | 5 min |
 | REINFORCE (baseline=value, entropy_coef=0) | 10 | 1,000k | 113.0 [66.6, 162.2] | 109.5 | 2.1 to 263.6 | 23% [6%, 45%] | 5/10 runs | 186.1 | 6 min |
 | REINFORCE (baseline=value, entropy_coef=0.01) | 10 | 1,000k | 131.6 [88.1, 173.7] | 135.7 | -18.9 to 274.6 | 24% [10%, 44%] | 6/10 runs, median 490k | 170.4 | 6 min |
+<!-- end include -->
 
+<!-- include: results/tables/ablation_reinforce_outcomes.md -->
 | Agent | Landed | Crashed | Out of bounds | Timed out |
 | :--- | ---: | ---: | ---: | ---: |
 | REINFORCE (baseline=none, entropy_coef=0) | 46% | 7% | 0% | 47% |
@@ -63,6 +66,7 @@ so the other baselines run at a learning rate not tuned for them.
 | REINFORCE (baseline=normalize, entropy_coef=0.01) | 72% | 13% | 0% | 15% |
 | REINFORCE (baseline=value, entropy_coef=0) | 29% | 6% | 0% | 65% |
 | REINFORCE (baseline=value, entropy_coef=0.01) | 28% | 2% | 0% | 69% |
+<!-- end include -->
 
 **Hovering is REINFORCE's dominant failure.** Five of the six variants time out in 47–69% of
 test episodes: their policies learn to avoid the crash penalty by staying in the air. Only the
@@ -92,12 +96,14 @@ Seeds 100–104 at 1M steps, otherwise exactly the benchmark's DQN.
 
 ![A2a final returns](../results/figures/ablation_dqn/final_returns.png)
 
+<!-- include: results/tables/ablation_dqn.md -->
 | Agent | Seeds | Env steps | Final return [95% CI] | IQM over seeds | Seed range | Success [95% CI] | Reached 200 | Best checkpoint return | Training time |
 | :--- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | DQN (double=False, loss=huber) | 5 | 1,000k | 232.7 [209.8, 256.8] | 233.9 | 189.0 to 272.7 | 78% [68%, 88%] | 5/5 runs, median 50k | 275.8 | 70 min |
 | DQN (double=True, loss=huber) | 5 | 1,000k | 257.3 [253.1, 264.3] | 254.3 | 252.3 to 271.2 | 88% [85%, 92%] | 5/5 runs, median 90k | 248.2 | 74 min |
 | DQN (double=False, loss=mse) | 5 | 1,000k | -263.3 [-636.4, 109.7] | -228.8 | -899.6 to 269.2 | 33% [0%, 70%] | 5/5 runs, median 110k | 269.8 | 68 min |
 | DQN (double=True, loss=mse) | 5 | 1,000k | -289.1 [-594.0, -7.7] | -249.6 | -829.8 to 133.0 | 14% [0%, 37%] | 5/5 runs, median 80k | 263.1 | 73 min |
+<!-- end include -->
 
 **Double DQN stabilises the final policy.** With Huber loss, every Double DQN seed's final
 policy scores between 252.3 and 271.2, and its interval sits above standard DQN's for almost all
@@ -131,19 +137,23 @@ Configuration: [configs/experiments/ablation_dqn_v1.yaml](../configs/experiments
 v1.0's config 1 (64-unit network, 10k buffer, target sync every 10 episodes, 1,000 episodes),
 crossing its discount factor with its loss. The γ = 0.99/Huber cell is v1.0 config 1 itself.
 
+<!-- include: results/tables/ablation_dqn_v1.md -->
 | Agent | Seeds | Env steps | Final return [95% CI] | IQM over seeds | Seed range | Success [95% CI] | Reached 200 | Best checkpoint return | Training time |
 | :--- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | dqn_v1 (gamma=0.99, loss=huber) | 5 | 424k | 142.2 [91.5, 180.2] | 154.7 | 49.1 to 197.6 | 45% [28%, 57%] | 2/5 runs | 180.5 | 13 min |
 | dqn_v1 (gamma=0.99, loss=mse) | 5 | 405k | 144.8 [104.5, 191.4] | 132.1 | 92.5 to 235.5 | 56% [46%, 71%] | 1/5 runs | 150.1 | 11 min |
 | dqn_v1 (gamma=0.9, loss=huber) | 5 | 729k | -114.1 [-187.7, -64.5] | -89.6 | -254.4 to -47.1 | 2% [0%, 5%] | 0/5 runs | -74.3 | 21 min |
 | dqn_v1 (gamma=0.9, loss=mse) | 5 | 658k | -128.6 [-163.1, -95.6] | -127.1 | -189.8 to -71.9 | 0% [0%, 0%] | 0/5 runs | -82.0 | 15 min |
+<!-- end include -->
 
+<!-- include: results/tables/ablation_dqn_v1_outcomes.md -->
 | Agent | Landed | Crashed | Out of bounds | Timed out |
 | :--- | ---: | ---: | ---: | ---: |
 | dqn_v1 (gamma=0.99, loss=huber) | 49% | 38% | 0% | 13% |
 | dqn_v1 (gamma=0.99, loss=mse) | 63% | 21% | 4% | 13% |
 | dqn_v1 (gamma=0.9, loss=huber) | 2% | 10% | 12% | 76% |
 | dqn_v1 (gamma=0.9, loss=mse) | 0% | 4% | 29% | 67% |
+<!-- end include -->
 
 **The discount factor is the cause.** At γ = 0.9 both losses fail, and in the same way: the
 policy hovers until the time limit (67–76% of test episodes) or drifts off the screen. With an
@@ -168,6 +178,7 @@ evaluations exactly.
 
 Mean test return [95% CI over 10 seeds]:
 
+<!-- include: results/tables/robustness_wind.md -->
 | Agent | calm | wind_5 | wind_10 | wind_15 | wind_20 |
 | :--- | ---: | ---: | ---: | ---: | ---: |
 | SB3 PPO | 258.8 [251.6, 265.0] | 243.3 [234.9, 252.1] | 184.8 [175.1, 195.6] | 108.3 [92.2, 125.4] | -10.6 [-23.3, 2.3] |
@@ -175,9 +186,11 @@ Mean test return [95% CI over 10 seeds]:
 | SB3 DQN | 183.2 [65.9, 253.6] | 172.1 [53.2, 243.5] | 130.1 [28.2, 195.1] | 57.9 [-25.7, 113.9] | -24.0 [-82.6, 13.5] |
 | Q-learning | 211.5 [203.0, 218.6] | 190.6 [183.1, 197.5] | 87.9 [74.6, 100.8] | -78.4 [-95.0, -63.4] | -177.4 [-190.6, -165.0] |
 | REINFORCE | 178.9 [141.7, 210.3] | 181.5 [148.2, 210.6] | 164.5 [137.8, 188.6] | 126.4 [101.4, 148.5] | 36.6 [22.0, 50.2] |
+<!-- end include -->
 
 Success rate (and the most common failure where it exceeds 5%):
 
+<!-- include: results/tables/robustness_wind_success.md -->
 | Agent | calm | wind_5 | wind_10 | wind_15 | wind_20 |
 | :--- | ---: | ---: | ---: | ---: | ---: |
 | SB3 PPO | 99% | 93% | 71% (25% crashed) | 45% (49% crashed) | 18% (76% crashed) |
@@ -185,6 +198,7 @@ Success rate (and the most common failure where it exceeds 5%):
 | SB3 DQN | 76% (11% out of bounds) | 73% (12% out of bounds) | 58% (26% crashed) | 36% (46% crashed) | 19% (64% crashed) |
 | Q-learning | 76% (11% timeout) | 71% (12% timeout) | 50% (30% crashed) | 22% (66% crashed) | 9% (75% crashed) |
 | REINFORCE | 62% (15% timeout) | 61% (13% crashed) | 54% (17% crashed) | 42% (31% crashed) | 21% (56% crashed) |
+<!-- end include -->
 
 **Light wind costs little; strong wind costs every method most of its successes.** At wind 5,
 every method stays within about 21 return points of its calm score. From wind 10 upwards,
@@ -215,15 +229,9 @@ safest choice in wind.
 ## Reproducing
 
 ```bash
-python scripts/sweep.py configs/experiments/ablation_reinforce.yaml   # A1: 60 runs, about 20 min with 20 workers
-python scripts/sweep.py configs/experiments/ablation_dqn.yaml         # A2a: 20 runs, about 75 min with 20 workers
-python scripts/sweep.py configs/experiments/ablation_dqn_v1.yaml      # A2b: 20 runs, about 15 min per run
-python scripts/robustness.py configs/robustness/wind.yaml             # A3: needs runs/main_benchmark; about 6 min with 4 workers
+python scripts/reproduce_all.py --only ablation_reinforce ablation_dqn ablation_dqn_v1 wind --workers 20
+# A1: 60 runs, about 20 min; A2a: 20 runs, about 75 min; A2b: 20 runs of about 15 min each;
+# A3 (wind) re-evaluates runs/main_benchmark, about 6 min with 4 workers.
 
-python scripts/aggregate.py runs/<experiment>
-python scripts/make_tables.py benchmark runs/<experiment> --order <variants>
-python scripts/make_figures.py ablation runs/ablation_dqn --metric q_mean "Mean Q estimate (replay batches)"
-python scripts/make_figures.py ablation runs/ablation_reinforce --metric entropy "Policy entropy (nats)"
-python scripts/make_tables.py robustness configs/robustness/wind.yaml
-python scripts/make_figures.py robustness configs/robustness/wind.yaml
+python scripts/report.py ablation_reinforce ablation_dqn ablation_dqn_v1 wind   # reports only
 ```
