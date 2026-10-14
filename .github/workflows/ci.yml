@@ -38,5 +38,8 @@ jobs:
       - name: Type check
         run: mypy
 
+      - name: Docs match the generated tables
+        run: python scripts/sync_docs.py --check
+
       - name: Test
         run: pytest -m "not slow" --cov --cov-report=term-missing
