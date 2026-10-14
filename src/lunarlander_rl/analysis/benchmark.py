@@ -17,6 +17,7 @@ from lunarlander_rl.analysis.plots import (
     SOLVED_RETURN,
     new_figure,
     save_figure,
+    styled,
 )
 from lunarlander_rl.analysis.tables import markdown_table, number, percent, with_interval
 
@@ -92,6 +93,7 @@ def outcome_table(summary: pd.DataFrame, order: Sequence[str] | None = None) -> 
     )
 
 
+@styled
 def plot_learning_curves(
     evaluations: pd.DataFrame,
     out: str | Path,
