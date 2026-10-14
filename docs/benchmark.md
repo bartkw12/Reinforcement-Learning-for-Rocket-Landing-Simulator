@@ -101,11 +101,13 @@ What tuning showed:
 
 ## Results
 
-![Evaluation return during training](../results/figures/main_benchmark/learning_curves.png)
+![IQM evaluation return during training](../results/figures/main_benchmark/iqm_curves.png)
 
-*Periodic evaluation return (10 episodes, mean over 10 seeds; bands span the lowest to the
-highest seed).*
+*Periodic evaluation return (10 episodes each): interquartile mean over the 10 seeds, with a
+95% bootstrap band. A version showing the mean and full seed range is in
+[results/figures/main_benchmark/learning_curves.png](../results/figures/main_benchmark/learning_curves.png).*
 
+<!-- include: results/tables/main_benchmark.md -->
 | Agent | Seeds | Env steps | Final return [95% CI] | IQM over seeds | Seed range | Success [95% CI] | Reached 200 | Best checkpoint return | Training time |
 | :--- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | SB3 PPO | 10 | 1,000k | 258.8 [251.6, 265.0] | 260.3 | 233.2 to 274.4 | 99% [98%, 100%] | 10/10 runs, median 505k | 258.9 | 8 min |
@@ -113,9 +115,11 @@ highest seed).*
 | SB3 DQN | 10 | 1,000k | 183.2 [65.9, 253.6] | 237.9 | -303.6 to 276.2 | 76% [56%, 91%] | 10/10 runs, median 70k | 266.7 | 70 min |
 | Q-learning | 10 | 1,000k | 211.5 [203.0, 218.6] | 213.4 | 182.0 to 226.9 | 76% [72%, 80%] | 10/10 runs, median 515k | 218.9 | 4 min |
 | REINFORCE | 10 | 1,000k | 178.9 [141.7, 210.3] | 195.4 | 73.0 to 234.8 | 62% [44%, 76%] | 10/10 runs, median 385k | 232.2 | 5 min |
+<!-- end include -->
 
 How the final policies' test episodes ended, averaged over seeds:
 
+<!-- include: results/tables/main_benchmark_outcomes.md -->
 | Agent | Landed | Crashed | Out of bounds | Timed out |
 | :--- | ---: | ---: | ---: | ---: |
 | SB3 PPO | 99% | 0% | 0% | 1% |
@@ -123,11 +127,84 @@ How the final policies' test episodes ended, averaged over seeds:
 | SB3 DQN | 77% | 7% | 11% | 5% |
 | Q-learning | 85% | 3% | 0% | 11% |
 | REINFORCE | 72% | 13% | 0% | 15% |
+<!-- end include -->
 
 "Reached 200" counts the runs whose periodic evaluation ever averaged at least 200, and gives
 the median number of steps until it first did. With 10 evaluation episodes it marks the first
 time a policy *can* land well, not sustained performance. Training times are means per run.
 They were measured with 20 runs sharing a 12-core CPU, so they compare methods only roughly.
+
+## Statistical comparison
+
+With ten runs per method, a mean and its interval do not tell the whole story. Following
+Agarwal et al. (2021), the comparison below adds:
+- the interquartile mean (IQM), which discards the best and worst quarter of runs;
+- the optimality gap: how far runs fall short of 200 on average, with no credit for exceeding it;
+- performance profiles over all 1,000 test episodes of each method;
+- the probability that a random run of one method beats a random run of another.
+
+Each method's runs are resampled separately for the intervals (a stratified bootstrap with
+10,000 resamples).
+
+<!-- include: results/tables/main_benchmark_results.md -->
+| Method | IQM [95% CI] | Mean [95% CI] | Mean ± SD over seeds | Optimality gap [95% CI] | Success [95% CI] | Runs reaching 200 (median steps) | Training time |
+| :--- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| SB3 PPO | 260.3 [252.4, 265.8] | 258.8 [251.6, 265.0] | 258.8 ± 11.4 | 0.0 [0.0, 0.0] | 99% [98%, 100%] | 10/10 (505k) | 8 min |
+| DQN | 235.1 [206.6, 260.5] | 234.1 [213.2, 254.5] | 234.1 ± 35.1 | 2.9 [0.0, 6.3] | 79% [70%, 87%] | 10/10 (95k) | 62 min |
+| SB3 DQN | 237.9 [121.3, 262.5] | 183.2 [65.9, 253.6] | 183.2 ± 174.8 | 54.2 [0.0, 158.8] | 76% [56%, 91%] | 10/10 (70k) | 70 min |
+| Q-learning | 213.4 [203.6, 220.8] | 211.5 [203.0, 218.6] | 211.5 ± 13.4 | 1.8 [0.0, 5.4] | 76% [72%, 80%] | 10/10 (515k) | 4 min |
+| REINFORCE | 195.4 [136.8, 219.2] | 178.9 [141.7, 210.3] | 178.9 ± 58.7 | 31.7 [3.6, 64.6] | 62% [44%, 76%] | 10/10 (385k) | 5 min |
+<!-- end include -->
+
+![Aggregate metrics](../results/figures/main_benchmark/aggregate_metrics.png)
+
+**PPO leads on every aggregate metric, but not decisively against the DQNs.** Its IQM interval
+(252.4–265.8) overlaps DQN's (206.6–260.5) and SB3 DQN's. PPO is the only method whose runs all
+clear 200: its optimality gap is 0.0. Q-learning and DQN fall short by only 1.8 and 2.9 points
+on average, because most of their runs clear 200 too. REINFORCE and SB3 DQN fall short by 31.7
+and 54.2, driven by their few poor runs.
+
+**IQM and mean disagree for SB3 DQN, and that is informative.** Its IQM (237.9) is close to
+DQN's, while its mean (183.2) is not. The IQM discards the one collapsed run that drags the mean
+down. Typical SB3 DQN runs are as good as typical DQN runs, but SB3 DQN's runs vary much more.
+
+![Performance profiles](../results/figures/main_benchmark/performance_profiles.png)
+
+**Performance profiles separate reliability from peak quality.** PPO's curve is almost flat at
+1.0 up to a return of 200: 99% of its test episodes exceed 200. Beyond about 250 the DQNs' curves
+cross above it. 73% of DQN's test episodes exceed 250 and 53% exceed 270, against 66% and 35%
+for PPO. DQN's landings, when they happen, are more efficient than PPO's. It simply fails more
+often (21% of episodes score below 200, against 1%). No method dominates every other at every
+threshold, which is why a single number cannot rank them.
+
+<!-- include: results/tables/main_benchmark_improvement.md -->
+| P(row > column) | SB3 PPO | DQN | SB3 DQN | Q-learning | REINFORCE |
+| :--- | ---: | ---: | ---: | ---: | ---: |
+| SB3 PPO | n/a | 0.72 [0.47, 0.94] | 0.68 [0.42, 0.92] | 1.00 [1.00, 1.00] | 0.99 [0.94, 1.00] |
+| DQN | 0.28 [0.05, 0.53] | n/a | 0.51 [0.25, 0.76] | 0.70 [0.43, 0.93] | 0.79 [0.55, 0.96] |
+| SB3 DQN | 0.32 [0.09, 0.59] | 0.49 [0.23, 0.76] | n/a | 0.65 [0.36, 0.91] | 0.73 [0.47, 0.95] |
+| Q-learning | 0.00 [0.00, 0.00] | 0.30 [0.09, 0.60] | 0.35 [0.09, 0.65] | n/a | 0.63 [0.34, 0.87] |
+| REINFORCE | 0.01 [0.00, 0.06] | 0.21 [0.04, 0.45] | 0.27 [0.06, 0.53] | 0.37 [0.12, 0.64] | n/a |
+<!-- end include -->
+
+![Probability of improvement](../results/figures/main_benchmark/probability_of_improvement.png)
+
+**Which differences are reliable.** An interval that excludes 0.5 means one method's runs
+reliably beat the other's.
+- **Reliable:** PPO over Q-learning (1.00) and over REINFORCE (0.99), and DQN over REINFORCE
+  (0.79 [0.55, 0.96]).
+- **Probable but not established with ten seeds:** PPO over the DQNs (0.72 and 0.68), DQN over
+  Q-learning (0.70), and Q-learning over REINFORCE (0.63). Each of these intervals includes 0.5.
+- **No difference:** the two DQN implementations are indistinguishable (0.51 [0.25, 0.76]).
+
+![Sample efficiency](../results/figures/main_benchmark/sample_efficiency.png)
+
+**Sample efficiency splits the methods into two groups.** Every DQN and SB3 DQN run first
+reached an evaluation average of 200 within about 120k steps. PPO, Q-learning and REINFORCE
+needed hundreds of thousands, and Q-learning and REINFORCE spread widely across seeds (130k to
+910k).
+
+![Outcomes](../results/figures/main_benchmark/outcomes.png)
 
 ## Findings
 
@@ -185,9 +262,11 @@ configurations.
   with three seeds. PPO's lead may partly reflect that. The project's DQN and SB3 DQN share
   settings and so are compared fairly.
 - **Final-policy scores are sensitive to when training stops**, especially for DQN and
-  REINFORCE. The best-checkpoint column shows how much each method gives up. Phase 7 adds
-  statistics designed for this, including performance profiles and the probability of
-  improvement.
+  REINFORCE. The best-checkpoint column shows how much each method gives up, and the IQM and
+  performance profiles above limit the influence of a single collapsed run.
+- **Ten seeds separate only the larger differences.** Several pairwise comparisons above remain
+  inconclusive (probability-of-improvement intervals that include 0.5). More seeds would be
+  the most direct way to settle them.
 - **Stochastic policies are evaluated greedily.** For REINFORCE this can understate
   performance ([replication study](replication.md)); ablation A6 measures the effect here.
 - **One environment.** The conclusions are about LunarLander-v3 without wind. Under wind the
@@ -197,14 +276,11 @@ configurations.
 ## Reproducing
 
 ```bash
-python scripts/sweep.py configs/experiments/tuning.yaml            # 84 runs, about 1.5 h with 20 workers
-python scripts/aggregate.py runs/tuning
-python scripts/make_tables.py tuning                               # also writes results/summary/tuning_selection.csv
+python scripts/reproduce_all.py --only tuning main_benchmark --workers 20
+# tuning: 84 runs, about 1.5 h; benchmark: 50 runs, about 1.5 h (12-core CPU, 20 workers).
+# The tuning report also writes results/summary/tuning_selection.csv.
 
-python scripts/sweep.py configs/experiments/main_benchmark.yaml    # 50 runs, about 1.5 h with 20 workers
-python scripts/aggregate.py runs/main_benchmark
-python scripts/make_tables.py benchmark runs/main_benchmark --order sb3_ppo dqn sb3_dqn q_learning reinforce
-python scripts/make_figures.py benchmark runs/main_benchmark --order sb3_ppo dqn sb3_dqn q_learning reinforce
+python scripts/report.py main_benchmark      # rebuild the tables and figures from runs/
 ```
 
 `tests/integration/test_tuned_configs.py` checks that the agent configs used by the benchmark are
