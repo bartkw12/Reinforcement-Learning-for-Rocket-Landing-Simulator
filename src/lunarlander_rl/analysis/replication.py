@@ -16,6 +16,7 @@ from lunarlander_rl.analysis.plots import (
     SOLVED_RETURN,
     new_figure,
     save_figure,
+    styled,
 )
 from lunarlander_rl.analysis.tables import markdown_table, number, percent, with_interval
 
@@ -100,6 +101,7 @@ def table(rows: pd.DataFrame) -> str:
     )
 
 
+@styled
 def plot_learning_curves(curves: pd.DataFrame, out: str | Path) -> list[Path]:
     """v1.0-style training curves (100-episode moving average of training returns).
 
@@ -153,6 +155,7 @@ def plot_learning_curves(curves: pd.DataFrame, out: str | Path) -> list[Path]:
     return save_figure(fig, out)
 
 
+@styled
 def plot_final_comparison(rows: pd.DataFrame, runs: pd.DataFrame, out: str | Path) -> list[Path]:
     """Final test performance: v1.0's single run against v2's seeds."""
     fig = new_figure(9.0, 0.45 * len(rows) + 1.2)
