@@ -87,11 +87,13 @@ benchmark uses 1M steps and 10 seeds.
 
 ![Evaluation return during training](../results/figures/baseline_check/learning_curves.png)
 
+<!-- include: results/tables/baseline_check.md -->
 | Agent | Seeds | Env steps | Final return [95% CI] | IQM over seeds | Seed range | Success [95% CI] | Reached 200 | Best checkpoint return | Training time |
 | :--- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | DQN | 3 | 500k | 195.8 [177.4, 231.4] | 195.8 | 177.4 to 231.4 | 68% [64%, 75%] | 3/3 runs, median 200k | 235.2 | 19 min |
 | SB3 DQN | 3 | 500k | 116.9 [-24.7, 226.3] | 116.9 | -24.7 to 226.3 | 30% [3%, 84%] | 3/3 runs, median 75k | 242.4 | 21 min |
 | SB3 PPO | 3 | 500k | 139.3 [21.2, 246.7] | 139.3 | 21.2 to 246.7 | 39% [4%, 96%] | 1/3 runs | 139.3 | 2 min |
+<!-- end include -->
 
 **The project's DQN behaves like SB3's.** The two learning curves are indistinguishable for
 most of training: every seed of both first reaches an evaluation return of 150 within
@@ -123,8 +125,5 @@ times faster in wall-clock time than DQN's.
 
 ```bash
 pip install -e ".[sb3]"
-python scripts/sweep.py configs/experiments/baseline_check.yaml       # 9 runs, about 20 minutes on 9 cores
-python scripts/aggregate.py runs/baseline_check
-python scripts/make_tables.py benchmark runs/baseline_check --order dqn sb3_dqn sb3_ppo
-python scripts/make_figures.py benchmark runs/baseline_check --order dqn sb3_dqn sb3_ppo
+python scripts/reproduce_all.py --only baseline_check --workers 9   # 9 runs, about 20 minutes
 ```

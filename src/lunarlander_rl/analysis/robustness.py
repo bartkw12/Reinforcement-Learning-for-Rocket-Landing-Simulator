@@ -18,6 +18,7 @@ from lunarlander_rl.analysis.plots import (
     SOLVED_RETURN,
     new_figure,
     save_figure,
+    styled,
 )
 from lunarlander_rl.analysis.stats import bootstrap_ci
 from lunarlander_rl.analysis.tables import markdown_table, percent, with_interval
@@ -121,6 +122,7 @@ def success_table(summary: pd.DataFrame, order: Sequence[str] | None = None) -> 
     )
 
 
+@styled
 def plot(
     summary: pd.DataFrame,
     out: str | Path,

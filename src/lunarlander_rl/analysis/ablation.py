@@ -11,7 +11,13 @@ from matplotlib.lines import Line2D
 
 from lunarlander_rl.analysis.aggregate import completed_runs
 from lunarlander_rl.analysis.benchmark import ordered
-from lunarlander_rl.analysis.plots import REFERENCE_COLOR, SOLVED_RETURN, new_figure, save_figure
+from lunarlander_rl.analysis.plots import (
+    REFERENCE_COLOR,
+    SOLVED_RETURN,
+    new_figure,
+    save_figure,
+    styled,
+)
 from lunarlander_rl.analysis.tuning import settings
 from lunarlander_rl.config import load_config
 
@@ -25,6 +31,7 @@ def variant_colors(variants: Sequence[str]) -> dict[str, str]:
     return {v: VARIANT_PALETTE[i % len(VARIANT_PALETTE)] for i, v in enumerate(variants)}
 
 
+@styled
 def plot_final_returns(
     runs: pd.DataFrame,
     summary: pd.DataFrame,
@@ -84,6 +91,7 @@ def training_metric(experiment_dir: str | Path, metric: str, bin_steps: int) -> 
     return frame
 
 
+@styled
 def plot_training_metric(
     curves: pd.DataFrame,
     metric: str,

@@ -74,6 +74,7 @@ rebuilt by the commands in [Reproducing this study](#reproducing-this-study).
 
 ![Final test performance, v1.0 against v2](../results/figures/replication_v1/final_performance.png)
 
+<!-- include: results/tables/replication_v1.md -->
 | Configuration | Budget | v1 return | v2 return [95% CI] | v2 seed range | v1 success | v2 success [95% CI] |
 | :--- | ---: | ---: | ---: | ---: | ---: | ---: |
 | Q-learning, config 1 | 500 ep / 58k steps | 129.7 | -137.0 [-161.6, -114.1] | -184.7 to -101.3 | 62% | 1% [0%, 3%] |
@@ -87,6 +88,7 @@ rebuilt by the commands in [Reproducing this study](#reproducing-this-study).
 | REINFORCE, config 1 | 10,000 ep / 4,809k steps | -35.2 | 210.3 [184.3, 236.4] | 170.2 to 251.0 | 0% | 70% [53%, 87%] |
 | REINFORCE, config 2 | 10,000 ep / 8,787k steps | -3.0 | -63.1 [-92.6, -40.8] | -120.7 to -35.5 | 0% | 0% [0%, 0%] |
 | REINFORCE, config 3 | 10,000 ep / 5,591k steps | 119.3 | 77.0 [-6.3, 163.5] | -14.7 to 214.9 | 7% | 27% [0%, 56%] |
+<!-- end include -->
 
 The learning curves use the same quantity v1.0 plotted: the 100-episode moving average of
 training returns.
@@ -186,10 +188,10 @@ learns more from the same experience.
 ## Reproducing this study
 
 ```bash
-python scripts/sweep.py configs/experiments/replication_v1.yaml   # 55 runs, completed runs are skipped
-python scripts/aggregate.py runs/replication_v1                    # results/summary/replication_v1_*.csv
-python scripts/make_tables.py replication                          # results/tables/replication_v1.md
-python scripts/make_figures.py replication                         # results/figures/replication_v1/
+python scripts/reproduce_all.py --only replication_v1             # 55 runs, then the tables and figures
+# or, step by step:
+python scripts/sweep.py configs/experiments/replication_v1.yaml   # completed runs are skipped
+python scripts/report.py replication_v1                            # results/{summary,tables,figures}
 
 # sampled-action evaluation of one REINFORCE run (repeat for each config and seed)
 python scripts/evaluate.py runs/replication_v1/reinforce_cfg3/seed_0 --stochastic

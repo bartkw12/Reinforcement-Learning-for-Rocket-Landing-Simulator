@@ -113,6 +113,21 @@ def summarize_variants(runs: pd.DataFrame, *, confidence: float = 0.95) -> pd.Da
     return summary
 
 
+def episode_returns(experiment_dir: str | Path, *, checkpoint: str = "final") -> pd.DataFrame:
+    """Every held-out test episode of every run's final (or best) policy."""
+    frames = []
+    for paths in completed_runs(experiment_dir):
+        report = read_json(paths.final_eval)[checkpoint]
+        if report is None:
+            continue
+        episodes = pd.DataFrame(report["episodes"])
+        for key, value in _run_identity(paths).items():
+            episodes[key] = value
+        frames.append(episodes)
+    frame: pd.DataFrame = pd.concat(frames, ignore_index=True)
+    return frame
+
+
 def training_curves(experiment_dir: str | Path, *, window: int = 100) -> pd.DataFrame:
     """Training-episode returns of every run, with a trailing moving average.
 

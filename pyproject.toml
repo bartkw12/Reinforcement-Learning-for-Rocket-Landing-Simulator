@@ -33,9 +33,10 @@ dependencies = [
 
 [project.optional-dependencies]
 sb3 = ["stable-baselines3>=2.4"]
-analysis = ["rliable>=1.2"]
 dev = [
     "pytest>=8.0",
+    # Reference implementations that the statistics tests compare against.
+    "scipy>=1.11",
     "pytest-cov>=5.0",
     "ruff>=0.6",
     "mypy>=1.10",
@@ -92,7 +93,7 @@ warn_redundant_casts = true
 no_implicit_optional = true
 
 [[tool.mypy.overrides]]
-module = ["rliable.*", "stable_baselines3.*"]
+module = ["scipy.*", "stable_baselines3.*"]
 ignore_missing_imports = true
 
 # --------------------------------------------------------------------------- #

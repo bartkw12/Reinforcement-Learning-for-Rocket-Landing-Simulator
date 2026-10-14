@@ -1,0 +1,28 @@
+# House style for every figure in the project (applied by lunarlander_rl.analysis.plots.styled).
+
+# DejaVu Sans ships with Matplotlib, so figures render identically on every platform.
+font.family: DejaVu Sans
+font.size: 8.5
+axes.titlesize: 9
+axes.titleweight: normal
+axes.labelsize: 8.5
+xtick.labelsize: 8
+ytick.labelsize: 8
+legend.fontsize: 8
+legend.frameon: False
+
+axes.spines.top: False
+axes.spines.right: False
+axes.linewidth: 0.8
+axes.grid: True
+grid.alpha: 0.3
+grid.linewidth: 0.5
+lines.linewidth: 1.6
+lines.markersize: 4
+
+# Okabe-Ito palette: distinguishable with the common forms of colour blindness.
+axes.prop_cycle: cycler('color', ['0072B2', 'D55E00', '009E73', 'CC79A7', 'E69F00', '56B4E9', '000000', 'F0E442'])
+
+savefig.dpi: 300
+# Embed TrueType fonts in PDFs so text stays editable and selectable.
+pdf.fonttype: 42

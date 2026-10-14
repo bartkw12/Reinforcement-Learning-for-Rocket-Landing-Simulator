@@ -1,0 +1,38 @@
+name: Quick reproduction
+
+# Runs every experiment, report and figure of the project with tiny budgets
+# (scripts/reproduce_all.py --quick): a weekly smoke test that the whole pipeline still works
+# end to end. The full reproduction takes hours and is run locally.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 6 * * 1"  # Mondays 06:00 UTC
+
+jobs:
+  reproduce:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install swig
+          pip install -e ".[sb3]"
+
+      - name: Reproduce everything (quick mode)
+        run: python scripts/reproduce_all.py --quick --workers 2
+
+      - name: Upload the quick results
+        uses: actions/upload-artifact@v4
+        with:
+          name: results-quick
+          path: results_quick/
