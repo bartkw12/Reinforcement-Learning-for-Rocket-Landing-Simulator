@@ -51,7 +51,9 @@ python-discovery==1.6.1
 pytokens==0.4.1
 PyYAML==6.0.3
 ruff==0.16.9
+scipy==1.17.1
 six==1.17.0
+stable_baselines3==2.9.0
 swig==4.5.0
 sympy==1.14.0
 torch==2.14.1

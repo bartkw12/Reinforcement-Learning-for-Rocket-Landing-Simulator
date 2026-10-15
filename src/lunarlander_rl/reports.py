@@ -15,6 +15,7 @@ from typing import Literal
 
 import pandas as pd
 
+from lunarlander_rl import media
 from lunarlander_rl.analysis import ablation, benchmark, comparison, replication, tuning
 from lunarlander_rl.analysis import robustness as robustness_report
 from lunarlander_rl.analysis.aggregate import (
@@ -207,16 +208,24 @@ def build_robustness(paths: Paths, config: str) -> list[Path]:
     ]
 
 
+def build_media(paths: Paths, config: str) -> list[Path]:
+    spec = media.load_showcase(config)
+    return media.build_showcase(
+        spec, paths.experiment(Path(spec.runs).name), paths.results / "gifs"
+    )
+
+
 # ------------------------------------------------------------------------ registry
 @dataclass(frozen=True)
 class Report:
     name: str
     config: str
-    kind: Literal["sweep", "robustness"]
+    # sweep: trains runs; robustness: re-evaluates saved runs; media: only renders.
+    kind: Literal["sweep", "robustness", "media"]
     build: Callable[[Paths, str], list[Path]]
 
     def run(self, paths: Paths) -> list[Path]:
-        # A sweep's report reads runs/<name>; a robustness report reads its spec.
+        # A sweep's report reads runs/<name>; the others read their spec file.
         return self.build(paths, self.name if self.kind == "sweep" else self.config)
 
 
@@ -275,6 +284,7 @@ REPORTS: tuple[Report, ...] = (
         ),
     ),
     Report("wind", "configs/robustness/wind.yaml", "robustness", build_robustness),
+    Report("showcase", "configs/media/showcase.yaml", "media", build_media),
 )
 
 

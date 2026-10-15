@@ -112,3 +112,16 @@ def write_json(path: Path, payload: Any) -> None:
 def read_json(path: Path) -> Any:
     with path.open(encoding="utf-8") as handle:
         return json.load(handle)
+
+
+# The files a run reproduces exactly, given its configuration, platform and package
+# versions. meta.json (timings, timestamps) and checkpoints (archive metadata) are excluded.
+DETERMINISTIC_FILES = ("train_episodes.csv", "eval.csv", "final_eval.json")
+
+
+def compare_runs(original: Path, repeat: Path) -> dict[str, bool]:
+    """For each deterministic file, whether two run directories hold identical bytes."""
+    return {
+        name: (original / name).read_bytes() == (repeat / name).read_bytes()
+        for name in DETERMINISTIC_FILES
+    }

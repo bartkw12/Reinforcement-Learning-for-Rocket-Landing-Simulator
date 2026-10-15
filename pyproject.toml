@@ -12,7 +12,7 @@ license = { file = "LICENSE" }
 authors = [{ name = "Bart Kowal" }]
 keywords = ["reinforcement-learning", "lunar-lander", "dqn", "q-learning", "reinforce", "gymnasium", "pytorch"]
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 4 - Beta",
     "Intended Audience :: Science/Research",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
@@ -33,6 +33,8 @@ dependencies = [
 
 [project.optional-dependencies]
 sb3 = ["stable-baselines3>=2.4"]
+# MP4 versions of the animations (GIFs need nothing extra).
+media = ["imageio-ffmpeg>=0.5"]
 dev = [
     "pytest>=8.0",
     # Reference implementations that the statistics tests compare against.

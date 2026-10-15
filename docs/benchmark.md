@@ -16,8 +16,8 @@ Stable-Baselines3's DQN and PPO.
   hyperparameters, reaches the same typical performance: IQM over seeds 237.9 against 235.1.
   Its lower mean (183.2) comes from one seed whose final policy flies out of bounds.
 - **Tile-coded Q-learning is close behind and by far the cheapest.** Final return 211.5
-  [203.0, 218.6] with the narrowest interval of the five, from about 4 minutes of CPU time per
-  run against DQN's hour.
+  [203.0, 218.6], the narrowest interval after PPO's, from about 4 minutes of CPU time per run
+  against DQN's hour.
 - **REINFORCE trails and varies most between seeds.** Final return 178.9 [141.7, 210.3]. Every
   run reached 200 at some point, but two seeds' final policies hover until the time limit or
   crash.

@@ -46,3 +46,19 @@ def test_run_paths(tmp_path: Path) -> None:
     assert paths.find_checkpoint("final") == tmp_path / "checkpoints" / "final.pt"
     write_json(paths.final_eval, {})
     assert paths.is_complete()
+
+
+def test_compare_runs(tmp_path: Path) -> None:
+    from lunarlander_rl.tracking import DETERMINISTIC_FILES, compare_runs
+
+    for name in ("a", "b"):
+        for file in DETERMINISTIC_FILES:
+            (tmp_path / name).mkdir(exist_ok=True)
+            (tmp_path / name / file).write_text("same\n")
+    assert all(compare_runs(tmp_path / "a", tmp_path / "b").values())
+    (tmp_path / "b" / "eval.csv").write_text("different\n")
+    assert compare_runs(tmp_path / "a", tmp_path / "b") == {
+        "train_episodes.csv": True,
+        "eval.csv": False,
+        "final_eval.json": True,
+    }

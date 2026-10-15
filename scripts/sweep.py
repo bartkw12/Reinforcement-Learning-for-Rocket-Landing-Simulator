@@ -27,12 +27,21 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--runs-root", default="runs")
     parser.add_argument("--overwrite", action="store_true", help="rerun completed runs")
     parser.add_argument("--dry-run", action="store_true", help="list the runs and exit")
+    parser.add_argument(
+        "--variant", action="append", default=None, metavar="LABEL",
+        help="run only this variant (repeatable), e.g. one row of a results table",
+    )  # fmt: skip
     return parser.parse_args()
 
 
 def main() -> int:
     args = parse_args()
     runs = load_experiment(args.experiment, args.runs_root)
+    if args.variant:
+        unknown = set(args.variant) - {run.config.variant for run in runs}
+        if unknown:
+            raise SystemExit(f"unknown variant(s) {sorted(unknown)}")
+        runs = [run for run in runs if run.config.variant in args.variant]
     if args.dry_run:
         for run in runs:
             print(run.run_dir)
