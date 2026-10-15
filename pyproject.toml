@@ -33,6 +33,8 @@ dependencies = [
 
 [project.optional-dependencies]
 sb3 = ["stable-baselines3>=2.4"]
+# MP4 versions of the animations (GIFs need nothing extra).
+media = ["imageio-ffmpeg>=0.5"]
 dev = [
     "pytest>=8.0",
     # Reference implementations that the statistics tests compare against.
