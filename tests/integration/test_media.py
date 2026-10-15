@@ -108,6 +108,8 @@ def test_showcase(experiment: Path, tmp_path: Path) -> None:
     names = sorted(p.name for p in written)
     assert {"landing_grid.gif", "alpha.gif", "beta.gif", "beta_failure.gif", "wind_grid.gif",
             "demo.md"} <= set(names)  # fmt: skip
+    with Image.open(tmp_path / "social_preview.png") as card:
+        assert card.size == (1280, 640)
     manifest = (tmp_path / "demo.md").read_text()
     assert manifest.count("\n") == 2 + 2 + 1 + 2  # header, 2 calm, 1 failure, 2 wind
 
