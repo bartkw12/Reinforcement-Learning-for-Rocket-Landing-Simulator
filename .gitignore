@@ -36,3 +36,5 @@ wandb/
 # Quick-mode smoke reproductions (scripts/reproduce_all.py --quick)
 /runs_quick/
 /results_quick/
+/runs_verify/
+/dist/
