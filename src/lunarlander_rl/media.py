@@ -279,6 +279,23 @@ def write_gif(frames: Sequence[Frame], path: Path, fps: float) -> Path:
     return path
 
 
+def write_social_preview(frame: Frame, path: Path, title: str, subtitle: str) -> Path:
+    """GitHub's repository card (1280 x 640): a title over a still of the landing grid."""
+    width, height = 1280, 640
+    card = Image.new("RGB", (width, height), (16, 18, 28))
+    draw = ImageDraw.Draw(card)
+    draw.text((48, 34), title, fill=(255, 255, 255), font=_font(46))
+    draw.text((50, 96), subtitle, fill=(190, 196, 210), font=_font(22))
+    still = Image.fromarray(frame)
+    scale = min((width - 96) / still.width, (height - 160) / still.height)
+    still = still.resize((round(still.width * scale), round(still.height * scale)),
+                         Image.Resampling.LANCZOS)  # fmt: skip
+    card.paste(still, ((width - still.width) // 2, 140))
+    path.parent.mkdir(parents=True, exist_ok=True)
+    card.save(path, optimize=True)
+    return path
+
+
 def write_mp4(frames: Sequence[Frame], path: Path, fps: float) -> Path | None:
     """Write an H.264 MP4, or return None if imageio-ffmpeg is not installed."""
     if importlib.util.find_spec("imageio_ffmpeg") is None:
@@ -359,11 +376,18 @@ def build_showcase(spec: ShowcaseSpec, runs_dir: Path, out_dir: Path) -> list[Pa
         calm.append(recording)
         note("landing_grid, " + method, method, recording, "median run, first test episode")
     title = f"Test episode {spec.episode_seed}: each method's median run, no wind"
-    written += _gif_and_mp4(
-        animate(calm, columns=spec.columns, scale=spec.scale, frame_step=spec.frame_step,
-                hold_frames=hold, title=title, caption=GRID_CAPTION),
-        out_dir / "landing_grid", fps,
-    )  # fmt: skip
+    grid = animate(calm, columns=spec.columns, scale=spec.scale, frame_step=spec.frame_step,
+                   hold_frames=hold, title=title, caption=GRID_CAPTION)  # fmt: skip
+    written += _gif_and_mp4(grid, out_dir / "landing_grid", fps)
+    written.append(
+        write_social_preview(
+            grid[-1],
+            out_dir / "social_preview.png",
+            "Lunar Lander RL: a reproducible benchmark",
+            "Q-learning, DQN and REINFORCE against Stable-Baselines3 DQN and PPO: "
+            "10 seeds, 1M steps, bootstrap intervals",
+        )
+    )
     for method, recording in zip(spec.methods, calm, strict=True):
         frames = animate([recording], columns=1, scale=0.75, frame_step=spec.frame_step,
                          hold_frames=hold)  # fmt: skip
