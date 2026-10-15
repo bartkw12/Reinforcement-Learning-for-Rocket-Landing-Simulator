@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+message: "If you use this software or its results, please cite it as below."
+type: software
+title: "Lunar Lander RL: a reproducible benchmark of Q-learning, DQN and REINFORCE"
+abstract: >-
+  Reproducible reinforcement-learning experiments on Gymnasium's LunarLander-v3. Tabular-style
+  Q-learning with tile coding, DQN and REINFORCE, implemented from scratch, are compared with
+  Stable-Baselines3 DQN and PPO at an equal budget of one million environment steps, with ten
+  seeds per method, held-out test episodes and bootstrap confidence intervals. The repository
+  includes a replication study of an earlier version, ablations and a wind-robustness study,
+  and regenerates every reported number, table and figure from logged runs.
+authors:
+  - family-names: Kowal
+    given-names: Bart
+version: 2.0.0
+date-released: 2026-10-15
+license: MIT
+repository-code: "https://github.com/bartkw12/Reinforcement-Learning-for-Rocket-Landing-Simulator"
+keywords:
+  - reinforcement learning
+  - lunar lander
+  - DQN
+  - Q-learning
+  - REINFORCE
+  - PPO
+  - reproducibility
+  - gymnasium
