@@ -85,7 +85,8 @@ def reproduce(
             on_step(result)
 
     for report in selected:
-        if not skip_runs:
+        # Media only renders saved policies, so it has no runs to execute.
+        if not skip_runs and report.kind != "media":
             if report.kind == "sweep":
                 outcomes = run_sweep(experiment_runs(report, paths, quick), max_workers=workers)
                 statuses = [o.status for o in outcomes]
