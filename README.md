@@ -1,5 +1,10 @@
 # Reinforcement-Learning-for-Rocket-Landing-Simulator
 
+![Five trained agents on the same held-out test episode](results/gifs/landing_grid.gif)
+
+*Each method's median policy (over 10 training seeds) on the same held-out test episode, in real
+time. Chosen by fixed rules, not hand-picked: see [docs/demos.md](docs/demos.md).*
+
 The goal of this project is to develop, train, and compare three reinforcement learning
 agents to solve the Lunar Lander problem; a game where you must land a spacecraft safely
 between two flags in a “windy” environment. The environment assigns rewards based on
