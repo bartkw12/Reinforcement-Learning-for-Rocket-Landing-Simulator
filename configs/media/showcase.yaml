@@ -1,0 +1,26 @@
+# Animated demonstrations for the README (Phase 8).
+#
+# Which policies and episodes are shown follows fixed rules, decided before looking at the
+# animations:
+# - for each method, the main-benchmark run whose final test return is closest to the
+#   method's median over its ten runs (a typical policy, not the best one);
+# - the grids show the first held-out test episode (seed 10000) for every method, whatever
+#   happens in it;
+# - the failure animation shows the first test episode in which the failure_method's median
+#   run did not land.
+# Every calm recording is checked against the return the run's own evaluation reported.
+name: showcase
+runs: runs/main_benchmark
+methods: [sb3_ppo, dqn, sb3_dqn, q_learning, reinforce]
+episode_seed: 10000
+failure_method: reinforce
+# Gymnasium's default "windy" setting, as in ablation A3.
+wind:
+  env.kwargs.enable_wind: true
+  env.kwargs.wind_power: 15.0
+  env.kwargs.turbulence_power: 1.5
+# 50 simulation steps per second; keeping every 2nd frame at 25 fps plays in real time.
+frame_step: 2
+scale: 0.5
+columns: 3
+hold_seconds: 1.5
