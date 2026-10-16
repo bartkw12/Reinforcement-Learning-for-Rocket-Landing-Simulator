@@ -15,7 +15,7 @@ authors:
 version: 2.0.0
 date-released: 2026-10-15
 license: MIT
-repository-code: "https://github.com/bartkw12/Reinforcement-Learning-for-Rocket-Landing-Simulator"
+repository-code: "https://github.com/bartkw12/lunar-lander-rl"
 keywords:
   - reinforcement learning
   - lunar lander
